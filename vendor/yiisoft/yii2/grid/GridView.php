@@ -72,13 +72,13 @@ class GridView extends BaseListView
      * @var array the HTML attributes for the grid table element.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $tableOptions = ['class' => 'table table-striped table-bordered'];
+    public $tableOptions = ['class' => 'table table-head-fixed text-nowrap'];
     /**
      * @var array the HTML attributes for the container tag of the grid view.
      * The "tag" element specifies the tag name of the container element and defaults to "div".
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $options = ['class' => 'grid-view'];
+    public $options = ['class' => 'card-body table-responsive p-0','style'=>'height: 300px;'];
     /**
      * @var array the HTML attributes for the table header row.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
