@@ -1,0 +1,10 @@
+.text-nowrap > thead > tr > th >a{
+    color:  black !important;
+}
+.text-nowrap > thead > tr > th{
+    text-align: center !important;
+    color:  black !important;
+}
+.text-nowrap > tbody > tr > td > a > svg{
+    color: black;
+}

@@ -20,7 +20,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
                     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
