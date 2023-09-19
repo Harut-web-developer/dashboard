@@ -9,16 +9,15 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="store-form">
-    <div class="card card-primary">
-        <?php $form = ActiveForm::begin(); ?>
-            <div class="card-body">
-                <div class="form-group col-md-3">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-                </div>
-            </div>
-            <div class="card-footer">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-            </div>
-        <?php ActiveForm::end(); ?>
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
+
 </div>

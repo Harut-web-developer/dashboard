@@ -12,15 +12,14 @@ use yii\grid\GridView;
 
 $this->title = 'Stores';
 $this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Store'] = '/store/index';
-
+$this->params['breadcrumbs']['Store'] = '/Store/index';
 ?>
 <div class="store-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Store', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        <?= Html::a('Create Store', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -34,7 +33,6 @@ $this->params['breadcrumbs']['Store'] = '/store/index';
             'id',
             'name',
             [
-                'header'=>'Actions',
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Store $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
