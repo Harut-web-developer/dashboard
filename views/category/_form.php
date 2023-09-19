@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Category $model */
 /** @var yii\widgets\ActiveForm $form */
+
 ?>
 
 <div class="category-form">
@@ -13,7 +14,7 @@ use yii\widgets\ActiveForm;
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-body">
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'parent_id')->textInput() ?>
+                <?= $form->field($model, 'parent_id')->dropDownList($cat,['prompt' => 'Main category']) ?>
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
