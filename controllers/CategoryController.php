@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\CategorySearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -76,9 +77,11 @@ class CategoryController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
+        $cat = Category::find()->select('id,name')->asArray()->all();
+        $cat = ArrayHelper::map($cat,'id','name');
         return $this->render('create', [
             'model' => $model,
+            'cat' => $cat,
         ]);
     }
 

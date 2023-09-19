@@ -8,9 +8,8 @@ use yii\helpers\Html;
 $this->title = 'Create Category';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Category'] = '/category/index';
-$this->params['breadcrumbs'][$this->title] = '/category/create';
-//$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Create'] = '/category/create';
+
 
 ?>
 <div class="category-create">
@@ -19,6 +18,7 @@ $this->params['breadcrumbs'][$this->title] = '/category/create';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'cat' => $cat,
     ]) ?>
 
 </div>
