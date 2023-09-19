@@ -68,6 +68,7 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Category();
 
         if ($this->request->isPost) {
