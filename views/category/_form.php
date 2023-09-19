@@ -9,17 +9,19 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="category-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'parent_id')->textInput() ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="card card-primary">
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="card-body">
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'parent_id')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
+        <div class="card-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

@@ -8,3 +8,10 @@
 .text-nowrap > tbody > tr > td > a > svg{
     color: black;
 }
+.card-body{
+    display: flex;
+}
+.bread{
+    display: flex;
+    justify-content: end;
+}
