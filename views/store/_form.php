@@ -9,6 +9,21 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="store-form">
+<<<<<<< HEAD
+    <div class="card card-primary">
+    <?php $form = ActiveForm::begin(); ?>
+        <div class="card-body">
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
+        <div class="card-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
+    <?php ActiveForm::end(); ?>
+    </div>
+
+=======
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -20,4 +35,5 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+>>>>>>> origin/Mariam
 </div>

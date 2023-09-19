@@ -8,7 +8,8 @@ use yii\helpers\Html;
 $this->title = 'Create Store';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Store'] = '/store/index';
-$this->params['breadcrumbs']['Create Store'] = '/creat/index';
+$this->params['breadcrumbs']['Create Store'] = '/store/create';
+
 
 ?>
 <div class="store-create">
