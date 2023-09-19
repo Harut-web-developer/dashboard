@@ -26,7 +26,7 @@ $this->params['breadcrumbs']['Store'] = '/Store/index';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
