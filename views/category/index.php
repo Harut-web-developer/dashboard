@@ -34,6 +34,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
                             'parent_id',
                             'name',
                             [
+                                'header'=>'Actions',
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, Category $model, $key, $index, $column) {
                                     return Url::toRoute([$action, 'id' => $model->id]);

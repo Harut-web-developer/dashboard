@@ -99,9 +99,11 @@ class CategoryController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $cat = Category::find()->select('id,name')->asArray()->all();
+        $cat = ArrayHelper::map($cat,'id','name');
         return $this->render('update', [
             'model' => $model,
+            'cat' => $cat,
         ]);
     }
 
