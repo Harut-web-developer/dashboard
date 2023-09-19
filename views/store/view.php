@@ -6,18 +6,12 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Store $model */
 
-<<<<<<< HEAD
+
 $this->title = 'Create Category';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Category'] = '/category/index';
-$this->params['breadcrumbs'][$this->title] = '/category/create';
+$this->params['breadcrumbs']['Views'] = '/category/view';
 
-=======
->>>>>>> origin/Mariam
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Stores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
 <div class="store-view">
 
