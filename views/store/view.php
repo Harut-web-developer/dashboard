@@ -7,8 +7,9 @@ use yii\widgets\DetailView;
 /** @var app\models\Store $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Stores', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Store'] = '/store/index';
+$this->params['breadcrumbs']['View'] = '/store/view';
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="store-view">
