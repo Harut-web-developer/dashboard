@@ -12,7 +12,11 @@ use yii\grid\GridView;
 
 $this->title = 'Stores';
 $this->params['breadcrumbs']['Home'] ='/';
+<<<<<<< HEAD
 $this->params['breadcrumbs']['Stores'] = '/store/index';
+=======
+$this->params['breadcrumbs']['Store'] = '/Store/index';
+>>>>>>> origin/Mariam
 ?>
 <div class="store-index">
 
@@ -26,7 +30,11 @@ $this->params['breadcrumbs']['Stores'] = '/store/index';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+<<<<<<< HEAD
 //        'filterModel' => $searchModel,
+=======
+        'filterModel' => $searchModel,
+>>>>>>> origin/Mariam
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
