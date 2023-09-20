@@ -8,11 +8,11 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="card card-primary">
-    <div class="store-form">
+<div class="store-form">
+    <div class="card card-primary">
         <?php $form = ActiveForm::begin(); ?>
             <div class="card-body">
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
