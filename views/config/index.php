@@ -10,22 +10,24 @@ use yii\grid\GridView;
 /** @var app\models\ConfigSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Configs';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Products procent';
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Products procent'] = '/config/index';
+
 ?>
 <div class="config-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Config', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create products procent', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

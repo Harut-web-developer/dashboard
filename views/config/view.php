@@ -7,8 +7,9 @@ use yii\widgets\DetailView;
 /** @var app\models\Config $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Configs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Products procent'] = '/config/index';
+$this->params['breadcrumbs']['View procent'] = '/config/view';
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="config-view">
