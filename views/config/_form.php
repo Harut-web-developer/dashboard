@@ -9,17 +9,19 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="config-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'category_id')->textInput() ?>
-
-    <?= $form->field($model, 'procent')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
+    <div class="card card-primary">
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="card-body">
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'category_id')->dropDownList($cat) ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'procent')->textInput() ?>
+            </div>
+        </div>
+        <div class="card-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
     <?php ActiveForm::end(); ?>
-
+    </div>
 </div>

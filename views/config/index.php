@@ -35,6 +35,7 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
             'category_id',
             'procent',
             [
+                'header' => 'Actions',
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Config $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
