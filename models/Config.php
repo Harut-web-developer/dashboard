@@ -39,7 +39,7 @@ class Config extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
+            'category_id' => 'Category Name',
             'procent' => 'Procent',
         ];
     }

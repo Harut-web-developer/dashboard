@@ -5,9 +5,10 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Config $model */
 
-$this->title = 'Create Config';
-$this->params['breadcrumbs'][] = ['label' => 'Configs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Create products procent';
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Products procent'] = '/config/index';
+$this->params['breadcrumbs']['Create procent'] = '/config/create';
 ?>
 <div class="config-create">
 
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'cat' => $cat,
     ]) ?>
 
 </div>
