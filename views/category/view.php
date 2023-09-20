@@ -7,8 +7,9 @@ use yii\widgets\DetailView;
 /** @var app\models\Category $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Category'] = '/category/index';
+$this->params['breadcrumbs']['View'] = '/category/view';
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="category-view">

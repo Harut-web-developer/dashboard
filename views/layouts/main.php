@@ -357,22 +357,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     </div>
                         <div class="row mb-2 bread">
                             <?php
-                            $html = ''; 
-                            if(!empty($this->params['breadcrumbs'])){ 
+                            $html = '';
+                            if(!empty($this->params['breadcrumbs'])){
                                 $i = 0;
                                 foreach($this->params['breadcrumbs'] as $bread => $bread_val){
-                            
+
                                     if(count($this->params['breadcrumbs']) != ($i+1)){
                                     $html .= '<li class="breadcrumb-item"><a href="'.$bread_val.'">'.$bread.'</a></li>';
                                     } else {
                                     $html .= '<li class="breadcrumb-item active">'.$bread.'</li>';
                                     }
                                     $i++;
-                                } 
+                                }
                             } else {
                                 $main_title = 'Home';
                             } ?>
-                    
+
                             <div class="col-sm-6 ">
                                 <ol class="breadcrumb float-sm-right">
                                     <?php echo $html;?>
