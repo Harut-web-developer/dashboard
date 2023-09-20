@@ -4,15 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Store $model */
+/** @var app\models\Config $model */
 
-$this->title = $model->name;
-$this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Store'] = '/store/index';
-$this->params['breadcrumbs']['View'] = '/store/view';
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Configs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="store-view">
+<div class="config-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,7 +30,8 @@ $this->params['breadcrumbs']['View'] = '/store/view';
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
+            'category_id',
+            'procent',
         ],
     ]) ?>
 

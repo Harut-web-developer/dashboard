@@ -1,41 +1,40 @@
 <?php
 
-use app\models\Store;
+use app\models\Config;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\StoreSearch $searchModel */
+/** @var app\models\ConfigSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Stores';
-$this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Stores'] = '/store/index';
+$this->title = 'Configs';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="store-index">
+<div class="config-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Store', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        <?= Html::a('Create Config', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
+            'category_id',
+            'procent',
             [
-                'header'=>'Actions',
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Store $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Config $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

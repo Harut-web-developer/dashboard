@@ -2,17 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\Category;
-use app\models\CategorySearch;
+use app\models\Store;
+use app\models\Target;
+use app\models\TargetSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * TargetController implements the CRUD actions for Target model.
  */
-class CategoryController extends Controller
+class TargetController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +34,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all Category models.
+     * Lists all Target models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = new TargetSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +50,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single Target model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,14 +63,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new Target model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-
-        $model = new Category();
+        $model = new Target();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -78,16 +78,19 @@ class CategoryController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+
+        $store = Store::find()->select('id, name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id', 'name');
         return $this->render('create', [
             'model' => $model,
-            'cat' => $cat,
+            'store' => $store,
         ]);
     }
 
+
+
     /**
-     * Updates an existing Category model.
+     * Updates an existing Target model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -100,16 +103,16 @@ class CategoryController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $store = Store::find()->select('id, name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id', 'name');
         return $this->render('update', [
             'model' => $model,
-            'cat' => $cat,
+            'store' => $store,
         ]);
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing Target model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -123,18 +126,20 @@ class CategoryController extends Controller
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the Target model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Category the loaded model
+     * @return Target the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne(['id' => $id])) !== null) {
+        if (($model = Target::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
+
+
