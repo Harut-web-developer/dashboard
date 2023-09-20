@@ -4,24 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Store $model */
+/** @var app\models\Target $model */
 
-<<<<<<< HEAD
-
-$this->title = 'Create Category';
+$this->title = $model->id;
 $this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Category'] = '/category/index';
-$this->params['breadcrumbs']['Views'] = '/category/view';
-
-=======
-$this->title = $model->name;
-$this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Store'] = '/store/index';
-$this->params['breadcrumbs']['View'] = '/store/view';
+$this->params['breadcrumbs']['Targets'] = '/target/index';
+$this->params['breadcrumbs']['View'] = '/target/view';
 \yii\web\YiiAsset::register($this);
->>>>>>> bdb8b5a684d4ee1b7fe3eb3087eef997fa625e2a
 ?>
-<div class="store-view">
+<div class="target-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -40,7 +31,8 @@ $this->params['breadcrumbs']['View'] = '/store/view';
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
+            'store_id',
+            'date',
         ],
     ]) ?>
 

@@ -99,7 +99,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
             <!-- Nav Item - Order -->
             <li class="nav-item">
-                <a class="nav-link" href="/order">
+                <a class="nav-link" href="/orders">
                     <i class="fas fa-fw fa-copy"></i>
                     <span>Orders</span></a>
             </li>

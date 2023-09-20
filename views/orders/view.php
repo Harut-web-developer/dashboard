@@ -4,24 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Store $model */
+/** @var app\models\Orders $model */
 
-<<<<<<< HEAD
-
-$this->title = 'Create Category';
-$this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Category'] = '/category/index';
-$this->params['breadcrumbs']['Views'] = '/category/view';
-
-=======
-$this->title = $model->name;
-$this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Store'] = '/store/index';
-$this->params['breadcrumbs']['View'] = '/store/view';
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
->>>>>>> bdb8b5a684d4ee1b7fe3eb3087eef997fa625e2a
 ?>
-<div class="store-view">
+<div class="orders-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -40,7 +30,10 @@ $this->params['breadcrumbs']['View'] = '/store/view';
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
+            'store_id',
+            'quantity',
+            'total_price',
+            'date',
         ],
     ]) ?>
 
