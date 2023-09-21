@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'total_price')->textInput() ?>
+
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'date')->input('date') ?>
