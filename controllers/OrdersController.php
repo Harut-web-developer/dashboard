@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Orders;
 use app\models\OrdersSearch;
+use app\models\Store;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -76,9 +78,11 @@ class OrdersController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
+        $store = Store::find()->select('id,name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id','name');
         return $this->render('create', [
             'model' => $model,
+            'store' => $store,
         ]);
     }
 
@@ -96,9 +100,11 @@ class OrdersController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $store = Store::find()->select('id,name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id','name');
         return $this->render('update', [
             'model' => $model,
+            'store' => $store,
         ]);
     }
 

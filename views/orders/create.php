@@ -16,6 +16,7 @@ $this->params['breadcrumbs']['Create'] = '/orders/create';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'store' => $store,
     ]) ?>
 
 </div>

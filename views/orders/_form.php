@@ -9,21 +9,25 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="orders-form">
-
+    <div class="card card-primary">
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'store_id')->textInput() ?>
-
-    <?= $form->field($model, 'quantity')->textInput() ?>
-
-    <?= $form->field($model, 'total_price')->textInput() ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
+        <div class="card-body">
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'store_id')->dropDownList($store) ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'quantity')->textInput(['value' => 11]) ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'total_price')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'date')->input('date') ?>
+            </div>
+        </div>
+        <div class="card-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
     <?php ActiveForm::end(); ?>
-
+    </div>
 </div>

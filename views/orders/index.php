@@ -19,14 +19,14 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -36,6 +36,7 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
             'total_price',
             'date',
             [
+                    'header' => 'Actions',
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
