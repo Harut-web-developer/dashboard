@@ -11,7 +11,8 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Order Items';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Order-items'] = '/order-items/index';
 ?>
 <div class="order-items-index">
 
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -34,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_id',
             'quantity',
             'price',
-            //'revenue',
-            //'cost',
+            'revenue',
+            'cost',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, OrderItems $model, $key, $index, $column) {

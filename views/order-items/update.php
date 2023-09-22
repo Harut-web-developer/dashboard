@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /** @var app\models\OrderItems $model */
 
 $this->title = 'Update Order Items: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Order-items'] = '/order-items/index';
+$this->params['breadcrumbs']['Update'] = '/order-item/update';
 ?>
 <div class="order-items-update">
 

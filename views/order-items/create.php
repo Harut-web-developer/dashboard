@@ -6,8 +6,9 @@ use yii\helpers\Html;
 /** @var app\models\OrderItems $model */
 
 $this->title = 'Create Order Items';
-$this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs']['Home'] ='/';
+$this->params['breadcrumbs']['Order-items'] = '/order-items/index';
+$this->params['breadcrumbs']['Create'] = '/order-item/create';
 ?>
 <div class="order-items-create">
 
