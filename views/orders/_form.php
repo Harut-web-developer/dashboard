@@ -16,15 +16,13 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'store_id')->dropDownList($store) ?>
             </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'quantity')->textInput(['value' => 11]) ?>
+                <?= $form->field($model, 'quantity')->input('number',['value' => 11]) ?>
             </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'total_price')->textInput() ?>
+                <?= $form->field($model, 'total_price')->input('number') ?>
 
             </div>
-            <div class="form-group col-md-3">
-                <?= $form->field($model, 'date')->input('date') ?>
-            </div>
+
         </div>
         <div class="card-footer">
             <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
