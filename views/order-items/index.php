@@ -19,7 +19,7 @@ $this->params['breadcrumbs']['Order-items'] = '/order-items/index';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Order Items', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Order Items', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

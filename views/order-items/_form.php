@@ -9,25 +9,31 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="order-items-form">
-
+    <div class="card card-primary">
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'order_id')->textInput() ?>
-
-    <?= $form->field($model, 'product_id')->textInput() ?>
-
-    <?= $form->field($model, 'quantity')->textInput() ?>
-
-    <?= $form->field($model, 'price')->textInput() ?>
-
-    <?= $form->field($model, 'revenue')->textInput() ?>
-
-    <?= $form->field($model, 'cost')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
+        <div class="card-body">
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'order_id')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'product_id')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'quantity')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'price')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'revenue')->textInput() ?>
+            </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'cost')->textInput() ?>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
     <?php ActiveForm::end(); ?>
-
+    </div>
 </div>

@@ -20,9 +20,7 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'total_price')->input('number') ?>
-
             </div>
-
         </div>
         <div class="card-footer">
             <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
