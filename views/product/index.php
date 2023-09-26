@@ -48,5 +48,4 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
     ]); ?>
 
 
-    git rebase origin/main
 </div>
