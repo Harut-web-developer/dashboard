@@ -19,12 +19,15 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+    // echo $this->render('_search', ['model' => $searchModel]);
+    ?>
 
     <?= GridView::widget([
+
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
@@ -34,15 +37,25 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
             'category_id',
             'name',
             'description:ntext',
-            'img',
-            //'price',
-            //'cost',
+//            'img:image',
+            [
+
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::img(Yii::getAlias('/uploads/'). $model->img,[
+                        'alt'=>'yii2 - картинка в gridview',
+                    ]);
+                },
+            ],
+            'price',
+            'cost',
             [
                 'header'=>'Actions',
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

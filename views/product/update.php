@@ -16,7 +16,7 @@ $this->params['breadcrumbs']['View'] = '/product/view';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'product' => $product,
+        'category' => $category,
     ]) ?>
 
 </div>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
@@ -34,9 +35,19 @@ $this->params['breadcrumbs']['View'] = '/product/view';
             'category_id',
             'name',
             'description:ntext',
-            'img',
+//            'img',
             'price',
             'cost',
+            [
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::img(Yii::getAlias('/uploads/'). $model->img,[
+                        'alt'=>'yii2 - картинка в gridview',
+                        'style' => 'width:150px;'
+                    ]);
+                },
+            ],
         ],
     ]) ?>
 

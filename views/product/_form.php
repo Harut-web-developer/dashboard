@@ -30,13 +30,13 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
                 </div>
                 <div class="form-group col-md-3">
-                    <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'img')->fileInput() ?>
                 </div>
             </div>
         </div>
-            <div class="card-footer">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-            </div>
+        <div class="card-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

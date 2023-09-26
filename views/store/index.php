@@ -13,7 +13,6 @@ use yii\grid\GridView;
 $this->title = 'Stores';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Stores'] = '/store/index';
-
 ?>
 <div class="store-index">
 

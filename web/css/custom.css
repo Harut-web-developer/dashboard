@@ -24,3 +24,7 @@
     display: flex !important;
     flex-wrap: wrap !important;
 }
+.text-nowrap > tbody > tr > td > img{
+    width: 50px !important;
+    height: auto !important;
+}
