@@ -21,4 +21,5 @@ use yii\widgets\ActiveForm;
             </div>
         <?php ActiveForm::end(); ?>
     </div>
+
 </div>
