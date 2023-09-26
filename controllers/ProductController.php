@@ -2,18 +2,23 @@
 
 namespace app\controllers;
 
+define ('SITE_ROOT', realpath(dirname(__FILE__)));
+
 use app\models\Category;
-use app\models\Config;
-use app\models\ConfigSearch;
+use Yii;
+use app\models\Store;
+use app\models\Product;
+use app\models\ProductSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
- * ConfigController implements the CRUD actions for Config model.
+ * ProductController implements the CRUD actions for Product model.
  */
-class ConfigController extends Controller
+class ProductController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,15 +39,15 @@ class ConfigController extends Controller
     }
 
     /**
-     * Lists all Config models.
+     * Lists all Product models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ConfigSearch();
+        $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $model = new Product();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -50,7 +55,7 @@ class ConfigController extends Controller
     }
 
     /**
-     * Displays a single Config model.
+     * Displays a single Product model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,31 +68,43 @@ class ConfigController extends Controller
     }
 
     /**
-     * Creates a new Config model.
+     * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Config();
+        $model = new Product();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $imageName = $_FILES['Product']['name']['img'];
+                $model->img = $imageName;
+                $model->img = UploadedFile::getInstance($model, 'img');
+                $model->img->saveAs('uploads/'.$imageName );
+                if($model->save(false)){
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                else
+                {
+                    return  false;
+                }
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $category = Category::find()->select('id, name')->asArray()->all();
+        $category = ArrayHelper::map($category,'id', 'name');
         return $this->render('create', [
             'model' => $model,
-            'cat' => $cat,
+            'category' => $category,
         ]);
     }
 
     /**
-     * Updates an existing Config model.
+     * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -97,19 +114,25 @@ class ConfigController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $imageName = $_FILES['Product']['name']['img'];
+            $model->img = $imageName;
+            $model->img = UploadedFile::getInstance($model, 'img');
+            $model->img->saveAs('uploads/'.$imageName );
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $category = Category::find()->select('id, name')->asArray()->all();
+        $category = ArrayHelper::map($category,'id', 'name');
         return $this->render('update', [
             'model' => $model,
-            'cat' => $cat,
+            'category' => $category,
         ]);
+
     }
 
     /**
-     * Deletes an existing Config model.
+     * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -123,15 +146,15 @@ class ConfigController extends Controller
     }
 
     /**
-     * Finds the Config model based on its primary key value.
+     * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Config the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Config::findOne(['id' => $id])) !== null) {
+        if (($model = Product::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

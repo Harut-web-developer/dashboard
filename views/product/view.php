@@ -2,17 +2,18 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var app\models\Config $model */
+/** @var app\models\Product $model */
 
-$this->title = $model->id;
+$this->title = $model->name;
 $this->params['breadcrumbs']['Home'] ='/';
-$this->params['breadcrumbs']['Products procent'] = '/config/index';
-$this->params['breadcrumbs']['View procent'] = '/config/view';
+$this->params['breadcrumbs']['Product'] = '/product/index';
+$this->params['breadcrumbs']['View'] = '/product/view';
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="config-view">
+<div class="product-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -32,7 +33,21 @@ $this->params['breadcrumbs']['View procent'] = '/config/view';
         'attributes' => [
             'id',
             'category_id',
-            'procent',
+            'name',
+            'description:ntext',
+//            'img',
+            'price',
+            'cost',
+            [
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::img(Yii::getAlias('/uploads/'). $model->img,[
+                        'alt'=>'yii2 - картинка в gridview',
+                        'style' => 'width:150px;'
+                    ]);
+                },
+            ],
         ],
     ]) ?>
 

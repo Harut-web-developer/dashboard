@@ -2,19 +2,23 @@
 
 namespace app\controllers;
 
-use app\models\Category;
-use app\models\Config;
-use app\models\ConfigSearch;
+use app\models\OrderItems;
+use app\models\Orders;
+use app\models\OrdersSearch;
+use app\models\Product;
+use app\models\Store;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ConfigController implements the CRUD actions for Config model.
+ * OrdersController implements the CRUD actions for Orders model.
  */
-class ConfigController extends Controller
+class OrdersController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritDoc
      */
@@ -34,13 +38,13 @@ class ConfigController extends Controller
     }
 
     /**
-     * Lists all Config models.
+     * Lists all Orders models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ConfigSearch();
+        $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +54,7 @@ class ConfigController extends Controller
     }
 
     /**
-     * Displays a single Config model.
+     * Displays a single Orders model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,31 +67,58 @@ class ConfigController extends Controller
     }
 
     /**
-     * Creates a new Config model.
+     * Creates a new Orders model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+        public function actionCreate()
     {
-        $model = new Config();
+        $model = new Orders();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $post = $this->request->post();
+//            echo '<pre>';
+//            var_dump($post['Orders']['store_id']);
+//        exit;
+//            var_dump(count($post['productid']));
+//            exit;
+            $model->store_id = $post['Orders']['store_id'];
+            $model->quantity = array_sum($post['count_']);
+            $model->total_price = array_sum($post['price']);
+            $model->save();
+//            $order_items = new OrderItems();
+
+            for ($i=0;$i<count($post['productid']);$i++){
+                $order_items = new OrderItems();
+                $order_items->order_id = $model->id;
+                $order_items->product_id = $post['productid'][$i];
+                $order_items->quantity = $post['count_'][$i];
+                $order_items->price = $post['price'][$i];
+                $order_items->cost = $post['cost'][$i];
+                $order_items->revenue = $post['price'][$i] - $post['cost'][$i];
+                $order_items->save();
+
             }
+//
+
+//            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+//            }
         } else {
             $model->loadDefaultValues();
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $store = Store::find()->select('id,name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id','name');
+        $product = Product::find()->asArray()->all();
         return $this->render('create', [
             'model' => $model,
-            'cat' => $cat,
+            'store' => $store,
+            'product' => $product,
         ]);
     }
 
     /**
-     * Updates an existing Config model.
+     * Updates an existing Orders model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -100,16 +131,16 @@ class ConfigController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $store = Store::find()->select('id,name')->asArray()->all();
+        $store = ArrayHelper::map($store,'id','name');
         return $this->render('update', [
             'model' => $model,
-            'cat' => $cat,
+            'store' => $store,
         ]);
     }
 
     /**
-     * Deletes an existing Config model.
+     * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -123,15 +154,15 @@ class ConfigController extends Controller
     }
 
     /**
-     * Finds the Config model based on its primary key value.
+     * Finds the Orders model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Config the loaded model
+     * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Config::findOne(['id' => $id])) !== null) {
+        if (($model = Orders::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
