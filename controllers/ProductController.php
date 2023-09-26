@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use app\models\Store;
 use app\models\Product;
 use app\models\ProductSearch;
@@ -79,11 +80,11 @@ class ProductController extends Controller
             $model->loadDefaultValues();
         }
 
-        $product = Store::find()->select('id, name')->asArray()->all();
-        $product = ArrayHelper::map($product,'id', 'name');
+        $category = Category::find()->select('id, name')->asArray()->all();
+        $category = ArrayHelper::map($category,'id', 'name');
         return $this->render('create', [
             'model' => $model,
-            'product' => $product,
+            'category' => $category,
         ]);
     }
 

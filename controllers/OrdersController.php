@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\OrderItems;
 use app\models\Orders;
 use app\models\OrdersSearch;
+use app\models\Product;
 use app\models\Store;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -15,6 +17,8 @@ use yii\filters\VerbFilter;
  */
 class OrdersController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritDoc
      */
@@ -67,22 +71,49 @@ class OrdersController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+        public function actionCreate()
     {
         $model = new Orders();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $post = $this->request->post();
+//            echo '<pre>';
+//            var_dump($post['Orders']['store_id']);
+//        exit;
+//            var_dump(count($post['productid']));
+//            exit;
+            $model->store_id = $post['Orders']['store_id'];
+            $model->quantity = array_sum($post['count_']);
+            $model->total_price = array_sum($post['price']);
+            $model->save();
+//            $order_items = new OrderItems();
+
+            for ($i=0;$i<count($post['productid']);$i++){
+                $order_items = new OrderItems();
+                $order_items->order_id = $model->id;
+                $order_items->product_id = $post['productid'][$i];
+                $order_items->quantity = $post['count_'][$i];
+                $order_items->price = $post['price'][$i];
+                $order_items->cost = $post['cost'][$i];
+                $order_items->revenue = $post['price'][$i] - $post['cost'][$i];
+                $order_items->save();
+
             }
+//
+
+//            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+//            }
         } else {
             $model->loadDefaultValues();
         }
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
+        $product = Product::find()->asArray()->all();
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
+            'product' => $product,
         ]);
     }
 

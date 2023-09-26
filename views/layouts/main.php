@@ -10,7 +10,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
-//AppAsset::register($this);
+AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
@@ -102,13 +102,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 <a class="nav-link" href="/orders">
                     <i class="fas fa-fw fa-copy"></i>
                     <span>Orders</span></a>
-            </li>
-
-            <!-- Nav Item - Order -->
-            <li class="nav-item">
-                <a class="nav-link" href="/order-item">
-                    <i class="fas fa-fw fa-copy"></i>
-                    <span>Order-items</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
@@ -428,21 +421,21 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--    <script src="vendor/jquery/jquery.min.js"></script>-->
+<!--    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!--    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+<!--    <script src="js/sb-admin-2.min.js"></script>-->
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+<!--    <script src="vendor/chart.js/Chart.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+<!--    <script src="js/demo/chart-area-demo.js"></script>-->
+<!--    <script src="js/demo/chart-pie-demo.js"></script>-->
 <?php $this->endBody() ?>
 </body>
 </html>
