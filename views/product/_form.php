@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-body prodForm">
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'category_id')->dropDownList($product) ?>
+                <?= $form->field($model, 'category_id')->dropDownList($category) ?>
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

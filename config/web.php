@@ -48,6 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+//                'order-items/product' => 'order-items/product',
                 '<controller>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
