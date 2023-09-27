@@ -84,7 +84,7 @@ class OrdersController extends Controller
 //            exit;
             $model->store_id = $post['Orders']['store_id'];
             $model->quantity = array_sum($post['count_']);
-            $model->total_price = array_sum($post['price']);
+            $model->total_price = array_sum($post['total']);
             $model->save();
 //            $order_items = new OrderItems();
 
@@ -93,9 +93,9 @@ class OrdersController extends Controller
                 $order_items->order_id = $model->id;
                 $order_items->product_id = $post['productid'][$i];
                 $order_items->quantity = $post['count_'][$i];
-                $order_items->price = $post['price'][$i];
-                $order_items->cost = $post['cost'][$i];
-                $order_items->revenue = $post['price'][$i] - $post['cost'][$i];
+                $order_items->price = $post['price'][$i] * $post['count_'][$i];
+                $order_items->cost = $post['cost'][$i] * $post['count_'][$i];
+                $order_items->revenue = ($post['price'][$i] - $post['cost'][$i]) * $post['count_'][$i];
                 $order_items->save();
 
             }

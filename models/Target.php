@@ -27,7 +27,7 @@ class Target extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['store_id'], 'integer'],
+            [['store_id','target_price'], 'integer'],
             [['date'], 'safe'],
         ];
     }
@@ -40,6 +40,7 @@ class Target extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'store_id' => 'Store Name',
+            'target_price' => 'Target price',
             'date' => 'Date',
         ];
     }
