@@ -32,6 +32,7 @@ $this->params['breadcrumbs']['Targets'] = '/target/index';
 
             'id',
             'store_id',
+            'target_price',
             'date',
             [
                 'header'=>'Actions',

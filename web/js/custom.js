@@ -45,6 +45,88 @@ $(document).ready(function (){
         $('.order_products').append(html_);
     })
 
+
+    $('.store').change(function (){
+        let store = $(this).val();
+        let category = $('.category').val();
+        let start = $('.start_date').val();
+        let end = $('.end_date').val();
+        workChart(store,category,start,end);
+    })
+    $('.category').change(function (){
+        let store = $('.store').val();
+        let category = $(this).val();
+        let start = $('.start_date').val();
+        let end = $('.end_date').val();
+        workChart(store,category,start,end);
+    })
+        $(window).on('load', function (){
+            let start = $('.start_date').val();
+            let end = $('.end_date').val();
+
+            workChart(0,0,start,end);
+        })
+
+    function  workChart(store,category,start,end){
+        var lab = [];
+        $.ajax({
+            url:'/chart/get-data',
+            method:'post',
+            datatype:'json',
+            data:{
+                start:start,
+                end:end,
+                store:store,
+                category:category
+            },
+        }).done(function(data){
+            let parse = JSON.parse(data, true);
+            $('.productName').text(parse.maxPrice.maxPrice);
+            $('.productPrice').text(parse.maxPrice.name);
+            $('.productImg').attr('src','/uploads/' + parse.maxPrice.img);
+            $('.maxCountProductName').text(parse.maxCount.maxCount);
+            $('.productMaxCount').text(parse.maxCount.name);
+            $('.productCountImg').attr('src','/uploads/' + parse.maxCount.img);
+            $('.orderProcent').text(parse.overageProcent + '%');
+            $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
+            $('.ordersCount').text(parse.ordersCount);
+            lab[0] = parse.ordersTotalPrice.total;
+            console.log(parse);
+            })
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['sells','revenue'],
+                datasets: [{
+                    data: [15, 30, 15],
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    }
+
+
     function delay(callback) {
         var timer = 0;
         return function() {
@@ -84,5 +166,6 @@ $(document).ready(function (){
             },
         })
     })
+
 
 })

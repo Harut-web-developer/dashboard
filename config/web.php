@@ -48,6 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'chart/get-data' => 'chart/get-data',
 //                'order-items/product' => 'order-items/product',
                 '<controller>/<action:\w+>' => '<controller>/<action>',
             ],

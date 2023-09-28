@@ -16,6 +16,9 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'store_id')->dropDownList($store) ?>
             </div>
             <div class="form-group col-md-3">
+                <?= $form->field($model, 'target_price')->input('number') ?>
+            </div>
+            <div class="form-group col-md-3">
                 <?= $form->field($model, 'date')->input('date') ?>
             </div>
         </div>
