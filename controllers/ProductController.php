@@ -5,15 +5,19 @@ namespace app\controllers;
 define ('SITE_ROOT', realpath(dirname(__FILE__)));
 
 use app\models\Category;
+use app\models\Config;
+use app\widgets\Alert;
 use Yii;
 use app\models\Store;
 use app\models\Product;
 use app\models\ProductSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Console;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use function Psy\debug;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -38,6 +42,11 @@ class ProductController extends Controller
         );
     }
 
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
     /**
      * Lists all Product models.
      *
@@ -65,6 +74,26 @@ class ProductController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionGetProduct(){
+//        $this->enableCsrfValidation = true;
+        if (Yii::$app->request->post() || true) {
+//            $post = Yii::$app->request->post();
+            $post = $_GET;
+//            console.log("category_id = " . $post['option']);
+
+//            $config = Config::findOne([ 'category_id' => $post['option']])->procent;
+            $category = Config::find()->where(['category_id' => $post['option']])->one();
+            if ($category !== null) {
+                $config = $category->procent;
+                return json_encode(['category_id' => $config]);
+            }
+            else {
+                $config = null;
+                return json_encode(['category_id' => $config]);
+            }
+        }
     }
 
     /**
