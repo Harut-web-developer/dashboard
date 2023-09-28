@@ -7,23 +7,23 @@ use yii\widgets\ActiveForm;
 /** @var app\models\Product $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
+<!--onchange="location.reload(true)"-->
 <div class="product-form">
     <div class="card card-primary">
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-body prodForm">
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'category_id')->dropDownList($category) ?>
+                <?= $form->field($model, 'category_id')->dropDownList($category, ['class' => 'category form-control', 'prompt' => 'Main category']) ?>
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             </div>
 
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'price')->textInput() ?>
+                <?= $form->field($model, 'price')->input('number',['class' => 'price form-control']) ?>
             </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'cost')->textInput() ?>
+                <?= $form->field($model, 'cost')->input('number',['class' => 'cost form-control']) ?>
             </div>
             <div class="form-group col-md-10">
                 <div class="form-group col-md-10">

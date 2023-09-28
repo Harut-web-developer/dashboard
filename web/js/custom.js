@@ -1,25 +1,4 @@
 $(document).ready(function (){
-  // $('.product').change(function (){
-  //    let option = $(this).children("option:selected").val();
-  //   $.ajax({
-  //       url: '/product/get-product',
-  //       method:'post',
-  //       datatype:'json',
-  //       data:{
-  //         option:option,
-  //       },
-  //       success: function(data){
-  //           let parse = JSON.parse(data);
-  //           $('.qty').keyup(function (){
-  //              $('.price').val(parse.price * $('.qty').val());
-  //              $('.cost').val(parse.cost * $('.qty').val());
-  //               $('.revenue').val($('.price').val() - $('.cost').val());
-  //           })
-  //
-  //       }
-  //   })
-  // })
-
     // $('.orderSave').click(function (e){
     //     e.preventDefault();
     //     let order_id = $('.order_id').val();
@@ -60,11 +39,50 @@ $(document).ready(function (){
                             <td class="cost">`+cost+` <input type="hidden" name="cost[]" value="`+cost+`"></td>
                             <td class="btn"><button onclick="$(this).closest('tr').remove()" type="button" class="btn btn-outline-danger">Delete</button></td>
                         </tr>`;
-
-
             }
             $('#exampleModal .close').click();
         })
         $('.order_products').append(html_);
     })
+
+    function delay(callback) {
+        var timer = 0;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            },  0);
+        };
+    }
+
+    $('.category').change(function () {
+        var category_id = $(this).children("option:selected").val();
+        $.ajax({
+            url: '/product/get-product',
+            method:'get',
+            data:{
+                option:category_id,
+            },
+            dataType: "json",
+            success: function(parse){
+
+               let price = parseInt(parse.category_id);
+                if (!(parse.category_id == null)) {
+                    console.log(price)
+                    $('.price').attr('readonly', true);
+                    $('.cost').keyup(function()    {
+                        let cost = parseInt($('.cost').val());
+                        $('.price').val(   price * cost / 100 + cost );
+                    });
+                }
+                else
+                {
+                    $('.price').attr('readonly', false);
+                }
+
+            },
+        })
+    })
+
 })
