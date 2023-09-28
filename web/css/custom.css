@@ -28,3 +28,21 @@
     width: 50px !important;
     height: auto !important;
 }
+.filter{
+    display: flex;
+    flex-wrap: wrap;
+}
+.category{
+    margin: 0px 20px;
+}
+.end_date{
+    margin: 0px 20px;
+}
+.productImg{
+    width: 30px;
+    height: auto;
+}
+.productCountImg{
+    width: 30px;
+    height: auto;
+}

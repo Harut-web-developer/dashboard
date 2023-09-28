@@ -4,6 +4,31 @@ $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Chart'] = '/chart/index';
 ?>
 
+
+<div class="filter form-group">
+    <select class="store form-control col-md-2">
+        <option  value="null">--choose store--</option>
+        <?php
+        foreach ($stores as $store){
+         ?>
+            <option value="<?=$store['id']?>"><?=$store['name']?></option>
+        <?php
+        }
+        ?>
+    </select>
+    <select class="category form-control col-md-2">
+        <option value="null">--choose category--</option>
+        <?php
+        foreach ($categories as $category){
+            ?>
+            <option value="<?=$category['id']?>"><?=$category['name']?></option>
+            <?php
+        }
+        ?>
+    </select>
+    <input class="start_date form-control col-md-2" value="<?=date('Y-m-01')?>" type="date">
+    <input class="end_date form-control col-md-2" value="<?=date('Y-m-d')?>" type="date">
+</div>
 <div class="row">
 
     <!-- Earnings (Monthly) Card Example -->
@@ -14,10 +39,11 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             more expensive selling product</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$maxPrice['price']?> AMD</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 productName"></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 productPrice"></div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <img class="productImg" src="">
                     </div>
                 </div>
             </div>
@@ -32,10 +58,12 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             more selling product</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$maxCount['quantity']?> count</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 maxCountProductName"></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 productMaxCount"></div>
+
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <img class="productCountImg" src="">
                     </div>
                 </div>
             </div>
@@ -52,11 +80,11 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?=$overageOrdersProcent ?>%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 orderProcent"></div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?=$overageOrdersProcent ?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-info procentBar" role="progressbar" style="" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>*/
                                 </div>
                             </div>
                         </div>
@@ -77,7 +105,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             total number of checks</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$ordersCount?></div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 ordersCount"></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
