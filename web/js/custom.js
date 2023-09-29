@@ -116,6 +116,7 @@ $(document).ready(function (){
     }
 
 
+
     var options = {
         series: [{
             name: "Session Duration",
@@ -124,6 +125,7 @@ $(document).ready(function (){
             {
                 name: "Page Views",
                 data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+
             },
             {
                 name: 'Total Visits',
