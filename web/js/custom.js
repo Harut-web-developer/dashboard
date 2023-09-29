@@ -1,20 +1,4 @@
 $(document).ready(function (){
-    // $('.orderSave').click(function (e){
-    //     e.preventDefault();
-    //     let order_id = $('.order_id').val();
-    //     $.ajax({
-    //         url:'/orders/get-orders',
-    //         method: 'post',
-    //         datatype: 'json',
-    //         data:{
-    //             order_id:order_id,
-    //         },
-    //         success:function (data){
-    //             console.log(12351);
-    //         }
-    //     })
-    // })
-
     $('body').on('click', '.create', function(){
         var html_ = '';
         $('.order_products').html('');
@@ -68,7 +52,9 @@ $(document).ready(function (){
         })
 
     function  workChart(store,category,start,end){
-        var lab = [];
+        var title = [];
+        var datatable1 = [];
+        var datatable2 = [];
         $.ajax({
             url:'/chart/get-data',
             method:'post',
@@ -79,6 +65,7 @@ $(document).ready(function (){
                 store:store,
                 category:category
             },
+            async: false,
         }).done(function(data){
             let parse = JSON.parse(data, true);
             $('.productName').text(parse.maxPrice.maxPrice);
@@ -90,17 +77,19 @@ $(document).ready(function (){
             $('.orderProcent').text(parse.overageProcent + '%');
             $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
             $('.ordersCount').text(parse.ordersCount);
-            lab[0] = parse.ordersTotalPrice.total;
-            console.log(parse);
+            datatable2[0] = parseInt(parse.ordersTotalPrice.total);
+            datatable2[1] = parseInt(parse.maxCount.revenue);
+            datatable2[2] = parse.maxCount.target_price;
+            // console.log(datatable);
             })
         // Pie Chart Example
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['sells','revenue'],
+                labels: ['sells','revenue','target revenue'],
                 datasets: [{
-                    data: [15, 30, 15],
+                    data: datatable2,
                     backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
                     hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -127,45 +116,86 @@ $(document).ready(function (){
     }
 
 
-    function delay(callback) {
-        var timer = 0;
-        return function() {
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                callback.apply(context, args);
-            },  0);
-        };
-    }
-
-    $('.category').change(function () {
-        var category_id = $(this).children("option:selected").val();
-        $.ajax({
-            url: '/product/get-product',
-            method:'get',
-            data:{
-                option:category_id,
+    var options = {
+        series: [{
+            name: "Session Duration",
+            data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+        },
+            {
+                name: "Page Views",
+                data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
             },
-            dataType: "json",
-            success: function(parse){
-
-               let price = parseInt(parse.category_id);
-                if (!(parse.category_id == null)) {
-                    console.log(price)
-                    $('.price').attr('readonly', true);
-                    $('.cost').keyup(function()    {
-                        let cost = parseInt($('.cost').val());
-                        $('.price').val(   price * cost / 100 + cost );
-                    });
-                }
-                else
+            {
+                name: 'Total Visits',
+                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+            }
+        ],
+        chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: [5, 7, 5],
+            curve: 'straight',
+            dashArray: [0, 8, 5]
+        },
+        title: {
+            text: 'Page Statistics',
+            align: 'left'
+        },
+        legend: {
+            tooltipHoverFormatter: function(val, opts) {
+                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+            }
+        },
+        markers: {
+            size: 0,
+            hover: {
+                sizeOffset: 6
+            }
+        },
+        xaxis: {
+            categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+                '10 Jan', '11 Jan', '12 Jan'
+            ],
+        },
+        tooltip: {
+            y: [
                 {
-                    $('.price').attr('readonly', false);
+                    title: {
+                        formatter: function (val) {
+                            return val + " (mins)"
+                        }
+                    }
+                },
+                {
+                    title: {
+                        formatter: function (val) {
+                            return val + " per session"
+                        }
+                    }
+                },
+                {
+                    title: {
+                        formatter: function (val) {
+                            return val;
+                        }
+                    }
                 }
+            ]
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        }
+    };
 
-            },
-        })
-    })
-
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
 
 })
