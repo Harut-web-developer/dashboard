@@ -441,6 +441,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <!-- Page level custom scripts -->
 <!--    <script src="js/demo/chart-area-demo.js"></script>-->
 <!--    <script src="js/demo/chart-pie-demo.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.42.0/apexcharts.min.js" ></script>
 <?php $this->endBody() ?>
 </body>
 </html>
