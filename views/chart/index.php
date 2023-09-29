@@ -43,7 +43,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                         <div class="h5 mb-0 font-weight-bold text-gray-800 productPrice"></div>
                     </div>
                     <div class="col-auto">
-                        <img class="productImg" src="">
+                        <img class="productImg myimg" src="">
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
 
                     </div>
                     <div class="col-auto">
-                        <img class="productCountImg" src="">
+                        <img class="productCountImg myimg" src="">
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info procentBar" role="progressbar" style="" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>*/
+                                    <div class="progress-bar bg-info procentBar" role="progressbar" style="" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -185,3 +185,25 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
         </div>
     </div>
 </div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="img-thumbnail" src="">
+            </div>
+            <div class="modal-footer bg-gradient-primary">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

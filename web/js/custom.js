@@ -126,18 +126,6 @@ $(document).ready(function (){
         });
     }
 
-
-    function delay(callback) {
-        var timer = 0;
-        return function() {
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                callback.apply(context, args);
-            },  0);
-        };
-    }
-
     $('.category').change(function () {
         var category_id = $(this).children("option:selected").val();
         $.ajax({
