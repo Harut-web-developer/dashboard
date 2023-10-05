@@ -44,13 +44,27 @@ $(document).ready(function (){
         let end = $('.end_date').val();
         workChart(store,category,start,end);
     })
+    $('.start_date').change(function (){
+        let store = $('.store').val();
+        let category = $('.category').val();
+        let start = $(this).val();
+        let end = $('.end_date').val();
+        workChart(store,category,start,end);
+    })
+    $('.end_date').change(function (){
+        let store = $('.store').val();
+        let category = $('.category').val();
+        let start = $('.start_date').val();
+        let end = $(this).val();
+        workChart(store,category,start,end);
+    })
         $(window).on('load', function (){
             let start = $('.start_date').val();
             let end = $('.end_date').val();
 
             workChart(0,0,start,end);
         })
-    
+
     function  workChart(store,category,start,end){
         var title = [];
         var revenue = [];
@@ -207,6 +221,25 @@ $(document).ready(function (){
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
+        chart.updateOptions({
+            series: [{
+                name: "Revenue",
+                data: revenue
+            },
+                {
+                    name: "Target price",
+                    data: target_price
+
+                },
+                {
+                    name: 'Sells price',
+                    data: sellsPrice
+                }
+            ],
+            xaxis: {
+                categories: title,
+            }
+        })
 
 
     }
