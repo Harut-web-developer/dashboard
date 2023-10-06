@@ -2,18 +2,26 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
+use PHPUnit\Exception;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PHPExcel_Reader_Excel2007;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
 class CategoryController extends Controller
 {
+
     /**
      * @inheritDoc
      */
@@ -61,6 +69,56 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function actionDeleteSelected()
+    {
+        if ($this->request->isPost) {
+            $ids = Yii::$app->request->post('ids');
+            $startId = Yii::$app->request->post('startId');
+            $endId = Yii::$app->request->post('endId');
+
+            if ($startId == "" && $endId == "" && $ids !== "") {
+                Yii::$app->db->createCommand()
+                    ->delete('category', ['id' => $ids])
+                    ->execute();
+                return json_encode(['success' => true]);
+            } elseif ($startId !== "" && $endId !== "" && $ids == "") {
+                Yii::$app->db->createCommand()
+                    ->delete('category', ['between', 'id', $startId, $endId])
+                    ->execute();
+                return json_encode(['success' => true]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Choose only one deletion type');
+                return $this->redirect(['index']);
+            }
+        }
+    }
+
+
+    public function actionUpload()
+    {
+        require_once 'C:\OSPanel\domains\dashboard\PHPExcel-1.8_php8.1\PHPExcel-1.8\Classes\PHPExcel.php';
+        $xlsxFile = UploadedFile::getInstanceByName('xlsxFile');
+
+        if ($xlsxFile) {
+            $inputFileName = $xlsxFile->tempName;
+            $reader = new PHPExcel_Reader_Excel2007();
+            $spreadsheet = $reader->load($inputFileName);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $data = [];
+
+            foreach ($worksheet->toArray() as $row) {
+                $data[] = [
+                    'parent_id' => $row[0],
+                    'name' => $row[1],
+                ];
+            }
+            Yii::$app->db->createCommand()
+                ->batchInsert('category', ['parent_id', 'name'], $data)
+                ->execute();
+        }
+        return $this->redirect(['index']);
+    }
+
     /**
      * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -68,9 +126,7 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
-
         $model = new Category();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

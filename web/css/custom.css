@@ -56,6 +56,10 @@
 }
 .printicon{
     background-color: lavenderblush;
-    margin-top: 15px;
+    margin-left: 297px;
     cursor: pointer;
+}
+
+.card-header{
+    /*height: 164px; */
 }

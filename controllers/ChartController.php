@@ -50,13 +50,13 @@ class ChartController extends  Controller{
             $ordersCount = Orders::find()->count();
             $averagePrice = intval($ordersTotalPrice['total'] / $ordersCount);
             $overageOrdersProcent = round(($averagePrice / $maxPrice['price']) * 100);
-            $titles = Orders::find()->select('id, DATE(date) as date_only,SUM(total_price) as totalPrice')
-                ->groupBy('date_only')
-                ->asArray()
-                ->all();
-            foreach ($titles as $key => $title){
-            var_dump($key);
-            }
+//            $titles = Orders::find()->select('id, DATE(date) as date_only,SUM(total_price) as totalPrice')
+//                ->groupBy('date_only')
+//                ->asArray()
+//                ->all();
+//            foreach ($titles as $key => $title){
+//            var_dump($key);
+//            }
 //            var_dump($titles);
             $response = [];
             $response['maxPrice'] = $maxPrice;

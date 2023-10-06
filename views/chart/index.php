@@ -28,6 +28,12 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
     </select>
     <input class="start_date form-control col-md-2" value="<?=date('Y-m-01')?>" type="date">
     <input class="end_date form-control col-md-2" value="<?=date('Y-m-d')?>" type="date">
+
+    <!--Print-->
+    <div class="text-center" onclick="window.print()">
+        <img width="35" height="35" class="printicon" src="https://img.icons8.com/carbon-copy/100/000000/print.png" alt="print"/>
+    </div>
+
 </div>
 <div class="row">
 
@@ -187,6 +193,9 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
     </div>
 </div>
 
-
+<!--Print-->
+<!--<div class="text-center" onclick="  window.print()">-->
+<!--    <img width="35" height="35" class="printicon" src="https://img.icons8.com/carbon-copy/100/000000/print.png" alt="print"/>-->
+<!--</div>-->
 
 

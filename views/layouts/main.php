@@ -304,11 +304,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             </div>
                         </li>
 
-                        <!--Print-->
-                        <div class="text-center" onclick="window.print()">
-                            <img width="35" height="35" class="printicon" src="https://img.icons8.com/carbon-copy/100/000000/print.png" alt="print"/>
-                        </div>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -348,7 +343,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid dashboardChart">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -442,6 +437,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <!--    <script src="js/demo/chart-area-demo.js"></script>-->
 <!--    <script src="js/demo/chart-pie-demo.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.42.0/apexcharts.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.2.1/exceljs.min.js"></script>
 <?php $this->endBody() ?>
 </body>
 </html>
