@@ -22,6 +22,9 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
         <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
+    <!--Download XLSX-->
+    <button class="downloadXLSX" >Download XLSX</button>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([

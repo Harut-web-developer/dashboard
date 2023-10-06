@@ -22,6 +22,9 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
 
+    <!--Download XLSX-->
+    <button class="downloadXLSX" >Download XLSX</button>
+
     <?php
     // echo $this->render('_search', ['model' => $searchModel]);
     ?>
@@ -43,8 +46,8 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'attribute' => 'img',
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::img(Yii::getAlias('/uploads/'). $model->img,[
-                        'alt'=>'yii2 - картинка в gridview',
+                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
+                        'alt'=>$model->img,
                     ]);
                 },
             ],

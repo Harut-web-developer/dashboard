@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="category-form">
     <div class="card card-primary">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['action' => ['category/test']]); ?>
         <div class="card-body">
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'parent_id')->dropDownList($cat,['prompt' => 'Main category']) ?>
