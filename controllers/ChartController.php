@@ -15,7 +15,6 @@ class ChartController extends  Controller{
     public function actionIndex(){
         $stores = Store::find()->select('id,name')->asArray()->all();
         $categories = Category::find()->select('id,name')->asArray()->all();
-
         return $this->render('index',[
             'stores' => $stores,
             'categories' => $categories,
@@ -104,7 +103,8 @@ class ChartController extends  Controller{
             ->groupBy('MONTH(target.date)')
             ->asArray()
             ->all();
-
+        $days = [];
+        $months = [];
         $label = [];
         $revenue = [];
         $price = [];
@@ -113,9 +113,6 @@ class ChartController extends  Controller{
         $lastDay = intval(date("j",strtotime($end)));
         $firstMonth = intval(date('n',strtotime($start)));
         $endMonth = intval(date('n',strtotime($end)));
-
-        $days = [];
-        $months = [];
         if ($endMonth - $firstMonth == 0){
             if ($lastDay - $firstDay < 31) {
                 for ($i = $firstDay; $i <= $lastDay; $i++) {
@@ -178,10 +175,6 @@ class ChartController extends  Controller{
             }
 
         }
-//        echo "<pre>";
-//        var_dump($months);
-
-
             $response = [];
             $response['maxPrice'] = $maxPrice;
             $response['maxCount'] = $maxCount;
