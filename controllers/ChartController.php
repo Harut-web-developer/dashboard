@@ -28,8 +28,13 @@ class ChartController extends  Controller{
         $category = intval($post['category']);
         $start = $post['start'];
         $end = $post['end'];
+        $pay =$post['pay'];
+        $condPay = [];
         $condStore = [];
         $condCategory = [];
+        if($pay){
+            $condPay = ['payment.type'=>$pay];
+        }
         if($store){
             $condStore = ['orders.store_id'=>$store];
         }
@@ -80,26 +85,30 @@ class ChartController extends  Controller{
             }
             $overageOrdersProcent = round(($averagePrice / $maxPrice['price']) * 100);
             $total_data = OrderItems::find()->select('target.target_price,DATE(orders.date) as date_only,
-                    SUM(order_items.price) as price,SUM(order_items.revenue) as revenue')
+                    SUM(order_items.price) as price,SUM(order_items.revenue) as revenue, payment.price_of_pay')
                 ->leftJoin('orders', 'orders.id = order_items.order_id')
+                ->leftJoin('payment','orders.id = payment.order_id')
                 ->leftJoin('product', 'product.id = order_items.product_id')
                 ->leftJoin('target', 'target.date = DATE(orders.date)')
                 ->leftJoin('category', 'category.id = product.category_id')
                 ->where(['BETWEEN', 'orders.date', $start, $end])
                 ->andWhere($condStore)
                 ->andWhere($condCategory)
+                ->andWhere($condPay)
                 ->groupBy('target.date')
                 ->asArray()
                 ->all();
         $total_data_Month = OrderItems::find()->select('target.target_price,DATE(orders.date) as date_only,
-                    SUM(order_items.price) as price,SUM(order_items.revenue) as revenue')
+                    SUM(order_items.price) as price,SUM(order_items.revenue) as revenue,MAX(payment.price_of_pay) as price_of_pay')
             ->leftJoin('orders', 'orders.id = order_items.order_id')
+            ->leftJoin('payment','orders.id = payment.order_id')
             ->leftJoin('product', 'product.id = order_items.product_id')
             ->leftJoin('target', 'target.date = DATE(orders.date)')
             ->leftJoin('category', 'category.id = product.category_id')
             ->where(['BETWEEN', 'orders.date', $start, $end])
             ->andWhere($condStore)
             ->andWhere($condCategory)
+            ->andWhere($condPay)
             ->groupBy('MONTH(target.date)')
             ->asArray()
             ->all();
@@ -108,6 +117,7 @@ class ChartController extends  Controller{
         $label = [];
         $revenue = [];
         $price = [];
+        $paymentPrice = [];
         $target_price = [];
         $firstDay = intval(date("j",strtotime($start)));
         $lastDay = intval(date("j",strtotime($end)));
@@ -132,6 +142,7 @@ class ChartController extends  Controller{
                             $revenue[] = $row["revenue"];
                             $price[] = $row["price"];
                             $target_price[] = $row["target_price"];
+                            $paymentPrice[] = $row["price_of_pay"];
                             $found = true;
                             break;
                         }
@@ -140,6 +151,7 @@ class ChartController extends  Controller{
                         $label[] = $day;
                         $revenue[] = 0;
                         $price[] = 0;
+                        $paymentPrice[] = 0;
                         $target_price[] = 0;
                     }
                 }
@@ -161,6 +173,7 @@ class ChartController extends  Controller{
                         $label[] = date('Y-' . $month);
                         $revenue[] = $rowData["revenue"];
                         $price[] = $rowData["price"];
+                        $paymentPrice[] = $rowData["price_of_pay"];
                         $target_price[] = $rowData["target_price"];
                         $index = true;
                         break;
@@ -170,6 +183,7 @@ class ChartController extends  Controller{
                     $label[] = date('Y-' . $month);
                     $revenue[] = 0;
                     $price[] = 0;
+                    $paymentPrice[] = 0;
                     $target_price[] = 0;
                 }
             }
@@ -184,6 +198,7 @@ class ChartController extends  Controller{
             $response['label'] = $label;
             $response['revenue'] = $revenue;
             $response['price'] = $price;
+            $response['paymentPrice'] = $paymentPrice;
             $response['target_price'] = $target_price;
             return json_encode($response);
     }
