@@ -46,9 +46,11 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'attribute' => 'img',
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
-                        'alt'=>$model->img,
-                    ]);
+                    return '<img src="/uploads/'.$model->img.'"width="50">';
+
+//                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
+//                        'alt'=>$model->img,
+//                    ]);
                 },
             ],
             'price',

@@ -35,39 +35,52 @@ $(document).ready(function (){
         let category = $('.category').val();
         let start = $('.start_date').val();
         let end = $('.end_date').val();
-        workChart(store,category,start,end);
+        let pay = $('.pay').val();
+        workChart(store,category,start,end,pay);
     })
     $('.category').change(function (){
         let store = $('.store').val();
         let category = $(this).val();
         let start = $('.start_date').val();
         let end = $('.end_date').val();
-        workChart(store,category,start,end);
+        let pay = $('.pay').val();
+        workChart(store,category,start,end,pay);
     })
     $('.start_date').change(function (){
         let store = $('.store').val();
         let category = $('.category').val();
         let start = $(this).val();
         let end = $('.end_date').val();
-        workChart(store,category,start,end);
+        let pay = $('.pay').val();
+        workChart(store,category,start,end,pay);
     })
     $('.end_date').change(function (){
         let store = $('.store').val();
         let category = $('.category').val();
         let start = $('.start_date').val();
         let end = $(this).val();
-        workChart(store,category,start,end);
+        let pay = $('.pay').val();
+        workChart(store,category,start,end,pay);
+    })
+    $('.pay').change(function (){
+        let store = $('.store').val();
+        let category = $('.category').val();
+        let start = $('.start_date').val();
+        let end = $('.end_date').val();
+        let pay = $(this).val();
+        workChart(store,category,start,end,pay);
     })
         $(window).on('load', function (){
             let start = $('.start_date').val();
             let end = $('.end_date').val();
 
-            workChart(0,0,start,end);
+            workChart(0,0,start,end,0);
         })
 
-    function  workChart(store,category,start,end){
+    function  workChart(store,category,start,end,pay){
         var title = [];
         var revenue = [];
+        var paymentPrice = [];
         var target_price = [];
         var sellsPrice = [];
         var datatable2 = [];
@@ -79,7 +92,8 @@ $(document).ready(function (){
                 start:start,
                 end:end,
                 store:store,
-                category:category
+                category:category,
+                pay:pay
             },
             async: false,
         }).done(function(data){
@@ -99,6 +113,7 @@ $(document).ready(function (){
             title = parse.label;
             revenue = parse.revenue;
             sellsPrice = parse.price;
+            paymentPrice =parse.paymentPrice;
             target_price = parse.target_price;
             // console.log(revenue);
             // console.log(parse.revenue);
@@ -148,12 +163,14 @@ $(document).ready(function (){
                 {
                     name: "Target price",
                     data: target_price
-
                 },
                 {
                     name: 'Sells price',
                     data: sellsPrice
-                }
+                },{
+                    name: 'Payments',
+                    data: paymentPrice
+                },
             ],
             chart: {
                 height: 350,
@@ -210,6 +227,13 @@ $(document).ready(function (){
                                 return val;
                             }
                         }
+                    } ,
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
                     }
                 ]
             },
@@ -220,7 +244,6 @@ $(document).ready(function (){
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
-
         chart.updateOptions({
             series: [{
                 name: "Revenue",
@@ -234,6 +257,10 @@ $(document).ready(function (){
                 {
                     name: 'Sells price',
                     data: sellsPrice
+                },
+                {
+                    name: 'Payments',
+                    data: paymentPrice
                 }
             ],
             xaxis: {
