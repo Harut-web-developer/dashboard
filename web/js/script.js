@@ -233,7 +233,7 @@ $(document).ready(function (){
         $('.shearch_menu').addClass('activ');
         if (inputValue == "")
         {
-            $('.shearch_menu').removeClass('active');
+            $('.shearch_menu').removeClass('activ');
         }
         $.ajax({
             url: '/product/searching',
