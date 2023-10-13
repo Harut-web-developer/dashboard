@@ -11,17 +11,17 @@ use yii\widgets\ActiveForm;
 
 <div class="category-form">
     <div class="card card-primary">
-        <?php $form = ActiveForm::begin(['action' => ['category/test']]); ?>
+        <?php $form = ActiveForm::begin(); ?>
         <div class="card-body">
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'parent_id')->dropDownList($cat,['prompt' => 'Main category']) ?>
+                <?= $form->field($model, 'parent_id')->dropDownList($categoryOptions,['prompt' => 'Main category']) ?>
             </div>
             <div class="form-group col-md-3">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
         <div class="card-footer">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary catCreate']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

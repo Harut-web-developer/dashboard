@@ -1,35 +1,4 @@
 $(document).ready(function (){
-    $('body').on('click', '.create', function(){
-        var html_ = '';
-        $('.order_products').html('');
-        $('.table_tr').each(function (){
-
-            if ($(this).find("input:checkbox").is(':checked')){
-
-                // debugger;
-                let id = $(this).find("input:checkbox").attr('data-id');
-                let name = $(this).children(".prodname").text();
-                let price = $(this).children('.prodprice').val();
-                let cost = $(this).children('.prodcost').val();
-                let count = $(this).children('.prodcount').children('input').val();
-                let total = price * count;
-
-                html_ +=`<tr class="product_tr">
-                            <th scope="row">`+id+` <input type="hidden" name="productid[]" value="`+id+`"></th>
-                            <td class="name">`+name+`</td>
-                            <td class="count"><input type="number" name="count_[]" value="`+count+`" class="form-control"></td>
-                            <td class="price">`+price+` <input type="hidden" name="price[]" value="`+price+`"></td>
-                            <td class="total">`+total+` <input type="hidden" name="total[]" value="`+total+`"></td>
-                            <td class="cost">`+cost+` <input type="hidden" name="cost[]" value="`+cost+`"></td>
-                            <td class="btn"><button onclick="$(this).closest('tr').remove()" type="button" class="btn btn-outline-danger">Delete</button></td>
-                        </tr>`;
-            }
-            $('#exampleModal .close').click();
-        })
-        $('.order_products').append(html_);
-    })
-
-
     $('.store').change(function (){
         let store = $(this).val();
         let category = $('.category').val();
@@ -98,25 +67,35 @@ $(document).ready(function (){
             async: false,
         }).done(function(data){
             let parse = JSON.parse(data, true);
-            $('.productName').text(parse.maxPrice.maxPrice);
-            $('.productPrice').text(parse.maxPrice.name);
-            $('.productImg').attr('src','/uploads/' + parse.maxPrice.img);
-            $('.maxCountProductName').text(parse.maxCount.maxCount);
-            $('.productMaxCount').text(parse.maxCount.name);
-            $('.productCountImg').attr('src','/uploads/' + parse.maxCount.img);
-            $('.orderProcent').text(parse.overageProcent + '%');
-            $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
-            $('.ordersCount').text(parse.ordersCount);
-            datatable2[0] = parseInt(parse.ordersTotalPrice.total);
-            datatable2[1] = parseInt(parse.maxCount.revenue);
-            datatable2[2] = parse.maxCount.target_price;
-            title = parse.label;
-            revenue = parse.revenue;
-            sellsPrice = parse.price;
-            paymentPrice =parse.paymentPrice;
-            target_price = parse.target_price;
-            // console.log(revenue);
-            // console.log(parse.revenue);
+            // console.log(data)
+                if(parse.msg === 'danger'){
+                    alert('There are no dates with such dates');
+                    location.reload();
+                }else if(parse.msg === 'warning'){
+                    alert('Dates are reveresed');
+                    location.reload();
+                }else if(parse.msg === 'error'){
+                    alert('There is no product in the selected category');
+                    location.reload();
+                }else {
+                    $('.productName').text(parse.maxPrice.maxPrice);
+                    $('.productPrice').text(parse.maxPrice.name);
+                    $('.productImg').attr('src','/uploads/' + parse.maxPrice.img);
+                    $('.maxCountProductName').text(parse.maxCount.maxCount);
+                    $('.productMaxCount').text(parse.maxCount.name);
+                    $('.productCountImg').attr('src','/uploads/' + parse.maxCount.img);
+                    $('.orderProcent').text(parse.overageProcent + '%');
+                    $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
+                    $('.ordersCount').text(parse.ordersCount);
+                    datatable2[0] = parseInt(parse.ordersTotalPrice.total);
+                    datatable2[1] = parseInt(parse.maxCount.revenue);
+                    datatable2[2] = parse.maxCount.target_price;
+                    title = parse.label;
+                    revenue = parse.revenue;
+                    sellsPrice = parse.price;
+                    paymentPrice =parse.paymentPrice;
+                    target_price = parse.target_price;
+                }
             })
 
         // Pie Chart Example

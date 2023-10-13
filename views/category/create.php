@@ -18,7 +18,7 @@ $this->params['breadcrumbs']['Create'] = '/category/create';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'cat' => $cat,
+        'categoryOptions' => $categoryOptions,
     ]) ?>
 
 </div>

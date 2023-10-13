@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="card-footer">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary targetCreate']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

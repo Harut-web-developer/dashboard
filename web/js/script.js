@@ -9,14 +9,12 @@ $(document).ready(function (){
             },
             dataType: "json",
             success: function(parse){
-
                 let price = parseInt(parse.category_id);
                 if (!(parse.category_id == null)) {
-                    console.log(price)
                     $('.price').attr('readonly', true);
                     $('.cost').keyup(function()    {
                         let cost = parseInt($('.cost').val());
-                        $('.price').val(   price * cost / 100 + cost );
+                        $('.price').val(Math.round(price * cost / 100 + cost) );
                     });
                 }
                 else
@@ -35,11 +33,8 @@ $(document).ready(function (){
 
     $('.downloadXLSX').click(function () {
         var excel = new ExcelJS.Workbook();
-
         var tables = document.getElementsByClassName("table");
-
         var sheetNumber = 1;
-
         for (var i = 0; i < tables.length; i++) {
             var table = tables[i];
             var sheet = excel.addWorksheet("Sheet " + sheetNumber);
@@ -54,7 +49,6 @@ $(document).ready(function (){
                 });
                 sheet.addRow(headerData);
             }
-
             var rows = table.querySelectorAll("tbody tr");
             rows.forEach(function (row) {
                 var rowData = [];
@@ -68,14 +62,10 @@ $(document).ready(function (){
             sheetNumber++;
         }
 
-        // Create a blob with the Excel data and trigger a download
         excel.xlsx.writeBuffer().then(function (data) {
             var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
             var url = window.URL.createObjectURL(blob);
-
             var tablename = Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000;
-
-            // Create a link to download the Excel file
             var a = document.createElement("a");
             a.href = url;
             a.download = tablename + "table_data.xlsx";
@@ -83,20 +73,10 @@ $(document).ready(function (){
         });
     });
 
-
     $('#deleteButton').click(function (){
         let table = $("table");
         let keys = $('#grid').yiiGridView('getSelectedRows');
         alert(keys);
-        // alert(table)
-        // $('body tbody').find('tr').each (function() {
-        //     // console.log($(this).html());
-        //     console.log($(this).name);
-        // });
-        // $.each('table tbody tr',function (){
-        // })
-        // var selected_Rows = table.column(0).checkbox.selected();
-
     });
     function getSelectedRows() {
         var $grid = $(this);
@@ -115,17 +95,12 @@ $(document).ready(function (){
         $('input[name="selection[]"]').prop('checked', isChecked);
     });
 
-
     $('#delete-selected').click( function() {
         let selectedIds = $('input[name="selection[]"]:checked').map(function(){
                 return $(this).val();
             }).get();
-
         let startId = $('.startId').val();
         let endId = $('.endId').val();
-
-
-        // alert(selectedIds)
         $.ajax({
             url: '/category/delete-selected',
             method:'post',
@@ -136,21 +111,54 @@ $(document).ready(function (){
             },
             dataType: "json",
             success: function(data){
-                // alert(data.success);
-                if (data.success)
-                {
+                if(data.error1 === true){
+                    alert("can not  start from greater to less")
+                }else if(data.error2 === true){
+                    alert('choose one type of delete')
+                }else {
+                    confirm("Are you sure want to delete this item");
+                    alert("Deleted succesfully");
                     window.location.reload();
                 }
-                else {
-                    alert("Error deleting rows.");
-                }
-
             },
         })
     });
 
-    // $('.locks').text("open");
-
+    $('.configCat').change(function (){
+        let configCat = $(this).val();
+        $.ajax({
+            url:'/config/get-config',
+            method:'post',
+            datatype:'json',
+            data:{
+                configCat:configCat
+            },
+            success:function (data){
+                let parse = JSON.parse(data);
+                if(parse.msg === 'warning'){
+                    $('.procentConfig').attr('readonly', true);
+                    alert('Teh percentage of that category exists,update the current category to change')
+                }else{
+                    $('.procentConfig').attr('readonly', false);
+                }
+            }
+        })
+    })
+    $('.configCreate').click(function (){
+        alert('created successfuly');
+    })
+    $('.catCreate').click(function (){
+        alert('created successfuly');
+    })
+    $('.productCreate').click(function (){
+        alert('created successfuly');
+    })
+    $('.createStore').click(function (){
+        alert('created successfuly');
+    })
+    $('.targetCreate').click(function (){
+        alert('created successfuly');
+    })
 
 })
 

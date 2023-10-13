@@ -81,7 +81,7 @@ class OrdersController extends Controller
             if($post['selPay'] !== "" && $post['inputPay'] !== "") {
                 $model->store_id = $post['Orders']['store_id'];
                 $model->quantity = array_sum($post['count_']);
-                $model->total_price = array_sum($post['total']);
+                $model->total_price = $post['Orders']["total_price"];
                 $model->save();
                 $payment->order_id = $model->id;
                 $payment->type = $post['selPay'];
@@ -97,10 +97,7 @@ class OrdersController extends Controller
                 $order_items->cost = $post['cost'][$i] * $post['count_'][$i];
                 $order_items->revenue = ($post['price'][$i] - $post['cost'][$i]) * $post['count_'][$i];
                 $order_items->save();
-
             }
-
-
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
