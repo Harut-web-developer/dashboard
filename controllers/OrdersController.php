@@ -101,7 +101,11 @@ class OrdersController extends Controller
             }
 
 
+<<<<<<< .merge_file_28AgaI
                 return $this->redirect(['view', 'id' => $model->id]);
+=======
+                return $this->redirect(['index', 'id' => $model->id]);
+>>>>>>> .merge_file_MtY5cg
             }
         } else {
             $model->loadDefaultValues();

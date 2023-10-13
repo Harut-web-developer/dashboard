@@ -100,10 +100,10 @@ $(document).ready(function (){
             let parse = JSON.parse(data, true);
             $('.productName').text(parse.maxPrice.maxPrice);
             $('.productPrice').text(parse.maxPrice.name);
-            $('.productImg').attr('src','/uploads/' + parse.maxPrice.img);
+            $('.productImg').attr('src','/web/uploads/' + parse.maxPrice.img);
             $('.maxCountProductName').text(parse.maxCount.maxCount);
             $('.productMaxCount').text(parse.maxCount.name);
-            $('.productCountImg').attr('src','/uploads/' + parse.maxCount.img);
+            $('.productCountImg').attr('src','/web/uploads/' + parse.maxCount.img);
             $('.orderProcent').text(parse.overageProcent + '%');
             $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
             $('.ordersCount').text(parse.ordersCount);

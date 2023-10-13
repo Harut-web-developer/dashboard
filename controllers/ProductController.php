@@ -2,28 +2,24 @@
 
 namespace app\controllers;
 
-define ('SITE_ROOT', realpath(dirname(__FILE__)));
-
 use app\models\Category;
 use app\models\Config;
-use app\widgets\Alert;
 use Yii;
-use app\models\Store;
 use app\models\Product;
 use app\models\ProductSearch;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Console;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use function Psy\debug;
 
 /**
  * ProductController implements the CRUD actions for Product model.
  */
 class ProductController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritDoc
      */
@@ -44,7 +40,7 @@ class ProductController extends Controller
 
     public function beforeAction($action)
     {
-        $this->enableCsrfValidation = false;
+//        $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
     /**
@@ -57,6 +53,14 @@ class ProductController extends Controller
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $model = new Product();
+
+        if($_POST){
+            return $this->renderAjax('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+//                'data_size' => 'max',
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -112,7 +116,7 @@ class ProductController extends Controller
                 $model->img = UploadedFile::getInstance($model, 'img');
                 $model->img->saveAs('uploads/'.$imageName );
                 if($model->save(false)){
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'id' => $model->id]);
                 }
                 else
                 {
@@ -149,7 +153,7 @@ class ProductController extends Controller
             $model->img = UploadedFile::getInstance($model, 'img');
             $model->img->saveAs('uploads/'.$imageName );
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
         $category = Category::find()->select('id, name')->asArray()->all();
         $category = ArrayHelper::map($category,'id', 'name');
@@ -188,5 +192,21 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSearching(){
+        if (Yii::$app->request->isAjax && Yii::$app->request->post('option')) {
+            $option = Yii::$app->request->post('option');
+            $query_product = Yii::$app->db->createCommand('SELECT name FROM product WHERE name LIKE :option')
+                ->bindValue(':option', '%' . $option . '%')
+                ->queryAll();
+            $query_category = Yii::$app->db->createCommand('SELECT name FROM category WHERE name LIKE :option')
+                ->bindValue(':option', '%' . $option . '%')
+                ->queryAll();
+            $res = [];
+            $res['query_product'] = $query_product;
+            $res['query_category'] = $query_category;
+            return json_encode($res);
+        }
     }
 }

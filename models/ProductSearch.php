@@ -40,8 +40,12 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
+//        var_dump($params);
         $query = Product::find();
+        $val = "";
+        if ($params){
 
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
