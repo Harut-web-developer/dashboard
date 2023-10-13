@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
  */
 class ConfigController extends Controller
 {
+//    public $enableCsrfValidation = false;
     /**
      * @inheritDoc
      */
@@ -60,6 +61,18 @@ class ConfigController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionGetConfig(){
+        $post = $this->request->post();
+        if(isset($post)){
+            $configCat = Config::find()->where(['=','category_id', $post['configCat']])->asArray()->one();
+            if($configCat !== null){
+                return json_encode(['msg' => 'warning']);
+            }else{
+                return json_encode(['msg' => 'empty']);
+            }
+        }
     }
 
     /**

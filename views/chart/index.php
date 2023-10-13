@@ -17,7 +17,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
         ?>
     </select>
     <select class="category form-control col-md-2">
-        <option value="null">--choose category--</option>
+        <option value="0">--choose category--</option>
         <?php
         foreach ($categories as $category){
             ?>

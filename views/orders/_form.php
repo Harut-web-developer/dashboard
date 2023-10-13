@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="form-group col-md-3">
                 <label for="selectPay">Type of pay</label>
-                <select id="selectPay" name="selPay" class="form-control col-md-12" required>
+                <select id="selectPay" name="selPay" class="selectPay form-control col-md-12" >
                     <option value="">--choose type of pay--</option>
                     <option value="cash">cash</option>
                     <option value="card">by card</option>
@@ -29,22 +29,22 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="form-group col-md-3">
                 <label for="inpPay">Price of pay</label>
-                <input type="number" id="inpPay" class="form-control col-md-12" name="inputPay" required>
+                <input type="number" id="inpPay" class="inpPay form-control col-md-12" name="inputPay">
            </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'total_price')->input('number',['readonly' => 'true']) ?>
+                <?= $form->field($model, 'total_price')->input('number',['readonly' => true,'class' => 'last_total_price form-control']) ?>
             </div>
         </div>
         <div class="mod">
             <!-- Button trigger modal -->
-            <a data-toggle="modal" href="#exampleModal" class="btn btn-primary">+ add</a>
+            <a data-toggle="modal" href="#examMod" class="btn btn-primary">+ add</a>
 
 <!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
 <!--                + add-->
 <!--            </button>-->
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="examMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -108,8 +108,14 @@ use yii\widgets\ActiveForm;
         </table>
 
         <div class="card-footer">
-            <?= Html::submitButton('save', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('save', ['class' => 'btn btn-primary ordersCreate']) ?>
         </div>
     <?php ActiveForm::end(); ?>
     </div>
 </div>
+<?php
+$this->registerJsFile(
+    '@web/js/order.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
+?>

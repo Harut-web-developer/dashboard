@@ -16,7 +16,7 @@ $this->params['breadcrumbs']['Update'] = '/category/update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'cat' => $cat,
+        'categoryOptions' => $categoryOptions,
     ]) ?>
 
 </div>

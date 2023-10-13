@@ -11,7 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
+use yii\db\Query;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PHPExcel_Reader_Excel2007;
@@ -82,13 +82,16 @@ class CategoryController extends Controller
                     ->execute();
                 return json_encode(['success' => true]);
             } elseif ($startId !== "" && $endId !== "" && $ids == "") {
-                Yii::$app->db->createCommand()
-                    ->delete('category', ['between', 'id', $startId, $endId])
-                    ->execute();
-                return json_encode(['success' => true]);
+                if($startId < $endId){
+                    Yii::$app->db->createCommand()
+                        ->delete('category', ['between', 'id', $startId, $endId])
+                        ->execute();
+                    return json_encode(['success' => true]);
+                }else{
+                    return json_encode(['error1' => true]);
+                }
             } else {
-                Yii::$app->session->setFlash('error', 'Choose only one deletion type');
-                return $this->redirect(['index']);
+                return json_encode(['error2' => true]);
             }
         }
     }
@@ -134,12 +137,29 @@ class CategoryController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+        $categories = Category::find()->all();
+        $categoryOptions = $this->formatCategoriesForDropdown($categories);
         return $this->render('create', [
             'model' => $model,
-            'cat' => $cat,
+            'categoryOptions' => $categoryOptions,
         ]);
+    }
+
+    protected function formatCategoriesForDropdown($categories, $parentId = null, $level = 0)
+    {
+        $options = [];
+        foreach ($categories as $category) {
+            if ($category->parent_id === $parentId) {
+                $prefix = str_repeat('-', $level);
+                $options[$category->id] = $prefix . ' ' . $category->name;
+
+                // Recursively fetch and format subcategories
+                $subcategories = $this->formatCategoriesForDropdown($categories, $category->id, $level + 1);
+                $options = ArrayHelper::merge($options, $subcategories);
+            }
+        }
+
+        return $options;
     }
 
     /**
@@ -156,11 +176,13 @@ class CategoryController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $cat = Category::find()->select('id,name')->asArray()->all();
-        $cat = ArrayHelper::map($cat,'id','name');
+//        $cat = Category::find()->select('id,name')->asArray()->all();
+//        $cat = ArrayHelper::map($cat,'id','name');
+        $categories = Category::find()->all();
+        $categoryOptions = $this->formatCategoriesForDropdown($categories);
         return $this->render('update', [
             'model' => $model,
-            'cat' => $cat,
+            'categoryOptions' => $categoryOptions,
         ]);
     }
 

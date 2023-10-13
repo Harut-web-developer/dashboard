@@ -49,6 +49,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'chart/get-data' => 'chart/get-data',
+                '/' => 'chart/index',
 //                'order-items/product' => 'order-items/product',
                 '<controller>/<action:\w+>' => '<controller>/<action>',
             ],
