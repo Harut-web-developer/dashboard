@@ -44,12 +44,9 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'attribute' => 'img',
                 'format' => 'raw',
                 'value' => function($model){
-<<<<<<< .merge_file_GLfIAn
+
                     return '<img src="/uploads/'.$model->img.'"width="50">';
 
-=======
-                    return '<img src="/web/uploads/'.$model->img.'"width="50">';
->>>>>>> .merge_file_ar8h0b
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
