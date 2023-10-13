@@ -98,7 +98,7 @@ class OrdersController extends Controller
                 $order_items->revenue = ($post['price'][$i] - $post['cost'][$i]) * $post['count_'][$i];
                 $order_items->save();
             }
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();

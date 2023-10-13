@@ -220,7 +220,6 @@ $(document).ready(function (){
                 borderColor: '#f1f1f1',
             }
         };
-
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
         chart.updateOptions({
@@ -231,7 +230,6 @@ $(document).ready(function (){
                 {
                     name: "Target price",
                     data: target_price
-
                 },
                 {
                     name: 'Sells price',
@@ -246,11 +244,5 @@ $(document).ready(function (){
                 categories: title,
             }
         })
-
-
     }
-
-
-
-
 })

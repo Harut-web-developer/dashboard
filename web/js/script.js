@@ -34,16 +34,66 @@ $(document).ready(function (){
     $('.downloadXLSX').click(function () {
         var excel = new ExcelJS.Workbook();
         var tables = document.getElementsByClassName("table");
+        // console.log(tables);
+        // table.innerHTML = '';
+        // $('body').innerHTML = '';
+        // $.ajax({
+        //     url: '/product/index',
+        //     method:'post',
+        //     data:{
+        //         action:'xls-alldata',
+        //     },
+        //     dataType: "html",
+        //     success: function(data){
+        //         $('body').append(data);
+        //         // $('.exelgenerate').css("display", "none");
+        //         // tables = $('body').find('.for_exort').find('table');
+        //     },
+        // })
+        // var tables = document.querySelectorAll("table.table");
         var sheetNumber = 1;
+        var PromiseArray = [];
+        function addImage(url, workbook, worksheet, excelCell) {
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url);
+                xhr.responseType = 'blob';
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var reader = new FileReader();
+                        reader.readAsDataURL(xhr.response);
+                        reader.onloadend = function () {
+                            var base64data = reader.result;
+                            const image = workbook.addImage({
+                                base64: base64data,
+                                extension: 'png',
+                            });
+                            worksheet.getRow(excelCell.row).height = 75;
+                            worksheet.addImage(image, {
+                                tl: { col: excelCell.col - 1, row: excelCell.row - 1 },
+                                br: { col: excelCell.col, row: excelCell.row }
+                            });
+                            resolve();
+                        };
+                    } else {
+                        console.error('Failed to fetch image. Status code:', xhr.status);
+                        resolve();
+                    }
+                };
+                xhr.onerror = function () {
+                    console.error('Could not add image to excel cell');
+                    resolve();
+                };
+                xhr.send();
+            });
+        }
         for (var i = 0; i < tables.length; i++) {
             var table = tables[i];
             var sheet = excel.addWorksheet("Sheet " + sheetNumber);
             var headRow = table.querySelector("thead tr");
-            console.log(headRow)
             if (headRow) {
                 var headerData = [];
-                var headerCells = headRow.querySelectorAll("th");
-                console.log(headerCells)
+                var headerCells = headRow.querySelectorAll("th:not(:last-child)");
                 headerCells.forEach(function (headerCell) {
                     headerData.push(headerCell.textContent);
                 });
@@ -52,31 +102,48 @@ $(document).ready(function (){
             var rows = table.querySelectorAll("tbody tr");
             rows.forEach(function (row) {
                 var rowData = [];
-                var cells = row.querySelectorAll("td");
-                // console.log(cells)
+                var cells = row.querySelectorAll("td:not(:last-child)");
                 cells.forEach(function (cell) {
-                    rowData.push(cell.textContent);
+                    if (cell.querySelector("img")) {
+                        var imgElement = cell.querySelector("img");
+                        var imageUrl = imgElement.src;
+                        var excelCell = {
+                            row: sheet.rowCount + 1,
+                            col: headerCells.length
+                        };
+                        PromiseArray.push(addImage(imageUrl, excel, sheet, excelCell));
+                    } else {
+                        rowData.push(cell.textContent);
+                    }
                 });
-                sheet.addRow(rowData);
+                // console.log(rowData);
+                if (rowData.length > 0) {
+                    sheet.addRow(rowData);
+                }
             });
+
             sheetNumber++;
         }
 
-        excel.xlsx.writeBuffer().then(function (data) {
-            var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-            var url = window.URL.createObjectURL(blob);
-            var tablename = Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000;
-            var a = document.createElement("a");
-            a.href = url;
-            a.download = tablename + "table_data.xlsx";
-            a.click();
-        });
-    });
-
-    $('#deleteButton').click(function (){
-        let table = $("table");
-        let keys = $('#grid').yiiGridView('getSelectedRows');
-        alert(keys);
+        Promise.all(PromiseArray)
+            .then(function () {
+                return excel.xlsx.writeBuffer();
+            })
+            .then(function (buffer) {
+                var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                var tablename = Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000;
+                a.download = tablename + "table_data.xlsx";
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
     });
     function getSelectedRows() {
         var $grid = $(this);
@@ -124,6 +191,7 @@ $(document).ready(function (){
         })
     });
 
+
     $('.configCat').change(function (){
         let configCat = $(this).val();
         $.ajax({
@@ -159,6 +227,34 @@ $(document).ready(function (){
     $('.targetCreate').click(function (){
         alert('created successfuly');
     })
+
+    $('.inputval').on('input', function () {
+        var inputValue = $(this).val();
+        $('.shearch_menu').addClass('activ');
+        if (inputValue == "")
+        {
+            $('.shearch_menu').removeClass('active');
+        }
+        $.ajax({
+            url: '/product/searching',
+            method: 'post',
+            data: {
+                option: inputValue,
+            },
+            dataType: "json",
+            success: function(data) {
+                for (let i = 0; i < data.query_product.length; i++){
+                    $('.parentLiProduct').html('');
+                    $(".parentLiProduct").append(' <li class="fs-search-result-column-list-el"> <a href="/product/index" >' + data.query_product[i].name + '</a> </li> ');
+                }
+                for (let i = 0; i < data.query_category.length; i++){
+                    $('.parentLiCategory').html('');
+                    $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index" >' + data.query_category[i].name + '</a> </li> ');
+                }
+            },
+        });
+    });
+
 
 })
 
