@@ -182,7 +182,10 @@ $(document).ready(function (){
                     alert("can not  start from greater to less")
                 }else if(data.error2 === true){
                     alert('choose one type of delete')
-                }else {
+                }else if(data.error3 === true){
+                    alert('Fill in the all field');
+                }
+                else {
                     confirm("Are you sure want to delete this item");
                     alert("Deleted succesfully");
                     window.location.reload();
@@ -233,7 +236,7 @@ $(document).ready(function (){
         $('.shearch_menu').addClass('activ');
         if (inputValue == "")
         {
-            $('.shearch_menu').removeClass('active');
+            $('.shearch_menu').removeClass('activ');
         }
         $.ajax({
             url: '/product/searching',

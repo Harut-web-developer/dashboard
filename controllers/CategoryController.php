@@ -90,7 +90,9 @@ class CategoryController extends Controller
                 }else{
                     return json_encode(['error1' => true]);
                 }
-            } else {
+            }elseif($startId === "" || $endId === "" && $ids == ""){
+                return json_encode(['error3' => true]);
+            }else {
                 return json_encode(['error2' => true]);
             }
         }
