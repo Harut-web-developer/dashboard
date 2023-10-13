@@ -32,8 +32,7 @@ $this->params['breadcrumbs']['Stores'] = '/store/index';
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+//            'id',
             'name',
             [
                 'header'=>'Actions',

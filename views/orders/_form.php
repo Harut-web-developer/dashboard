@@ -19,10 +19,20 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'store_id')->dropDownList($store) ?>
             </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'quantity')->input('number',['value' => 11,'disabled' => 'true']) ?>
+                <label for="selectPay">Type of pay</label>
+                <select id="selectPay" name="selPay" class="form-control col-md-12" required>
+                    <option value="">--choose type of pay--</option>
+                    <option value="cash">cash</option>
+                    <option value="card">by card</option>
+                    <option value="credit">credit</option>
+                </select>
             </div>
             <div class="form-group col-md-3">
-                <?= $form->field($model, 'total_price')->input('number',['disabled' => 'true']) ?>
+                <label for="inpPay">Price of pay</label>
+                <input type="number" id="inpPay" class="form-control col-md-12" name="inputPay" required>
+           </div>
+            <div class="form-group col-md-3">
+                <?= $form->field($model, 'total_price')->input('number',['readonly' => 'true']) ?>
             </div>
         </div>
         <div class="mod">

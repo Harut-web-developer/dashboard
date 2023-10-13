@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\OrderItems;
 use app\models\Orders;
 use app\models\OrdersSearch;
+use app\models\Payment;
 use app\models\Product;
 use app\models\Store;
 use yii\helpers\ArrayHelper;
@@ -74,21 +75,20 @@ class OrdersController extends Controller
         public function actionCreate()
     {
         $model = new Orders();
-
+        $payment = new Payment();
         if ($this->request->isPost) {
             $post = $this->request->post();
-//            echo '<pre>';
-//            var_dump($post['Orders']['store_id']);
-//        exit;
-//            var_dump(count($post['productid']));
-//            exit;
-            $model->store_id = $post['Orders']['store_id'];
-            $model->quantity = array_sum($post['count_']);
-            $model->total_price = array_sum($post['total']);
-            $model->save();
-//            $order_items = new OrderItems();
+            if($post['selPay'] !== "" && $post['inputPay'] !== "") {
+                $model->store_id = $post['Orders']['store_id'];
+                $model->quantity = array_sum($post['count_']);
+                $model->total_price = array_sum($post['total']);
+                $model->save();
+                $payment->order_id = $model->id;
+                $payment->type = $post['selPay'];
+                $payment->price_of_pay = $post['inputPay'];
+                $payment->save();
 
-            for ($i=0;$i<count($post['productid']);$i++){
+            for ($i = 0; $i < count($post['productid']); $i++) {
                 $order_items = new OrderItems();
                 $order_items->order_id = $model->id;
                 $order_items->product_id = $post['productid'][$i];
@@ -99,21 +99,24 @@ class OrdersController extends Controller
                 $order_items->save();
 
             }
-//
 
-//            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-//            }
+
+                return $this->redirect(['index', 'id' => $model->id]);
+            }
         } else {
             $model->loadDefaultValues();
         }
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
+//        $paytype = Payment::find()->select('id,type')->asArray()->all();
+//        var_dump($paytype);
+
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
+            'payment' => $payment,
         ]);
     }
 

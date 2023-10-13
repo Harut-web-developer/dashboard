@@ -28,6 +28,11 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
     </select>
     <input class="start_date form-control col-md-2" value="<?=date('Y-m-01')?>" type="date">
     <input class="end_date form-control col-md-2" value="<?=date('Y-m-d')?>" type="date">
+    <select class="pay form-control col-md-2">
+        <option value="">--choose payment type--</option>
+        <option value="cash">cash</option>
+        <option value="card">card</option>
+    </select>
 
     <!--Print-->
     <div class="text-center" onclick="window.print()">
@@ -192,6 +197,14 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
         </div>
     </div>
 </div>
+
+
+<?php
+$this->registerJsFile(
+'@web/js/custom.js',
+['depends' => [\yii\web\JqueryAsset::class]]
+);
+?>
 
 <!--Print-->
 <!--<div class="text-center" onclick="  window.print()">-->

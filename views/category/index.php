@@ -51,8 +51,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
                             ],
 
                             ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
+//                            'id',
                             'parent_id',
                             'name',
                             [

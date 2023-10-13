@@ -577,16 +577,29 @@ class PHPExcel_Shared_String
      */
     public static function Substring($pValue = '', $pStart = 0, $pLength = 0)
     {
-        if (self::getIsMbstringEnabled()) {
+        if (self::getIsMbstringEnabled() && is_string($pValue)) {
             return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
+        } else {
+            // Handle the case when $pValue is not a valid string
+            // You can log an error, return a default value, or take appropriate action.
         }
 
-        if (self::getIsIconvEnabled()) {
+        if (self::getIsIconvEnabled() && is_string($pValue)) {
             return iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
+        } else {
+            // Handle the case when $pValue is not a valid string
+            // You can log an error, return a default value, or take appropriate action.
         }
+
 
         // else substr
-        return substr($pValue, $pStart, $pLength);
+        if (is_string($pValue)) {
+            return substr($pValue, $pStart, $pLength);
+        } else {
+            // Handle the case when $pValue is not a valid string
+            // You can log an error, return a default value, or take appropriate action.
+        }
+
     }
 
     /**

@@ -33,8 +33,7 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+//            'id',
             'category_id',
             'procent',
             [
