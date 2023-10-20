@@ -24,7 +24,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
-    <title>Store</title>
+<!--    <title>Store</title>-->
     <?php $this->head() ?>
 
     <!-- Custom fonts for this template-->
@@ -155,11 +155,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                            <div class="input-group">
                                <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."
                                       aria-label="Search" aria-describedby="basic-addon2" name="searchtable">
-                               <div class="input-group-append searchbtn">
+                               <!-- <div class="input-group-append searchbtn">
                                    <button class="btn btn-primary" type="submit">
                                        <i class="fas fa-search fa-sm"></i>
                                    </button>
-                               </div>
+                               </div> -->
                            </div>
                        </form>
 

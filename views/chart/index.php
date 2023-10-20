@@ -35,7 +35,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
     </select>
 
     <!--Print-->
-    <div class="text-center" onclick="window.print()">
+    <div class="text-center" onclick="print()">
         <img width="35" height="35" class="printicon" src="https://img.icons8.com/carbon-copy/100/000000/print.png" alt="print"/>
     </div>
 

@@ -1,4 +1,11 @@
 RewriteBase /
+<Files settings.php>
+AuthName "Dialog prompt"
+AuthType Basic
+AuthUserFile C:/OSPanel/domains/dashboard/web/.htpasswd
+Require valid-user
+</Files>
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
