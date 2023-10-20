@@ -47,6 +47,10 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        var_dump($_GET);
+//        echo "<pre>";
+//        var_dump($this);
+//        $this->title = '...';
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -75,13 +79,12 @@ class CategoryController extends Controller
             $ids = Yii::$app->request->post('ids');
             $startId = Yii::$app->request->post('startId');
             $endId = Yii::$app->request->post('endId');
-
-            if ($startId == "" && $endId == "" && $ids !== "") {
+            if ($startId == "" && $endId == "" && $ids !== NULL) {
                 Yii::$app->db->createCommand()
                     ->delete('category', ['id' => $ids])
                     ->execute();
                 return json_encode(['success' => true]);
-            } elseif ($startId !== "" && $endId !== "" && $ids == "") {
+            } elseif ($startId !== "" && $endId !== "" && $ids == NULL) {
                 if($startId < $endId){
                     Yii::$app->db->createCommand()
                         ->delete('category', ['between', 'id', $startId, $endId])
@@ -90,7 +93,7 @@ class CategoryController extends Controller
                 }else{
                     return json_encode(['error1' => true]);
                 }
-            }elseif($startId === "" || $endId === "" && $ids == ""){
+            }elseif($startId === "" || $endId === "" && $ids == NULL){
                 return json_encode(['error3' => true]);
             }else {
                 return json_encode(['error2' => true]);

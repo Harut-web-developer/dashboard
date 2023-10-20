@@ -46,9 +46,12 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'format' => 'raw',
                 'value' => function($model){
                     return '<img src="/uploads/'.$model->img.'"width="50">';
+<<<<<<< HEAD
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
+=======
+>>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
                 },
             ],
             [
@@ -85,9 +88,12 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                     'format' => 'raw',
                     'value' => function($model){
                         return '<img src="/uploads/'.$model->img.'"width="50">';
+<<<<<<< HEAD
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
+=======
+>>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
                     },
                 ],
                 [

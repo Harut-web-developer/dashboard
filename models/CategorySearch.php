@@ -69,7 +69,7 @@ class CategorySearch extends Category
         }
         $query->andWhere(['like', 'name', $query_text]);
 
-
         return $dataProvider;
     }
+
 }

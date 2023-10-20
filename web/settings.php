@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
 <!DOCTYPE html>
 <html>
 <head>
@@ -414,6 +418,7 @@ if(isset($_POST['delete'])){
         copyDirectory($sourceDirectory, $destinationDirectory);
         removeDir('../../dashboard/ns');
 
+<<<<<<< HEAD
         $filename = '../../dashboard/web/store.sql';
         $sql = file_get_contents($filename); // Corrected the file_get_contents parameter.
         $mysqli = new mysqli("localhost", "root", "", "store");
@@ -427,6 +432,40 @@ if(isset($_POST['delete'])){
             if ($line == '') {
                 continue;
             }
+=======
+
+        $filename = '../../dashboard/web/store.sql';
+        if (file_exists($filename)) {
+            $sql = file_get_contents($filename);
+            $mysqli = new mysqli("localhost", "root", "", "store");
+        
+            if ($mysqli->connect_error) {
+                die("Connection failed: " . $mysqli->connect_error);
+            }
+        
+            $templine = '';
+            $lines = file($filename);
+            
+            foreach ($lines as $line) {
+                if (substr($line, 0, 2) == '--' || $line == '') {
+                    continue;
+                }
+                
+                $templine .= $line;
+        
+                if (substr(trim($line), -1, 1) == ';') {
+                    if ($mysqli->query($templine)) {
+                        $templine = '';
+                    } else {
+                        echo 'Error performing query: ' . $mysqli->error . '<br>';
+                    }
+                }
+            }
+        
+            $mysqli->close();
+        } else {
+            echo "SQL file '$filename' not found.";
+>>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
         }
         unlink('../../dashboard/web/store.sql');
     }
