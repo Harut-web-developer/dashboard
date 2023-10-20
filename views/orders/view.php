@@ -31,11 +31,44 @@ $this->params['breadcrumbs']['View'] = '/orders/view';
         'model' => $model,
         'attributes' => [
             'id',
-            'store_id',
+            [
+                'attribute' => 'store name',
+                'value' => $storeName->name,
+            ],
             'quantity',
             'total_price',
             'date',
         ],
     ]) ?>
+    <div class="orders_header">ORDER ITEMS</div>
+    <table class="table table-striped table-bordered order_items_table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Revenue</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach ($orderItemsTable as $key => $tab){
+                ?>
+                <tr>
+                    <td><?=$key + 1?></td>
+                    <td><?=$tab['name']?></td>
+                    <td><?=$tab['quantity']?></td>
+                    <td><?=$tab['price']?></td>
+                    <td><?=$tab['revenue']?></td>
+                    <td><?=$tab['cost']?></td>
+                </tr>
+                <?php
+            }
+        ?>
+
+        </tbody>
+    </table>
 
 </div>

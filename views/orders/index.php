@@ -25,7 +25,9 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
     <!--Download XLSX-->
     <button class="downloadXLSX" >Download XLSX</button>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+
+    // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,7 +35,12 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'store_id',
+            [
+                'attribute' => 'Store',
+                'value' => function ($model) {
+                    return $model->storeName->name;
+                 }
+            ],
             'quantity',
             'total_price',
             'date',

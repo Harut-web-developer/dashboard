@@ -48,4 +48,7 @@ class Orders extends \yii\db\ActiveRecord
             'date' => 'Date',
         ];
     }
+    public function getStoreName(){
+        return $this->hasOne(Store::className(), ['id'=>'store_id']);
+    }
 }

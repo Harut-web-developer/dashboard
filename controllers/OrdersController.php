@@ -62,8 +62,24 @@ class OrdersController extends Controller
      */
     public function actionView($id)
     {
+        $orderItemsTable = OrderItems::find()->select('order_items.id,order_items.order_id,
+        order_items.product_id,order_items.quantity,order_items.price,order_items.revenue,
+        order_items.cost, product.name')
+            ->leftJoin('product','product.id = order_items.product_id')
+            ->leftJoin('orders','orders.id = order_items.order_id')
+            ->where(['=','orders.id', $id])
+            ->asArray()
+            ->all();
+        $storeName = Store::find()->select('store.id,store.name')
+            ->leftJoin('orders','orders.store_id = store.id')
+            ->where(['=','orders.id',$id])
+            ->one();
+//        echo "<pre>";
+//        var_dump($storeName);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'orderItemsTable' => $orderItemsTable,
+            'storeName' => $storeName,
         ]);
     }
 
@@ -106,14 +122,11 @@ class OrdersController extends Controller
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
-//        $paytype = Payment::find()->select('id,type')->asArray()->all();
-//        var_dump($paytype);
 
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
-            'payment' => $payment,
         ]);
     }
 
@@ -133,9 +146,11 @@ class OrdersController extends Controller
         }
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
+        $product = Product::find()->asArray()->all();
         return $this->render('update', [
             'model' => $model,
             'store' => $store,
+            'product' => $product,
         ]);
     }
 
