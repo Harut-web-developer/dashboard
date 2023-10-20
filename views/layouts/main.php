@@ -28,7 +28,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php $this->head() ?>
 
     <!-- Custom fonts for this template-->
-    <link href="/web/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="/css/custom.css" rel="stylesheet" type="text/css">
 
     <link
@@ -155,11 +155,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                            <div class="input-group">
                                <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."
                                       aria-label="Search" aria-describedby="basic-addon2" name="searchtable">
-                               <div class="input-group-append searchbtn">
-                                   <button class="btn btn-primary" type="submit">
-                                       <i class="fas fa-search fa-sm"></i>
-                                   </button>
-                               </div>
+<!--                               <div class="input-group-append searchbtn">-->
+<!--                                   <button class="btn btn-primary" type="submit">-->
+<!--                                       <i class="fas fa-search fa-sm"></i>-->
+<!--                                   </button>-->
+<!--                               </div>-->
                            </div>
                        </form>
 
@@ -214,7 +214,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Manager</span>
                                 <img class="img-profile rounded-circle"
-                                    src="/web/img/undraw_profile.svg">
+                                    src="/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                         </li>

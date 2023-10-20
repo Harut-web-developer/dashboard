@@ -52,13 +52,13 @@ class ProductController extends Controller
     {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $model = new Product();
-
+//        $model = new Product();
+        $dataProvider->pagination->pageSize=5;
         if($_POST){
             return $this->renderAjax('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
-//                'data_size' => 'max',
+                'data_size' => 'max',
             ]);
         }
         return $this->render('index', [
@@ -197,10 +197,12 @@ class ProductController extends Controller
     public function actionSearching(){
         if (Yii::$app->request->isAjax && Yii::$app->request->post('option')) {
             $option = Yii::$app->request->post('option');
-            $query_product = Yii::$app->db->createCommand('SELECT name FROM product WHERE name LIKE :option')
-                ->bindValue(':option', '%' . $option . '%')
-                ->queryAll();
-            $query_category = Yii::$app->db->createCommand('SELECT name FROM category WHERE name LIKE :option')
+            $query_product = Product::find()
+                ->select('id , name')
+                ->where(['like' , 'name' , $option])
+                ->asArray()->all();
+
+            $query_category = Yii::$app->db->createCommand('SELECT id , name FROM category WHERE name LIKE :option')
                 ->bindValue(':option', '%' . $option . '%')
                 ->queryAll();
             $res = [];
@@ -209,4 +211,5 @@ class ProductController extends Controller
             return json_encode($res);
         }
     }
+
 }

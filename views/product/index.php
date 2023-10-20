@@ -14,7 +14,7 @@ $this->title = 'Products';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Products'] = '/product/index';
 ?>
-<?php //if(!isset($data_size)){ ?>
+<?php if(!isset($data_size)){ ?>
 <div class="product-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -25,6 +25,7 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
 
     <!--Download XLSX-->
     <button class="downloadXLSX" >Download XLSX</button>
+    <!--    <a class="btn btn-primary" href="/product/index?export=xls" >Download XLSX</a>-->
 
     <?php $dataProvider->pagination = false; ?>
     <?= GridView::widget([
@@ -44,9 +45,7 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'attribute' => 'img',
                 'format' => 'raw',
                 'value' => function($model){
-
-                    return '<img src="/web/uploads/'.$model->img.'"width="50">';
-
+                    return '<img src="/uploads/'.$model->img.'"width="50">';
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
@@ -61,45 +60,46 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
             ],
         ],
     ]); ?>
-<?php
-//}
-//else{ ?>
-<!--    --><?php //$dataProvider->pagination = false; ?>
-<!--    --><?php //= GridView::widget([
-//        'tableOptions' => [
-//            'class'=>'table table-striped table-bordered chatgbti_ exelgenerate',
-//        ],
-//        'dataProvider' => $dataProvider,
-////        'filterModel' => $searchModel,
-//        'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
-////            'id',
-//            'category_id',
-//            'name',
-//            'description:ntext',
-//            'price',
-//            'cost',
-//            [
-//
-//                'attribute' => 'img',
-//                'format' => 'raw',
-//                'value' => function($model){
-//                    return '<img src="/web/uploads/'.$model->img.'"width="50">';
-////                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
-////                        'alt'=>$model->img,
-////                    ]);
-//                },
-//            ],
-//            [
-//                'header'=>'Actions',
-//                'class' => ActionColumn::className(),
-//                'urlCreator' => function ($action, Product $model, $key, $index, $column) {
-//                    return Url::toRoute([$action, 'id' => $model->id]);
-//                }
-//            ],
-//        ],
-//    ]); ?>
-<!---->
-<?php //} ?>
+    <?php
+    }
+    else{ ?>
+        <?php $dataProvider->pagination = true; ?>
+        <?= GridView::widget([
+            'tableOptions' => [
+                'class'=>'table table-striped table-bordered chatgbti_ exelgenerate',
+            ],
+            'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+                'category_id',
+                'name',
+                'description:ntext',
+                'price',
+                'cost',
+                [
+
+                    'attribute' => 'img',
+                    'format' => 'raw',
+                    'value' => function($model){
+                        return '<img src="/uploads/'.$model->img.'"width="50">';
+//                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
+//                        'alt'=>$model->img,
+//                    ]);
+                    },
+                ],
+                [
+                    'header'=>'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Product $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
+            ],
+        ]); ?>
+
+    <?php } ?>
 
 </div>

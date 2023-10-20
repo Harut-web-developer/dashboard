@@ -33,24 +33,26 @@ $(document).ready(function (){
 
     $('.downloadXLSX').click(function () {
         var excel = new ExcelJS.Workbook();
-        var tables = document.getElementsByClassName("table");
+        // var tables = document.getElementsByClassName("table");
         // console.log(tables);
         // table.innerHTML = '';
-        // $('body').innerHTML = '';
-        // $.ajax({
-        //     url: '/product/index',
-        //     method:'post',
-        //     data:{
-        //         action:'xls-alldata',
-        //     },
-        //     dataType: "html",
-        //     success: function(data){
-        //         $('body').append(data);
-        //         // $('.exelgenerate').css("display", "none");
-        //         // tables = $('body').find('.for_exort').find('table');
-        //     },
-        // })
-        // var tables = document.querySelectorAll("table.table");
+        $('body').innerHTML = '';
+        $.ajax({
+            url: '/product/index',
+            method:'post',
+            data:{
+                action:'xls-alldata',
+            },
+            dataType: "html",
+            success: function(data){
+                console.log(data)
+
+                $('body').append(data);
+                // $('.exelgenerate').css("display", "none");
+                // tables = $('body').find('.for_exort').find('table');
+            },
+        })
+        var tables = document.querySelectorAll("table.table");
         var sheetNumber = 1;
         var PromiseArray = [];
         function addImage(url, workbook, worksheet, excelCell) {
@@ -182,7 +184,10 @@ $(document).ready(function (){
                     alert("can not  start from greater to less")
                 }else if(data.error2 === true){
                     alert('choose one type of delete')
-                }else {
+                }else if(data.error3 === true){
+                    alert('Fill in the all field');
+                }
+                else {
                     confirm("Are you sure want to delete this item");
                     alert("Deleted succesfully");
                     window.location.reload();
@@ -243,25 +248,37 @@ $(document).ready(function (){
             },
             dataType: "json",
             success: function(data) {
-                for (let i = 0; i < data.query_product.length; i++){
-                    $('.parentLiProduct').html('');
-                    $(".parentLiProduct").append(' <li class="fs-search-result-column-list-el"> <a href="/product/index" >' + data.query_product[i].name + '</a> </li> ');
+                $('.parentLiProduct').html('');
+                $('.parentLiCategory').html('');
+                for (let i = 0; i < data.query_product.length; i++) {
+                    let idval = data.query_product[i].id;
+                    $(".parentLiProduct").append('<li class="fs-search-result-column-list-el"><a href="/product/view?id=' + idval + '" target="_blank">' + data.query_product[i].name + '</a></li>');
                 }
+
                 for (let i = 0; i < data.query_category.length; i++){
-                    $('.parentLiCategory').html('');
-                    $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index" >' + data.query_category[i].name + '</a> </li> ');
+                    $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable='+$('.inputval').val()+'" >' + data.query_category[i].name + '</a> </li> ');
                 }
             },
         });
     });
-
-
 })
+// function print() {
+//     var prtContent = document.getElementById("chart");
+//     var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+//     WinPrint.document.write(prtContent.innerHTML);
+//     WinPrint.document.close();
+//     WinPrint.focus();
+//     WinPrint.print();
+//     // WinPrint.close();
+// }
 
-
-
-
-
+function printContent(el){
+    var restorepage = $('body').html();
+    var printcontent = $('#' + el).clone();
+    $('body').empty().html(printcontent);
+    window.print();
+    $('body').html(restorepage);
+}
 
 
 
