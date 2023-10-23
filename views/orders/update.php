@@ -18,6 +18,8 @@ $this->params['breadcrumbs']['Update'] = '/orders/update';
         'model' => $model,
         'store' => $store,
         'product' => $product,
+        'payment' => $payment,
+        'order_items' => $order_items,
     ]) ?>
 
 </div>

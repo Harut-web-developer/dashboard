@@ -28,6 +28,10 @@ class ChartController extends  Controller{
         $category = intval($post['category']);
         $start = $post['start'];
         $end = $post['end'];
+        $endDate = intval(substr($end, 8, 2)) + 1;
+        $yearMonth = substr($end, 0, 8);
+        $newDay = str_pad($endDate, 2, '0', STR_PAD_LEFT);
+        $newEnd = $yearMonth . $newDay;
         $pay =$post['pay'];
         $condPay = [];
         $condStore = [];
@@ -42,12 +46,12 @@ class ChartController extends  Controller{
         if($category){
             $condCategory = ['category.id'=>$category];
         }
-        $orderTime = Orders::find()->where(['BETWEEN', 'DATE(date)', $start, $end])->exists();
+        $orderTime = Orders::find()->where(['BETWEEN', 'DATE(date)', $start, $newEnd])->exists();
         $categoryExist = OrderItems::find()
             ->leftJoin('orders', 'orders.id = order_items.order_id')
             ->leftJoin('product', 'product.id = order_items.product_id')
             ->leftJoin('category', 'category.id = product.category_id')
-            ->where(['BETWEEN', 'DATE(orders.date)', $start, $end])
+            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
             ->andWhere($condCategory)
             ->exists();
             if($start < $end){
@@ -58,7 +62,7 @@ class ChartController extends  Controller{
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $end])
+                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->asArray()
@@ -67,18 +71,20 @@ class ChartController extends  Controller{
                      product.name,product.img,SUM(order_items.revenue) as revenue, target.target_price')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
-                        ->leftJoin('target', 'orders.store_id = target.store_id')
+                        ->leftJoin('target', 'DATE(orders.date) = target.date')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $end])
+                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->asArray()
                         ->one();
-                    $ordersTotalPrice = Orders::find()->select('SUM(orders.total_price) as total')
-                        ->leftJoin('order_items', 'orders.id = order_items.order_id')
+//                    var_dump($maxCount);
+//                    exit;
+                    $ordersTotalPrice = OrderItems::find()->select('SUM(order_items.price) as total')
+                        ->leftJoin('orders', 'orders.id = order_items.order_id')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $end])
+                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->asArray()
@@ -87,10 +93,12 @@ class ChartController extends  Controller{
                         ->leftJoin('order_items', 'orders.id = order_items.order_id')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'DATE(date)', $start, $end])
+                        ->where(['BETWEEN', 'DATE(date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
+                        ->groupBy('order_items.order_id')
                         ->count();
+//                    var_dump($ordersCount);
                     $averagePrice = 0;
                     if($ordersCount) {
                         $averagePrice = intval($ordersTotalPrice['total'] / $ordersCount);
@@ -103,7 +111,7 @@ class ChartController extends  Controller{
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('target', 'target.date = DATE(orders.date)')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'orders.date', $start, $end])
+                        ->where(['BETWEEN', 'orders.date', $start, $newEnd])
                         ->andWhere($condStore)
                         ->andWhere($condCategory)
                         ->andWhere($condPay)
@@ -117,7 +125,7 @@ class ChartController extends  Controller{
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('target', 'target.date = DATE(orders.date)')
                         ->leftJoin('category', 'category.id = product.category_id')
-                        ->where(['BETWEEN', 'orders.date', $start, $end])
+                        ->where(['BETWEEN', 'orders.date', $start, $newEnd])
                         ->andWhere($condStore)
                         ->andWhere($condCategory)
                         ->andWhere($condPay)
