@@ -13,8 +13,8 @@ use yii\grid\GridView;
 $this->title = 'Products procent';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Products procent'] = '/config/index';
-
 ?>
+<?php if(!isset($data_size)){ ?>
 <div class="config-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -25,16 +25,22 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
 
     <!--Download XLSX-->
     <button class="downloadXLSX" >Download XLSX</button>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?php
+    $dataProvider->pagination->pageSize = 10;
+    ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'category_id',
+//            'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function($model){
+                    return $model->categoryName->name;
+                }
+            ],
             'procent',
             [
                 'header' => 'Actions',
@@ -45,6 +51,38 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
             ],
         ],
     ]); ?>
-
-
+    <?php
+    }
+    else{ ?>
+    <?php $dataProvider->pagination = false; ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+            'tableOptions' => [
+                'class'=>'table table-striped table-bordered chatgbti_',
+            ],
+            'options' => [
+                'class' => 'summary deletesummary'
+            ],
+//        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+//            'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function($model){
+                    return $model->categoryName->name;
+                }
+            ],
+            'procent',
+            [
+                'header' => 'Actions',
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Config $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                }
+            ],
+        ],
+    ]); ?>
+    <?php } ?>
 </div>

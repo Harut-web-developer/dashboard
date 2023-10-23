@@ -52,8 +52,6 @@ class ProductController extends Controller
     {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-//        $model = new Product();
-        $dataProvider->pagination->pageSize=5;
         if($_POST){
             return $this->renderAjax('index', [
                 'searchModel' => $searchModel,

@@ -5,23 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/web/uploads/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/uploads/Malina.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/uploads/Solanum_melongena_24_08_2012_(1).JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/uploads/image1.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dashboard.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dashboard.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/CategorySearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/CategorySearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/chart/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/chart/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ConfigController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/OrdersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/StoreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TargetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TargetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/OrdersSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/OrdersSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ProductSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/ProductSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Target.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Target.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/TargetSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/TargetSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/category/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/category/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/config/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/config/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/.htpasswd" beforeDir="false" afterPath="$PROJECT_DIR$/web/.htpasswd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/cron.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/cron.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/store/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/store/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/target/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/target/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/settings.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +156,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Merging Mariam&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Rebasing Mariam&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/OSPanel/domains/dashboard/web&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -192,11 +196,40 @@
       <updated>1697545511191</updated>
       <workItem from="1697545512151" duration="9201000" />
       <workItem from="1697699589545" duration="12629000" />
-      <workItem from="1697727974824" duration="15689000" />
+      <workItem from="1697727974824" duration="27667000" />
+      <workItem from="1697904938568" duration="5461000" />
+      <workItem from="1697975628707" duration="22344000" />
+      <workItem from="1698042644514" duration="8980000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/models/Product.php</url>
+          <line>38</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/models/ProductSearch.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/views/orders/index.php</url>
+          <line>2</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/js/script.js</url>
+          <line>266</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -47,10 +47,6 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
-        var_dump($_GET);
-//        echo "<pre>";
-//        var_dump($this);
-//        $this->title = '...';
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 

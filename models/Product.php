@@ -54,4 +54,8 @@ class Product extends \yii\db\ActiveRecord
             'cost' => 'Cost',
         ];
     }
+
+    public function gerNameProd(){
+        return $this->hasOne(Category::className(),['id' => 'category_id']);
+    }
 }

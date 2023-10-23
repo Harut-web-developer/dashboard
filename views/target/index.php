@@ -14,6 +14,7 @@ $this->title = 'Targets';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Targets'] = '/target/index';
 ?>
+<?php if(!isset($data_size)){ ?>
 <div class="target-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -24,16 +25,24 @@ $this->params['breadcrumbs']['Targets'] = '/target/index';
 
     <!--Download XLSX-->
     <button class="downloadXLSX" >Download XLSX</button>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?php
+        $dataProvider->pagination->pageSize = 10;
+    ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'store_id',
+//            'store_id',
+            [
+                'attribute' => 'store_id',
+                'value' => function($model){
+                    return $model->storName->name;
+                }
+
+            ],
             'target_price',
             'date',
             [
@@ -45,6 +54,39 @@ $this->params['breadcrumbs']['Targets'] = '/target/index';
             ],
         ],
     ]); ?>
-
-
+    <?php
+    }
+    else{ ?>
+    <?php $dataProvider->pagination = false; ?>
+    <?= GridView::widget([
+        'tableOptions' => [
+            'class'=>'table table-striped table-bordered chatgbti_',
+        ],
+        'options' => [
+            'class' => 'summary deletesummary'
+        ],
+        'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+//            'store_id',
+            [
+                'attribute' => 'store_id',
+                'value' => function($model){
+                    return $model->storName->name;
+                }
+            ],
+            'target_price',
+            'date',
+            [
+                'header'=>'Actions',
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Target $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                }
+            ],
+        ],
+    ]); ?>
+    <?php } ?>
 </div>

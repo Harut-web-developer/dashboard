@@ -52,7 +52,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
 
 //                            ['class' => 'yii\grid\SerialColumn'],
                             'id',
-                            'parent_id',
+//                            'parent_id',
                             'name',
                             [
                                 'header'=>'Actions',

@@ -25,9 +25,10 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
 
     <!--Download XLSX-->
     <button class="downloadXLSX" >Download XLSX</button>
-    <!--    <a class="btn btn-primary" href="/product/index?export=xls" >Download XLSX</a>-->
-
-    <?php $dataProvider->pagination = false; ?>
+    <?php
+//        $dataProvider->pagination = true;
+        $dataProvider->pagination->pageSize = 10;
+    ?>
     <?= GridView::widget([
 
         'dataProvider' => $dataProvider,
@@ -35,7 +36,16 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'category_id',
+//            'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => function ($model) {
+                    $category = \app\models\Category::findOne(['id' => $model->category_id]);
+                    if ($category !== null) {
+                        return $category->name;
+                    }
+                }
+            ],
             'name',
             'description:ntext',
             'price',
@@ -46,12 +56,9 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                 'format' => 'raw',
                 'value' => function($model){
                     return '<img src="/uploads/'.$model->img.'"width="50">';
-<<<<<<< HEAD
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
-=======
->>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
                 },
             ],
             [
@@ -66,10 +73,13 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
     <?php
     }
     else{ ?>
-        <?php $dataProvider->pagination = true; ?>
+        <?php $dataProvider->pagination = false; ?>
         <?= GridView::widget([
             'tableOptions' => [
-                'class'=>'table table-striped table-bordered chatgbti_ exelgenerate',
+                'class'=>'table table-striped table-bordered chatgbti_',
+            ],
+            'options' => [
+                'class' => 'summary deletesummary'
             ],
             'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
@@ -77,7 +87,16 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-                'category_id',
+//                'category_id',
+                [
+                    'attribute' => 'category_id',
+                    'value' => function ($model) {
+                        $category = \app\models\Category::findOne(['id' => $model->category_id]);
+                        if ($category !== null) {
+                            return $category->name;
+                        }
+                    }
+                ],
                 'name',
                 'description:ntext',
                 'price',
@@ -88,12 +107,9 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
                     'format' => 'raw',
                     'value' => function($model){
                         return '<img src="/uploads/'.$model->img.'"width="50">';
-<<<<<<< HEAD
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
-=======
->>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
                     },
                 ],
                 [
