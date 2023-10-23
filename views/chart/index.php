@@ -1,4 +1,6 @@
 <?php
+use yii\helpers\Html;
+
 $this->title = 'Chart';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Chart'] = '/chart/index';
@@ -40,6 +42,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
 
 </div>
 <div id="print">
+    <title><?= Html::encode($this->title); ?></title>
     <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->

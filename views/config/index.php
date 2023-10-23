@@ -16,7 +16,7 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
 ?>
 <?php if(!isset($data_size)){ ?>
 <div class="config-index">
-
+    <title>Configuration</title>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -54,35 +54,36 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
     <?php
     }
     else{ ?>
-    <?php $dataProvider->pagination = false; ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-            'tableOptions' => [
-                'class'=>'table table-striped table-bordered chatgbti_',
+        <?php $dataProvider->pagination = false; ?>
+        <title>Configuration</title>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+                'tableOptions' => [
+                    'class'=>'table table-striped table-bordered chatgbti_',
+                ],
+                'options' => [
+                    'class' => 'summary deletesummary'
+                ],
+    //        'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+    //            'id',
+    //            'category_id',
+                [
+                    'attribute' => 'category_id',
+                    'value' => function($model){
+                        return $model->categoryName->name;
+                    }
+                ],
+                'procent',
+                [
+                    'header' => 'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Config $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
             ],
-            'options' => [
-                'class' => 'summary deletesummary'
-            ],
-//        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-//            'id',
-//            'category_id',
-            [
-                'attribute' => 'category_id',
-                'value' => function($model){
-                    return $model->categoryName->name;
-                }
-            ],
-            'procent',
-            [
-                'header' => 'Actions',
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Config $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
+        ]); ?>
     <?php } ?>
 </div>

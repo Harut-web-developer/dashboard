@@ -16,7 +16,7 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
 ?>
 <?php if(!isset($data_size)){ ?>
 <div class="orders-index">
-
+    <title><?= Html::encode($this->title); ?></title>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -50,6 +50,7 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
     <?php
     }
     else{ ?>
+        <title><?= Html::encode($this->title); ?></title>
         <?php $dataProvider->pagination = false; ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,

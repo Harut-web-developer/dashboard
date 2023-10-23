@@ -35,7 +35,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
                         <?= Html::endForm() ?>
 
                     </div>
-
+                    <title><?= Html::encode($this->title); ?></title>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
 //                        'filterModel' => $searchModel,
