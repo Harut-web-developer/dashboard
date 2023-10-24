@@ -38,6 +38,7 @@ $this->params['breadcrumbs']['View'] = '/product/view';
 //            'img',
             'price',
             'cost',
+            'keyword',
             [
                 'attribute' => 'img',
                 'format' => 'raw',

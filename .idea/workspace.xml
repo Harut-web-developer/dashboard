@@ -6,13 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/category/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/category/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/chart/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/chart/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/config/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/config/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/store/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/store/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/target/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/target/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +187,7 @@
       <workItem from="1697727974824" duration="27667000" />
       <workItem from="1697904938568" duration="5461000" />
       <workItem from="1697975628707" duration="22344000" />
-      <workItem from="1698042644514" duration="11584000" />
+      <workItem from="1698042644514" duration="32501000" />
     </task>
     <servers />
   </component>
@@ -198,7 +199,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/models/Product.php</url>
-          <line>38</line>
+          <line>39</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -210,11 +211,6 @@
           <url>file://$PROJECT_DIR$/views/orders/index.php</url>
           <line>2</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/js/script.js</url>
-          <line>266</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -31,9 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="/css/custom.css" rel="stylesheet" type="text/css">
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
@@ -151,18 +149,25 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <div class="fs-search-block">
 
 <!--                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-                       <form method="post" action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                           <div class="input-group">
-                               <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."
-                                      aria-label="Search" aria-describedby="basic-addon2" name="searchtable">
-<!--                               <div class="input-group-append searchbtn">-->
-<!--                                   <button class="btn btn-primary" type="submit">-->
-<!--                                       <i class="fas fa-search fa-sm"></i>-->
-<!--                                   </button>-->
-<!--                               </div>-->
-                           </div>
-                       </form>
+<!--                       <form method="post" action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
+<!--                           <div class="input-group">-->
+<!--                               <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."-->
+<!--                                      aria-label="Search" aria-describedby="basic-addon2" name="searchtable">-->
+<!--                           </div>-->
+<!--                       </form>-->
+                        <div class="for-search">
+                            <form action="" method="post" class="search searchform">
 
+
+                                <input id="submit" value="" type="submit">
+                                <label for="submit" class="submit"></label>
+
+
+                                <a href="javascript: void(0)" class="icon"></a>
+
+                                <input type="search" name="votrevariable" id="search" placeholder="Rechercher" class="inputval">
+                            </form>
+                        </div>
                         <div class="fs-search-result-wrapper shearch_menu">
                             <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
                                     <h4 class="h4_product">Product</h4>

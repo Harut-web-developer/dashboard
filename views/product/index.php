@@ -61,6 +61,7 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
 //                    ]);
                 },
             ],
+            'keyword',
             [
                 'header'=>'Actions',
                 'class' => ActionColumn::className(),
@@ -113,6 +114,7 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
 //                    ]);
                     },
                 ],
+                'keyword',
                 [
                     'header'=>'Actions',
                     'class' => ActionColumn::className(),
