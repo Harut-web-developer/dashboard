@@ -89,6 +89,11 @@ class CategoryController extends Controller
                         ->delete('category', ['between', 'id', $startId, $endId])
                         ->execute();
                     return json_encode(['success' => true]);
+                }elseif ($startId === $endId){
+                    Yii::$app->db->createCommand()
+                        ->delete('category', ['=', 'id', $startId])
+                        ->execute();
+                    return json_encode(['success' => true]);
                 }else{
                     return json_encode(['error1' => true]);
                 }
