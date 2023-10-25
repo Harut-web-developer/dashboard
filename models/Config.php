@@ -43,4 +43,8 @@ class Config extends \yii\db\ActiveRecord
             'procent' => 'Procent',
         ];
     }
+
+    public function getCategoryName(){
+        return $this->hasOne(Category::className(), ['id'=>'category_id']);
+    }
 }

@@ -14,6 +14,7 @@ use Yii;
  * @property string|null $img
  * @property int $price
  * @property int $cost
+ * @property int $keyword
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class Product extends \yii\db\ActiveRecord
             [['category_id', 'description', 'price', 'cost'], 'required'],
             [['category_id', 'price', 'cost'], 'integer'],
             [['description'], 'string'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'keyword'], 'string', 'max' => 255],
             [['img'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, xlsx'],
         ];
     }
@@ -52,6 +53,11 @@ class Product extends \yii\db\ActiveRecord
             'img' => 'Img',
             'price' => 'Price',
             'cost' => 'Cost',
+            'keyword' => 'Keywords',
         ];
+    }
+
+    public function gerNameProd(){
+        return $this->hasOne(Category::className(),['id' => 'category_id']);
     }
 }

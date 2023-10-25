@@ -61,13 +61,15 @@ class CategorySearch extends Category
             'id' => $this->id,
             'parent_id' => $this->parent_id,
         ]);
+
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query_text='';
         if (isset($params['searchtable'])){
             $query_text = $params['searchtable'];
         }
-    $query->andWhere(['like', 'name', $query_text]);
+        $query->andWhere(['like', 'name', $query_text]);
 
         return $dataProvider;
     }
+
 }

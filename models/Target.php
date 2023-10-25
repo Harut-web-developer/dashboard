@@ -44,4 +44,8 @@ class Target extends \yii\db\ActiveRecord
             'date' => 'Date',
         ];
     }
+
+    public  function getStorName(){
+        return $this->hasOne(Store::className(), ['id'=>'store_id']);
+    }
 }

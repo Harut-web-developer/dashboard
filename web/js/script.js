@@ -1,24 +1,22 @@
-$(document).ready(function (){
+$(document).ready(function () {
     $('.category').change(function () {
         var category_id = $(this).children("option:selected").val();
         $.ajax({
             url: '/product/get-product',
-            method:'get',
-            data:{
-                option:category_id,
+            method: 'get',
+            data: {
+                option: category_id,
             },
             dataType: "json",
-            success: function(parse){
+            success: function (parse) {
                 let price = parseInt(parse.category_id);
                 if (!(parse.category_id == null)) {
                     $('.price').attr('readonly', true);
-                    $('.cost').keyup(function()    {
+                    $('.cost').keyup(function () {
                         let cost = parseInt($('.cost').val());
-                        $('.price').val(Math.round(price * cost / 100 + cost) );
+                        $('.price').val(Math.round(price * cost / 100 + cost));
                     });
-                }
-                else
-                {
+                } else {
                     $('.price').attr('readonly', false);
                     $('.price').val('');
                     $('.price').focus();
@@ -30,30 +28,13 @@ $(document).ready(function (){
     $('.myimg').click(function () {
         let src = $(this).attr('src');
         $('.modal').modal('show');
-        $('.img-thumbnail').attr('src',src);
+        $('.img-thumbnail').attr('src', src);
     });
 
 
     $('.downloadXLSX').click(function () {
         var excel = new ExcelJS.Workbook();
-        // var tables = document.getElementsByClassName("table");
-        // console.log(tables);
-        // table.innerHTML = '';
-        $('body').innerHTML = '';
-        $.ajax({
-            url: '/product/index',
-            method:'post',
-            data:{
-                action:'xls-alldata',
-            },
-            dataType: "html",
-            success: function(data){
-                console.log(data)
-
-                $('body').append(data);
-            },
-        })
-        var tables = document.querySelectorAll("table.table");
+        var tables = '';
         var sheetNumber = 1;
         var PromiseArray = [];
         function addImage(url, workbook, worksheet, excelCell) {
@@ -90,66 +71,77 @@ $(document).ready(function (){
                 xhr.send();
             });
         }
-        for (var i = 0; i < tables.length; i++) {
-            var table = tables[i];
-            var sheet = excel.addWorksheet("Sheet " + sheetNumber);
-            var headRow = table.querySelector("thead tr");
-            if (headRow) {
-                var headerData = [];
-                var headerCells = headRow.querySelectorAll("th:not(:last-child)");
-                headerCells.forEach(function (headerCell) {
-                    headerData.push(headerCell.textContent);
-                });
-                sheet.addRow(headerData);
-            }
-            var rows = table.querySelectorAll("tbody tr");
-            rows.forEach(function (row) {
-                var rowData = [];
-                var cells = row.querySelectorAll("td:not(:last-child)");
-                cells.forEach(function (cell) {
-                    if (cell.querySelector("img")) {
-                        var imgElement = cell.querySelector("img");
-                        var imageUrl = imgElement.src;
-                        var excelCell = {
-                            row: sheet.rowCount + 1,
-                            col: headerCells.length
-                        };
-                        PromiseArray.push(addImage(imageUrl, excel, sheet, excelCell));
-                    } else {
-                        rowData.push(cell.textContent);
+        $.ajax({
+            url: '',
+            method: 'post',
+            data: {
+                action: 'xls-alldata',
+            },
+            dataType: "html",
+            success: function(data) {
+                $('body').append(data);
+                tables = document.getElementsByClassName("chatgbti_");
+                $(".chatgbti_").hide();
+                $(".deletesummary").hide();
+                for (var i = 0; i < tables.length; i++) {
+                    var table = tables[i];
+                    var sheet = excel.addWorksheet("Sheet " + sheetNumber);
+                    var headRow = table.querySelector("thead tr");
+                    if (headRow) {
+                        var headerData = [];
+                        var headerCells = headRow.querySelectorAll("th:not(:last-child)");
+                        headerCells.forEach(function (headerCell) {
+                            headerData.push(headerCell.textContent);
+                        });
+                        sheet.addRow(headerData);
                     }
-                });
-                // console.log(rowData);
-                if (rowData.length > 0) {
-                    sheet.addRow(rowData);
+                    var rows = table.querySelectorAll("tbody tr");
+                    rows.forEach(function (row) {
+                        var rowData = [];
+                        var cells = row.querySelectorAll("td:not(:last-child)");
+                        cells.forEach(function (cell) {
+                            if (cell.querySelector("img")) {
+                                var imgElement = cell.querySelector("img");
+                                var imageUrl = imgElement.src;
+                                var excelCell = {
+                                    row: sheet.rowCount + 1,
+                                    col: headerCells.length
+                                };
+                                PromiseArray.push(addImage(imageUrl, excel, sheet, excelCell));
+                            } else {
+                                rowData.push(cell.textContent);
+                            }
+                        });
+                        if (rowData.length > 0) {
+                            sheet.addRow(rowData);
+                        }
+                    });
+
+                    sheetNumber++;
                 }
-            });
-
-            sheetNumber++;
-        }
-
-        Promise.all(PromiseArray)
-            .then(function () {
-                return excel.xlsx.writeBuffer();
-            })
-            .then(function (buffer) {
-                var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                var url = window.URL.createObjectURL(blob);
-                var a = document.createElement('a');
-                a.href = url;
-                var tablename = Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000;
-                a.download = tablename + "table_data.xlsx";
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+                Promise.all(PromiseArray)
+                    .then(function () {
+                        return excel.xlsx.writeBuffer();
+                    })
+                    .then(function (buffer) {
+                        var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                        var url = window.URL.createObjectURL(blob);
+                        var a = document.createElement('a');
+                        a.href = url;
+                        var tablename = Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000;
+                        a.download = tablename + "table_data.xlsx";
+                        a.style.display = 'none';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+                $(".chatgbti_").removeClass();
+            },
+        });
     });
-
-
 
     function getSelectedRows() {
         var $grid = $(this);
@@ -168,28 +160,29 @@ $(document).ready(function (){
         $('input[name="selection[]"]').prop('checked', isChecked);
     });
 
-    $('#delete-selected').click( function() {
-        let selectedIds = $('input[name="selection[]"]:checked').map(function(){
-                return $(this).val();
-            }).get();
+    $('#delete-selected').click(function () {
+        let selectedIds = $('input[name="selection[]"]:checked').map(function () {
+            return $(this).val();
+        }).get();
         let startId = $('.startId').val();
         let endId = $('.endId').val();
         $.ajax({
             url: '/category/delete-selected',
-            method:'post',
-            data:{
-                ids:selectedIds,
-                startId:startId,
-                endId:endId,
+            method: 'post',
+            data: {
+                ids: selectedIds,
+                startId: startId,
+                endId: endId,
             },
             dataType: "json",
-            success: function(data){
-                if(data.error1 === true){
+            success: function (data) {
+                if (data.error1 === true) {
                     alert("can not  start from greater to less")
-                }else if(data.error2 === true){
+                } else if (data.error2 === true) {
                     alert('choose one type of delete')
-                }else if(data.error3 === true){
+                } else if (data.error3 === true) {
                     alert('Fill in the field');
+
                 }
                 else if(data.success === true) {
                     let con = confirm("Are you sure want to delete this item");
@@ -201,77 +194,130 @@ $(document).ready(function (){
             },
         })
     });
-
-
-    $('.configCat').change(function (){
+    
+    $('.configCat').change(function () {
         let configCat = $(this).val();
         $.ajax({
-            url:'/config/get-config',
-            method:'post',
-            datatype:'json',
-            data:{
-                configCat:configCat
+            url: '/config/get-config',
+            method: 'post',
+            datatype: 'json',
+            data: {
+                configCat: configCat
             },
-            success:function (data){
+            success: function (data) {
                 let parse = JSON.parse(data);
-                if(parse.msg === 'warning'){
+                if (parse.msg === 'warning') {
                     $('.procentConfig').attr('readonly', true);
                     alert('Teh percentage of that category exists,update the current category to change')
-                }else{
+                } else {
                     $('.procentConfig').attr('readonly', false);
                 }
             }
         })
     })
-    $('.configCreate').click(function (){
+    $('.configCreate').click(function () {
         alert('created successfuly');
     })
-    $('.catCreate').click(function (){
+    $('.catCreate').click(function () {
         alert('created successfuly');
     })
-    $('.productCreate').click(function (){
+    $('.productCreate').click(function () {
         alert('created successfuly');
     })
-    $('.createStore').click(function (){
+    $('.createStore').click(function () {
         alert('created successfuly');
     })
-    $('.targetCreate').click(function (){
+    $('.targetCreate').click(function () {
         alert('created successfuly');
     })
 
-    $('.inputval').on('input', function () {
-        var inputValue = $(this).val();
-        $('.shearch_menu').addClass('activ');
-        if (inputValue == "")
-        {
-            $('.shearch_menu').removeClass('activ');
-        }
-        $.ajax({
-            url: '/product/searching',
-            method: 'post',
-            data: {
-                option: inputValue,
-            },
-            dataType: "json",
-            success: function(data) {
-                $('.parentLiProduct').html('');
-                $('.parentLiCategory').html('');
-                for (let i = 0; i < data.query_product.length; i++) {
-                    let idval = data.query_product[i].id;
-                    $(".parentLiProduct").append('<li class="fs-search-result-column-list-el"><a href="/product/view?id=' + idval + '">' + data.query_product[i].name + '</a></li>');
-                }
-                for (let i = 0; i < data.query_category.length; i++){
-                    $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable='+$('.inputval').val()+'" >' + data.query_category[i].name + '</a> </li> ');
-                }
-            },
+    // $('.inputval').on('input', function () {
+    //     var inputValue = $(this).val();
+    //     $('.shearch_menu').addClass('activ');
+    //     if (inputValue == "") {
+    //         $('.shearch_menu').removeClass('activ');
+    //     }
+    //     $.ajax({
+    //         url: '/product/searching',
+    //         method: 'post',
+    //         data: {
+    //             option: inputValue,
+    //         },
+    //         dataType: "json",
+    //         success: function (data) {
+    //             console.log(data);
+    //             $('.parentLiProduct').html('');
+    //             $('.parentLiCategory').html('');
+    //             for (let i = 0; i < data.query_product.length; i++) {
+    //                 let idval = data.query_product[i].id;
+    //                 $(".parentLiProduct").append('<li class="fs-search-result-column-list-el"><a href="/product/view?id=' + idval + '" target="_blank">' + data.query_product[i].name + '</a></li>');
+    //             }
+    //
+    //             for (let i = 0; i < data.query_category.length; i++) {
+    //                 $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable=' + $('.inputval').val() + '" target="_blank">' + data.query_category[i].name + '</a> </li> ');
+    //             }
+    //         },
+    //     });
+    // });
+
+    $(".icon").click(function() {
+        var icon = $(this),
+            input = icon.parent().find("#search"),
+            submit = icon.parent().find(".submit"),
+            is_submit_clicked = false;
+        input.animate({
+            "width": "150px",
+            "padding": "10px",
+            "opacity": 1
+        }, 300, function() {
+            input.focus();
+        });
+
+        submit.mousedown(function() {
+            is_submit_clicked = true;
+        });
+
+        icon.fadeOut(300);
+        input.blur(function() {
+            if(!input.val() && !is_submit_clicked) {
+                input.animate({
+                    "width": "0",
+                    "padding": "0",
+                    "opacity": 0
+                }, 200);
+                icon.fadeIn(200);
+            };
+        });
+        $('.inputval').on('input', function () {
+            var inputValue = $(this).val();
+            $('.shearch_menu').addClass('activ');
+            if (inputValue == "") {
+                $('.shearch_menu').removeClass('activ');
+            }
+            $.ajax({
+                url: '/product/searching',
+                method: 'post',
+                data: {
+                    option: inputValue,
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('.parentLiProduct').html('');
+                    $('.parentLiCategory').html('');
+                    for (let i = 0; i < data.query_product.length; i++) {
+                        let idval = data.query_product[i].id;
+                        $(".parentLiProduct").append('<li class="fs-search-result-column-list-el"><a href="/product/view?id=' + idval + '" target="_blank">' + data.query_product[i].name + '</a></li>');
+                    }
+
+                    for (let i = 0; i < data.query_category.length; i++) {
+                        $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable=' + $('.inputval').val() + '" target="_blank">' + data.query_category[i].name + '</a> </li> ');
+                    }
+                },
+            });
         });
     });
-
 })
-
-
-
-
 
 
 
