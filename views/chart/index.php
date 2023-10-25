@@ -179,22 +179,22 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
 </div>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog " role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-gradient-primary">
-                <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <img class="img-thumbnail" src="">
-            </div>
-            <div class="modal-footer bg-gradient-primary">
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--    aria-hidden="true">-->
+<!--    <div class="modal-dialog " role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header bg-gradient-primary">-->
+<!--                <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <img class="img-thumbnail" src="">-->
+<!--            </div>-->
+<!--            <div class="modal-footer bg-gradient-primary">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <?php
