@@ -34,7 +34,12 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            'store_id',
+            [
+                'attribute' => 'Store',
+                'value' => function ($model) {
+                    return $model->storeName->name;
+                 }
+            ],
             'quantity',
             'total_price',
             'date',
@@ -43,7 +48,8 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+
+                 },
             ],
         ],
     ]); ?>

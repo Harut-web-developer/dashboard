@@ -18,6 +18,8 @@ $(document).ready(function () {
                     });
                 } else {
                     $('.price').attr('readonly', false);
+                    $('.price').val('');
+                    $('.price').focus();
                 }
             },
         })
@@ -28,6 +30,7 @@ $(document).ready(function () {
         $('.modal').modal('show');
         $('.img-thumbnail').attr('src', src);
     });
+
 
     $('.downloadXLSX').click(function () {
         var excel = new ExcelJS.Workbook();
@@ -179,10 +182,14 @@ $(document).ready(function () {
                     alert('choose one type of delete')
                 } else if (data.error3 === true) {
                     alert('Fill in the field');
-                } else if (data.success === true) {
-                    confirm("Are you sure want to delete this item");
-                    alert("Deleted succesfully");
-                    window.location.reload();
+
+                }
+                else if(data.success === true) {
+                    let con = confirm("Are you sure want to delete this item");
+                        if (con){
+                            alert("Deleted succesfully");
+                            window.location.reload();
+                        }
                 }
             },
         })

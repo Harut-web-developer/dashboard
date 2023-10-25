@@ -17,6 +17,9 @@ $this->params['breadcrumbs']['Update'] = '/orders/update';
     <?= $this->render('_form', [
         'model' => $model,
         'store' => $store,
+        'product' => $product,
+        'payment' => $payment,
+        'order_items' => $order_items,
     ]) ?>
 
 </div>

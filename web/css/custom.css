@@ -32,9 +32,9 @@
     display: flex;
     flex-wrap: wrap;
 }
-.category{
-    margin: 0px 20px;
-}
+/*.category{*/
+/*    margin: 0px 20px;*/
+/*}*/
 .end_date{
     margin: 0px 20px;
 }
@@ -143,6 +143,17 @@ a:-webkit-any-link {
     cursor: pointer;
 }
 
+.orders_header{
+    text-align: center;
+    font-size: 1.5em;
+}
+.order_items_table > thead > tr > th{
+    text-align: center;
+}
+.order_items_table > tbody > tr > td{
+    text-align: center;
+
+
 /* search form css */
 .for-search form {
 
@@ -211,4 +222,5 @@ a:-webkit-any-link {
     position: absolute;
     top: 15px;
     left: 25px;
+
 }

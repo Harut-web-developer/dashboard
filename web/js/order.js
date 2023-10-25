@@ -62,15 +62,12 @@ $(document).ready(function () {
         if ($('.table.order_products tbody').children().length === 0) {
             alert('add the product');
         } else {
-            if($('#selectPay').val() !== '' && $('#inpPay').val() >= $('.last_total_price').val()){
+            if($('#selectPay').val() !== ''){
                 alert('Created successfuly');
                 $('.ordersCreate').closest('form').submit();
             }else if($('#selectPay').val() === ''){
                 alert('Chosse type of payment');
-            }else if($('#inpPay').val() < $('.last_total_price').val()){
-                alert('Pay more than marker in case');
-            }
-            else if($('#inpPay').val() === ''){
+            }else if($('#inpPay').val() === ''){
                 alert('Fill in the all field');
             }
         }

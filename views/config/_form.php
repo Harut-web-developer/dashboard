@@ -12,10 +12,10 @@ use yii\widgets\ActiveForm;
     <div class="card card-primary">
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-body">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-5 col-lg-4 col-sm-6">
                 <?= $form->field($model, 'category_id')->dropDownList($cat,['prompt' => '--choose category--','class' => 'configCat form-control']) ?>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-5 col-lg-4 col-sm-6">
                 <?= $form->field($model, 'procent')->textInput(['class'=>'procentConfig form-control']) ?>
             </div>
         </div>

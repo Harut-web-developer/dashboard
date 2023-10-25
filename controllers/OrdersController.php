@@ -68,8 +68,24 @@ class OrdersController extends Controller
      */
     public function actionView($id)
     {
+        $orderItemsTable = OrderItems::find()->select('order_items.id,order_items.order_id,
+        order_items.product_id,order_items.quantity,order_items.price,order_items.revenue,
+        order_items.cost, product.name')
+            ->leftJoin('product','product.id = order_items.product_id')
+            ->leftJoin('orders','orders.id = order_items.order_id')
+            ->where(['=','orders.id', $id])
+            ->asArray()
+            ->all();
+        $storeName = Store::find()->select('store.id,store.name')
+            ->leftJoin('orders','orders.store_id = store.id')
+            ->where(['=','orders.id',$id])
+            ->one();
+//        echo "<pre>";
+//        var_dump($storeName);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'orderItemsTable' => $orderItemsTable,
+            'storeName' => $storeName,
         ]);
     }
 
@@ -112,14 +128,11 @@ class OrdersController extends Controller
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
-//        $paytype = Payment::find()->select('id,type')->asArray()->all();
-//        var_dump($paytype);
 
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
-            'payment' => $payment,
         ]);
     }
 
@@ -133,15 +146,42 @@ class OrdersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost ) {
+            $post = $this->request->post();
+            $model->store_id = $post['Orders']['store_id'];
+            $model->quantity = array_sum($post['count_']);
+            $model->total_price = $post['Orders']["total_price"];
+            $model->update();
+            $payment = Payment::find()->where(['=','order_id', $model->id])->one();
+            $payment->type = $post['selPay'];
+            $payment->price_of_pay = $post['inputPay'];
+            $payment->update();
+            $items = OrderItems::find()->where(['=','order_id', $model->id])->all();
+            foreach ($items as $k => $item) {
+                $items[$k]->product_id = $post['productid'][$k];
+                $items[$k]->quantity = $post['count_'][$k];
+                $items[$k]->price = $post['price'][$k] * $post['count_'][$k];
+                $items[$k]->cost = $post['cost'][$k] * $post['count_'][$k];
+                $items[$k]->revenue = ($post['price'][$k] - $post['cost'][$k]) * $post['count_'][$k];
+                $items[$k]->update();
+            }
+            return $this->redirect(['index', 'id' => $model->id]);
         }
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
+        $product = Product::find()->asArray()->all();
+        $payment = Payment::find()->select('id,type,price_of_pay')->where(['=','order_id',$id])->asArray()->one();
+        $order_items = OrderItems::find()->select('order_items.product_id,order_items.order_id,order_items.quantity,
+        product.price,order_items.revenue,product.cost,product.name')
+            ->leftJoin('product', 'product.id = order_items.product_id')
+            ->where(['=','order_items.order_id',$id])
+            ->asArray()->all();
         return $this->render('update', [
             'model' => $model,
             'store' => $store,
+            'product' => $product,
+            'payment' => $payment,
+            'order_items' => $order_items,
         ]);
     }
 

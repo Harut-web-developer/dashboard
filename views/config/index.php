@@ -20,7 +20,7 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create products procent', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        <?= Html::a('Create products procent', ['create'], ['class' => 'btn btn-block btn-outline-dark col-sm-5 col-md-5 col-lg-3 btn-sm']) ?>
     </p>
 
     <!--Download XLSX-->

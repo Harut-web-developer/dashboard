@@ -19,17 +19,18 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div>
+                    <div class="card-header row d-flex justify-content-between">
+                        <div class="col-xl-3 col-sm-5 col-xs-3 mb-4">
                             <div class="d-flex justify-content-start">
-                                <input type="number" placeholder="Enter started number" class="form-control startId">
-                                <input type="number" placeholder="Enter end number" class="form-control endId">
+                                <input type="number" placeholder="Started number" class="form-control startId">
+                                <input type="number" placeholder="End number" class="form-control endId">
                             </div>
                             <?= Html::submitButton('Delete Selected Rows', ['id' => 'delete-selected', 'class' => 'btn btn-block btn-outline-dark']) ?>
                         </div>
-                        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2', 'style' => 'margin: 31px;']) ?>
-
-                        <?= Html::beginForm(['upload'], 'post', ['enctype' => 'multipart/form-data', 'class' => 'd-flex flex-column', 'style'=>'overflow: hidden;']) ?>
+                        <div class=" col-xl-3 col-sm-3 col-xs-3 mb-4 d-flex align-items-end">
+                            <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-block btn-outline-dark', 'style' => 'margin: 0px;']) ?>
+                        </div>
+                        <?= Html::beginForm(['upload'], 'post', ['enctype' => 'multipart/form-data', 'class' => 'd-flex flex-column col-xl-3 col-xs-3 col-sm-3 mt-2', 'style'=>'overflow: hidden;']) ?>
                             <input type="file" name="xlsxFile" accept=".xlsx">
                             <?= Html::submitButton('Upload XLSX', ['class' => 'btn btn-block btn-outline-dark']) ?>
                         <?= Html::endForm() ?>

@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
     <div class="card card-primary">
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-body">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4 col-lg-3 col-sm-4">
                 <?= $form->field($model, 'store_id')->dropDownList($store) ?>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4 col-lg-3 col-sm-4">
                 <?= $form->field($model, 'target_price')->input('number') ?>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4 col-lg-3 col-sm-4">
                 <?= $form->field($model, 'date')->input('date') ?>
             </div>
         </div>
