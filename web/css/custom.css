@@ -32,9 +32,9 @@
     display: flex;
     flex-wrap: wrap;
 }
-.category{
-    margin: 0px 20px;
-}
+/*.category{*/
+/*    margin: 0px 20px;*/
+/*}*/
 .end_date{
     margin: 0px 20px;
 }

@@ -53,6 +53,7 @@ $(document).ready(function (){
         var target_price = [];
         var sellsPrice = [];
         var datatable2 = [];
+        console.log(datatable2)
         $.ajax({
             url:'/chart/get-data',
             method:'post',
@@ -70,26 +71,70 @@ $(document).ready(function (){
             // console.log(data)
                 if(parse.msg === 'danger'){
                     alert('There are no dates with such dates');
-                    location.reload();
-                }else if(parse.msg === 'warning'){
-                    alert('Dates are reveresed');
-                    location.reload();
-                }else if(parse.msg === 'error'){
-                    alert('There is no product in the selected category');
-                    location.reload();
-                }else {
+
+
+
                     $('.productName').text(parse.maxPrice.maxPrice);
                     $('.productPrice').text(parse.maxPrice.name);
-                    $('.productImg').attr('src','/uploads/' + parse.maxPrice.img);
+                    if (parse.maxPrice.img === null){
+                        $('.productName').text('0');
+                        $('.prod').html('');
+                    }else {
+                        $('.prod').html('<img class="productImg myimg" src="/uploads/' + parse.maxPrice.img + '">');
+                    }
                     $('.maxCountProductName').text(parse.maxCount.maxCount);
                     $('.productMaxCount').text(parse.maxCount.name);
-                    $('.productCountImg').attr('src','/uploads/' + parse.maxCount.img);
+                    if (parse.maxCount.img === null){
+                        $('.maxCountProductName').text('0');
+                        $('.prodCount').html('');
+                    }else{
+                        $('.prodCount').html('<img class="productCountImg myimg" src="/uploads/' + parse.maxCount.img + '">');
+                    }
                     $('.orderProcent').text(parse.overageProcent + '%');
                     $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
                     $('.ordersCount').text(parse.ordersCount);
-                    datatable2[0] = parseInt(parse.ordersTotalPrice.total);
-                    datatable2[1] = parseInt(parse.maxCount.revenue);
-                    datatable2[2] = parse.maxCount.target_price;
+
+                    // location.reload();
+                }else if(parse.msg === 'warning'){
+                    alert('Dates are reveresed');
+                    // location.reload();
+                }
+                // else if(parse.msg === 'error'){
+                //     alert('There is no product in the selected category');
+                //     // location.reload();
+                // }
+                else {
+                    $('.productName').text(parse.maxPrice.maxPrice);
+                    $('.productPrice').text(parse.maxPrice.name);
+                    if (parse.maxPrice.img === null){
+                        $('.productName').text('0');
+                        $('.prod').html('');
+                    }else {
+                        $('.prod').html('<img class="productImg myimg" src="/uploads/' + parse.maxPrice.img + '">');
+                    }
+                    $('.maxCountProductName').text(parse.maxCount.maxCount);
+                    $('.productMaxCount').text(parse.maxCount.name);
+                    if (parse.maxCount.img === null){
+                        $('.maxCountProductName').text('0');
+                        $('.prodCount').html('');
+                    }else{
+                        $('.prodCount').html('<img class="productCountImg myimg" src="/uploads/' + parse.maxCount.img + '">');
+                    }
+                    $('.orderProcent').text(parse.overageProcent + '%');
+                    $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
+                    $('.ordersCount').text(parse.ordersCount);
+                    if (parse.ordersTotalPrice.total === null){
+                        datatable2[0] = 0;
+                        datatable2[1] = 0;
+                        datatable2[2] = 0;
+                        $('.chart-pie').html('');
+                        $('.chart-pie').html('<canvas id="myPieChart" width="447" height="306" style="display: block; height: 245px; width: 358px;" class="chartjs-render-monitor"></canvas>');
+                    }else {
+                        datatable2[0] = parseInt(parse.ordersTotalPrice.total);
+                        datatable2[1] = parseInt(parse.maxCount.revenue);
+                        datatable2[2] = parse.maxCount.target_price;
+                        $('.chart-pie').html('<canvas id="myPieChart" width="447" height="306" style="display: block; height: 245px; width: 358px;" class="chartjs-render-monitor"></canvas>');
+                    }
                     title = parse.label;
                     revenue = parse.revenue;
                     sellsPrice = parse.price;
@@ -128,10 +173,20 @@ $(document).ready(function (){
                 cutoutPercentage: 80,
             },
         }
-        // myPieChart.update();
-        // Chart.exec('myPieChart', 'updateOptions', option_)
-
         var myPieChart = new Chart(document.getElementById("myPieChart"), option);
+        myPieChart.data.datasets[0].data = datatable2;
+        myPieChart.update();
+        // myPieChart.updateOptions({
+        //     data: {
+        //         labels: ['sells','revenue','target revenue'],
+        //         datasets: [{
+        //             data: datatable2,
+        //             backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+        //             hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+        //             hoverBorderColor: "rgba(234, 236, 244, 1)",
+        //         }],
+        //     },
+        // })
 
 
         var options = {

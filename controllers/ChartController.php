@@ -54,28 +54,52 @@ class ChartController extends  Controller{
             ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
             ->andWhere($condCategory)
             ->exists();
+        $storeExists = Store::find()
+            ->leftJoin('orders', 'orders.store_id = store.id')
+            ->leftJoin('order_items', 'orders.id = order_items.order_id')
+            ->leftJoin('product', 'product.id = order_items.product_id')
+            ->leftJoin('category', 'category.id = product.category_id')
+            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+            ->andWhere($condStore)
+            ->exists();
+//        var_dump($storeExists);MAX(orders.total_price) as price, product.name,product.img
             if($start < $end){
                     if ($orderTime){
-                        if ($categoryExist){
-                            $maxPrice = OrderItems::find()->select('MAX(round(order_items.price/order_items.quantity)) as maxPrice,
-                     MAX(orders.total_price) as price,product.name,product.img')
+                        if ($categoryExist || $storeExists){
+                            $maxPrice = OrderItems::find()->select('MAX(round(order_items.price/order_items.quantity)) as maxPrice,MAX(orders.total_price) as price, product.name,product.img')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
                         ->leftJoin('category', 'category.id = product.category_id')
+                        ->leftJoin('payment','payment.order_id = orders.id')
                         ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
-                        ->andWhere($condCategory)
                         ->andWhere($condStore)
+                        ->andWhere($condPay)
+                        ->andWhere($condCategory)
                         ->asArray()
                         ->one();
+//                    $maxPriceOrders = Orders::find()->select('MAX(orders.total_price) as price, product.name,product.img')
+//                        ->leftJoin('order_items', 'orders.id = order_items.order_id')
+//                        ->leftJoin('product', 'product.id = order_items.product_id')
+//                        ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+////                        ->andWhere(['=','product.price',intval($maxPrice['maxPrice'])])
+////                        ->andWhere($condStore)
+////                        ->andWhere($condPay)
+////                        ->andWhere($condCategory)
+//                        ->asArray()
+//                        ->one();
+//                            echo "<pre>";
+//                            var_dump($maxPrice);
                     $maxCount = OrderItems::find()->select('MAX(order_items.quantity) as maxCount,
                      product.name,product.img,SUM(order_items.revenue) as revenue, target.target_price')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
                         ->leftJoin('target', 'DATE(orders.date) = target.date')
                         ->leftJoin('category', 'category.id = product.category_id')
+                        ->leftJoin('payment','payment.order_id = orders.id')
                         ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
+                        ->andWhere($condPay)
                         ->asArray()
                         ->one();
 //                    var_dump($maxCount);
@@ -84,26 +108,29 @@ class ChartController extends  Controller{
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('category', 'category.id = product.category_id')
+                        ->leftJoin('payment','payment.order_id = orders.id')
                         ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
+                        ->andWhere($condPay)
                         ->asArray()
                         ->one();
                     $ordersCount = Orders::find()
                         ->leftJoin('order_items', 'orders.id = order_items.order_id')
                         ->leftJoin('product', 'product.id = order_items.product_id')
                         ->leftJoin('category', 'category.id = product.category_id')
+                        ->leftJoin('payment','payment.order_id = orders.id')
                         ->where(['BETWEEN', 'DATE(date)', $start, $newEnd])
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
+                        ->andWhere($condPay)
                         ->groupBy('order_items.order_id')
                         ->count();
-//                    var_dump($ordersCount);
-                    $averagePrice = 0;
+                      $overageOrdersProcent = 0;
                     if($ordersCount) {
                         $averagePrice = intval($ordersTotalPrice['total'] / $ordersCount);
+                        $overageOrdersProcent = round(($averagePrice / $maxPrice['price']) * 100);
                     }
-                    $overageOrdersProcent = round(($averagePrice / $maxPrice['price']) * 100);
                     $total_data = OrderItems::find()->select('target.target_price,DATE(orders.date) as date_only,
                     SUM(order_items.price) as price,SUM(order_items.revenue) as revenue, payment.price_of_pay')
                         ->leftJoin('orders', 'orders.id = order_items.order_id')
@@ -219,11 +246,70 @@ class ChartController extends  Controller{
                     $response['paymentPrice'] = $paymentPrice;
                     $response['target_price'] = $target_price;
                     return json_encode($response);
-                        }else{
-                            return json_encode(['msg' => 'error']);
                         }
+//                        else{
+//                            return json_encode(['msg' => 'error']);
+//                        }
                 }else{
-                    return json_encode(['msg' => 'danger']);
+                        $maxPrice = OrderItems::find()->select('MAX(round(order_items.price/order_items.quantity)) as maxPrice,MAX(orders.total_price) as price, product.name,product.img')
+                            ->leftJoin('product', 'product.id = order_items.product_id')
+                            ->leftJoin('orders', 'orders.id = order_items.order_id')
+                            ->leftJoin('category', 'category.id = product.category_id')
+                            ->leftJoin('payment','payment.order_id = orders.id')
+                            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+                            ->andWhere($condStore)
+                            ->andWhere($condPay)
+                            ->andWhere($condCategory)
+                            ->asArray()
+                            ->one();
+                        $maxCount = OrderItems::find()->select('MAX(order_items.quantity) as maxCount,
+                     product.name,product.img,SUM(order_items.revenue) as revenue, target.target_price')
+                            ->leftJoin('product', 'product.id = order_items.product_id')
+                            ->leftJoin('orders', 'orders.id = order_items.order_id')
+                            ->leftJoin('target', 'DATE(orders.date) = target.date')
+                            ->leftJoin('category', 'category.id = product.category_id')
+                            ->leftJoin('payment','payment.order_id = orders.id')
+                            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+                            ->andWhere($condCategory)
+                            ->andWhere($condStore)
+                            ->andWhere($condPay)
+                            ->asArray()
+                            ->one();
+//                    var_dump($maxCount);
+//                    exit;
+                        $ordersTotalPrice = OrderItems::find()->select('SUM(order_items.price) as total')
+                            ->leftJoin('orders', 'orders.id = order_items.order_id')
+                            ->leftJoin('product', 'product.id = order_items.product_id')
+                            ->leftJoin('category', 'category.id = product.category_id')
+                            ->leftJoin('payment','payment.order_id = orders.id')
+                            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+                            ->andWhere($condCategory)
+                            ->andWhere($condStore)
+                            ->andWhere($condPay)
+                            ->asArray()
+                            ->one();
+                        $ordersCount = Orders::find()
+                            ->leftJoin('order_items', 'orders.id = order_items.order_id')
+                            ->leftJoin('product', 'product.id = order_items.product_id')
+                            ->leftJoin('category', 'category.id = product.category_id')
+                            ->leftJoin('payment','payment.order_id = orders.id')
+                            ->where(['BETWEEN', 'DATE(date)', $start, $newEnd])
+                            ->andWhere($condCategory)
+                            ->andWhere($condStore)
+                            ->andWhere($condPay)
+                            ->groupBy('order_items.order_id')
+                            ->count();
+                        $overageOrdersProcent = 0;
+                        if($ordersCount) {
+                            $averagePrice = intval($ordersTotalPrice['total'] / $ordersCount);
+                            $overageOrdersProcent = round(($averagePrice / $maxPrice['price']) * 100);
+                        }
+                        $response['maxPrice'] = $maxPrice;
+                        $response['maxCount'] = $maxCount;
+                        $response['overageProcent'] = $overageOrdersProcent;
+                        $response['ordersCount'] = $ordersCount;
+                        $response['msg'] = 'danger';
+                        return json_encode($response);
                 }
 
             }else{

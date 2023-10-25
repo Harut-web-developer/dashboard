@@ -19,7 +19,7 @@ $this->params['breadcrumbs']['Targets'] = '/target/index';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Target', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        <?= Html::a('Create Target', ['create'], ['class' => 'btn btn-block btn-outline-dark col-sm-5 col-md-5 col-lg-3 btn-sm']) ?>
     </p>
 
     <!--Download XLSX-->

@@ -6,7 +6,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
 
 
 <div class="filter form-group">
-    <select class="store form-control col-md-2">
+    <select class="store form-control col-lg-2 col-md-3 col-sm-3 mr-2 ml-2 mb-4">
         <option  value="null">--choose store--</option>
         <?php
         foreach ($stores as $store){
@@ -16,7 +16,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
         }
         ?>
     </select>
-    <select class="category form-control col-md-2">
+    <select class="category form-control col-lg-2 col-md-3 col-sm-3 mr-2 ml-2 mb-4">
         <option value="0">--choose category--</option>
         <?php
         foreach ($categories as $category){
@@ -26,9 +26,9 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
         }
         ?>
     </select>
-    <input class="start_date form-control col-md-2" value="<?=date('Y-m-01')?>" type="date">
-    <input class="end_date form-control col-md-2" value="<?=date('Y-m-d')?>" type="date">
-    <select class="pay form-control col-md-2">
+    <input class="start_date form-control col-lg-2 col-md-3 col-sm-3 mr-2 ml-2 mb-4" value="<?=date('Y-m-01')?>" type="date">
+    <input class="end_date form-control col-lg-2 col-md-3 col-sm-3 mr-2 ml-2 mb-4" value="<?=date('Y-m-d')?>" type="date">
+    <select class="pay form-control col-lg-2 col-md-3 col-sm-3 mr-2 ml-2 mb-4">
         <option value="">--choose payment type--</option>
         <option value="cash">cash</option>
         <option value="card">card</option>
@@ -53,8 +53,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                         <div class="h5 mb-0 font-weight-bold text-gray-800 productName"></div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800 productPrice"></div>
                     </div>
-                    <div class="col-auto">
-                        <img class="productImg myimg" src="">
+                    <div class="col-auto prod">
                     </div>
                 </div>
             </div>
@@ -73,7 +72,7 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
                         <div class="h5 mb-0 font-weight-bold text-gray-800 productMaxCount"></div>
 
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto prodCount">
                         <img class="productCountImg myimg" src="">
                     </div>
                 </div>
@@ -146,18 +145,18 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
+<!--                <div class="dropdown no-arrow">-->
+<!--                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">-->
+<!--                        <div class="dropdown-header">Dropdown Header:</div>-->
+<!--                        <a class="dropdown-item" href="#">Action</a>-->
+<!--                        <a class="dropdown-item" href="#">Another action</a>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <!-- Card Body -->
             <div class="card-body">
