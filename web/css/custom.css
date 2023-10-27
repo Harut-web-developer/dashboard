@@ -150,9 +150,9 @@ a:-webkit-any-link {
 .order_items_table > thead > tr > th{
     text-align: center;
 }
-.order_items_table > tbody > tr > td{
+.order_items_table > tbody > tr > td {
     text-align: center;
-
+}
 
 /* search form css */
 .for-search form {

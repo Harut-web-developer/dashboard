@@ -231,35 +231,6 @@ $(document).ready(function () {
         alert('created successfuly');
     })
 
-    // $('.inputval').on('input', function () {
-    //     var inputValue = $(this).val();
-    //     $('.shearch_menu').addClass('activ');
-    //     if (inputValue == "") {
-    //         $('.shearch_menu').removeClass('activ');
-    //     }
-    //     $.ajax({
-    //         url: '/product/searching',
-    //         method: 'post',
-    //         data: {
-    //             option: inputValue,
-    //         },
-    //         dataType: "json",
-    //         success: function (data) {
-    //             console.log(data);
-    //             $('.parentLiProduct').html('');
-    //             $('.parentLiCategory').html('');
-    //             for (let i = 0; i < data.query_product.length; i++) {
-    //                 let idval = data.query_product[i].id;
-    //                 $(".parentLiProduct").append('<li class="fs-search-result-column-list-el"><a href="/product/view?id=' + idval + '" target="_blank">' + data.query_product[i].name + '</a></li>');
-    //             }
-    //
-    //             for (let i = 0; i < data.query_category.length; i++) {
-    //                 $(".parentLiCategory").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable=' + $('.inputval').val() + '" target="_blank">' + data.query_category[i].name + '</a> </li> ');
-    //             }
-    //         },
-    //     });
-    // });
-
     $(".icon").click(function() {
         var icon = $(this),
             input = icon.parent().find("#search"),

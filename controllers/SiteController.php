@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -38,6 +39,40 @@ class SiteController extends Controller
         ];
     }
 
+//    public function beforeAction($action)
+//    {
+//        echo "<pre>";
+//        var_dump($action);
+//        die;
+////        if($action->id =='login')
+////        {
+////            $this->enableCsrfValidation = false;
+////        }
+////        //return true;
+////        return parent::beforeAction($action);
+//
+////        if (!Yii::$app->user->isGuest) {
+////            $this->redirect(['./']);
+////            return false;
+////        }
+////        return parent::beforeAction($action);
+////        if(Yii::$app->user->isGuest) {
+////            print("Welcome back Guest!");
+////            print("Your id is ".Yii::$app->user->id);
+////            die;
+////        } else {
+////            print("Your id is ".Yii::$app->user->id);
+////            die;
+////        }
+//
+//
+////        if($action->id =='login')
+////        {
+////            $this->enableCsrfValidation = false;
+////        }
+////        //return true;
+////        return parent::beforeAction($action);
+//    }
     /**
      * {@inheritdoc}
      */
@@ -64,26 +99,52 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+
+
     /**
      * Login action.
      *
      * @return Response|string
      */
+
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
+//        function loginval($value){
+//            if ($value){
+//                return true;
+//            } else{
+//                return false;
+//            }
+//        }
+        $this->layout = 'loginLayout';
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        $session = Yii::$app->session;
+        if ($model->load(Yii::$app->request->post())) {
+            $uname = Yii::$app->request->post('LoginForm')['username'];
+            $pass = Yii::$app->request->post('LoginForm')['password'];
+            $query = Users::find()
+                ->select('username, password, id')
+                ->where(['username' => $uname, 'password' => $pass])
+                ->asArray()
+                ->all();
+            if (count($query) === 1) {
+                if ($query[0]['username'] === $uname && $query[0]['password'] === $pass) {
+                    $_SESSION['username'] = $query[0]['username'];
+//                    loginval($query[0]['username']);
+                    return $this->redirect('/chart');
+                } else {
+                    $session->set('error', 'User Name / Password is Invalid');
+                    return $this->redirect('');
+                }
+            } else {
+                    $session->set('error', 'User Name / Password is Invalid');
+                return $this->redirect('');
+            }
+        }else{
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -96,6 +157,13 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+
+//        Yii::$app->session->removeAll();
+//        Yii::$app->session->destroy();
+//        var_dump(Yii::$app->session);
+//        var_dump("hi");
+//        die;
+//        return $this->redirect(['']);
     }
 
     /**

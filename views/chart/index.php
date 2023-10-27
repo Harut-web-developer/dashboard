@@ -137,10 +137,6 @@ $this->params['breadcrumbs']['Chart'] = '/chart/index';
             <div id="chart"></div>
         </div>
 
-        <div id="chart"></div>
-
-    </div>
-
     <!-- Pie Chart -->
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
