@@ -43,7 +43,13 @@ class ConfigController extends Controller
     {
         $searchModel = new ConfigSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        if($_POST){
+            return $this->renderAjax('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'data_size' => 'max',
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

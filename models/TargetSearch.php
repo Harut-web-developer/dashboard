@@ -41,7 +41,6 @@ class TargetSearch extends Target
     public function search($params)
     {
         $query = Target::find();
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -59,7 +58,7 @@ class TargetSearch extends Target
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'store_id' => $this->store_id,
+//            'store_id' => $this->store_id,
             'date' => $this->date,
         ]);
 

@@ -36,7 +36,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
                         <?= Html::endForm() ?>
 
                     </div>
-
+                    <title><?= Html::encode($this->title); ?></title>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
 //                        'filterModel' => $searchModel,
@@ -53,7 +53,7 @@ $this->params['breadcrumbs']['Category'] = '/category/index';
 
 //                            ['class' => 'yii\grid\SerialColumn'],
                             'id',
-                            'parent_id',
+//                            'parent_id',
                             'name',
                             [
                                 'header'=>'Actions',

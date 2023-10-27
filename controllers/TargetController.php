@@ -42,7 +42,13 @@ class TargetController extends Controller
     {
         $searchModel = new TargetSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        if($_POST){
+            return $this->renderAjax('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'data_size' => 'max',
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -70,7 +76,6 @@ class TargetController extends Controller
     public function actionCreate()
     {
         $model = new Target();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['index', 'id' => $model->id]);
@@ -78,7 +83,6 @@ class TargetController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
         $store = Store::find()->select('id, name')->asArray()->all();
         $store = ArrayHelper::map($store,'id', 'name');
         return $this->render('create', [

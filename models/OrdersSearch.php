@@ -11,6 +11,7 @@ use app\models\Orders;
  */
 class OrdersSearch extends Orders
 {
+    public $pageSize = 10;
     /**
      * {@inheritdoc}
      */
@@ -46,6 +47,9 @@ class OrdersSearch extends Orders
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);

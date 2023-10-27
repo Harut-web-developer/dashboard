@@ -10,6 +10,10 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\widgets\ActiveForm;
+use app\models\Product;
+use yii\data\Pagination;
+use yii\widgets\LinkPager;
+
 
 AppAsset::register($this);
 
@@ -31,9 +35,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="/css/custom.css" rel="stylesheet" type="text/css">
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
@@ -141,30 +143,63 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
                     <!-- Topbar Search -->
                     <div class="fs-search-block">
+                        <!-- Large modal -->
+                        <button type="button" class="prodSearch btn btn-primary mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">search by products</button>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="productContent">
+                                        <?php
+                                        $query = Product::find()->select('id, name, img');
+                                        $countQuery = clone $query; // Create a clone of the query for counting
+                                        $pagination = new Pagination([
+                                            'defaultPageSize' => 18, // Set the number of items per page
+                                            'totalCount' => $countQuery->count(), // Get the total number of items
+                                        ]);
+                                        $modalProducts = $query
+                                            ->offset($pagination->offset)
+                                            ->limit($pagination->limit)
+                                            ->asArray()
+                                            ->all();
+                                        foreach ($modalProducts as $modalProduct) {
+                                            ?>
+                                            <div class="block">
+                                                <div class="imgBlock">
+                                                    <img src="/uploads/<?=$modalProduct['img']?>">
+                                                    <div class="tags">
+                                                        <div class="tag"><a class="no-underline" href="/product/view?id=<?=$modalProduct['id']?>" target="_blank">in view</a></div>
+                                                        <div class="tag"><a class="no-underline" href="/product" target="_blank">in index</a></div>
+                                                    </div>
+                                                </div>
+                                                <div class="imgName"><?= $modalProduct['name'] ?></div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <?= LinkPager::widget(['pagination' => $pagination]) ?>
 
-<!--                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-                       <form method="post" action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                           <div class="input-group">
-                               <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."
-                                      aria-label="Search" aria-describedby="basic-addon2" name="searchtable">
-                               <!-- <div class="input-group-append searchbtn">
-                                   <button class="btn btn-primary" type="submit">
-                                       <i class="fas fa-search fa-sm"></i>
-                                   </button>
-                               </div> -->
-                           </div>
-                       </form>
-
+                                </div>
+                            </div>
+                        </div>
+                        <div class="for-search d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+                            <form action="/product" method="post" class="search searchform">
+                                <input id="submit" value="" type="submit">
+                                <label for="submit" class="submit"></label>
+                                <a href="javascript: void(0)" class="icon"></a>
+                                <input type="search" name="votrevariable" id="search" placeholder="Search for..." class="inputval">
+                            </form>
+                        </div>
                         <div class="fs-search-result-wrapper shearch_menu">
-                            <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
+                            <div class="fs-search-result-block search-res">
+                                <div class="fs-search-result-column">
                                     <h4 class="h4_product">Product</h4>
                                     <ul class="fs-search-result-column-list search-prod-list-custom parentLiProduct">
 
@@ -179,11 +214,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             </div>
                         </div>
                     </div>
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -195,7 +227,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
+                                        <input type="text" class="form-control bg-light border-0 small inputValue"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
@@ -205,6 +237,21 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                         </div>
                                     </div>
                                 </form>
+                                <div class="fs-search-result-wrapper searchMenu">
+                                    <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
+                                            <h4 class="h4_prod">Product</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiProd">
+
+                                            </ul>
+                                        </div>
+                                        <div class="fs-search-result-column">
+                                            <h4 class="h4_cat">Category</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiCat">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -217,6 +264,26 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                     src="/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+<!--                                <a class="dropdown-item" href="#">-->
+<!--                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                                    Profile-->
+<!--                                </a>-->
+<!--                                <a class="dropdown-item" href="#">-->
+<!--                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                                    Settings-->
+<!--                                </a>-->
+<!--                                <a class="dropdown-item" href="#">-->
+<!--                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                                    Activity Log-->
+<!--                                </a>-->
+<!--                                <div class="dropdown-divider"></div>-->
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
                         </li>
 
                     </ul>
@@ -277,7 +344,25 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <i class="fas fa-angle-up"></i>
     </a>
 
-
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="site/login">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Bootstrap core JavaScript-->
 <!--    <script src="vendor/jquery/jquery.min.js"></script>-->
