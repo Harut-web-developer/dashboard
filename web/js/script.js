@@ -237,7 +237,7 @@ $(document).ready(function () {
             submit = icon.parent().find(".submit"),
             is_submit_clicked = false;
         input.animate({
-            "width": "150px",
+            "width": "100px",
             "padding": "10px",
             "opacity": 1
         }, 300, function() {
@@ -259,6 +259,7 @@ $(document).ready(function () {
                 icon.fadeIn(200);
             };
         });
+    });
         $('.inputval').on('input', function () {
             var inputValue = $(this).val();
             $('.shearch_menu').addClass('activ');
@@ -287,7 +288,39 @@ $(document).ready(function () {
                 },
             });
         });
-    });
+        $('.inputValue').on('input',function (){
+            let inp = $(this).val();
+            $('.searchMenu').addClass('activeMenu');
+            if (inp == "") {
+                $('.searchMenu').removeClass('activeMenu');
+            }
+            $.ajax({
+                url: '/product/searching',
+                method: 'post',
+                data: {
+                    option: inp,
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('.parentLiProd').html('');
+                    $('.parentLiCat').html('');
+                    for (let i = 0; i < data.query_product.length; i++) {
+                        let idval = data.query_product[i].id;
+                        $(".parentLiProd").append('<li class="fs-search-result-column-list-el li-prod"><a href="/product/view?id=' + idval + '" target="_blank">' + data.query_product[i].name + '</a></li>');
+                    }
+
+                    for (let i = 0; i < data.query_category.length; i++) {
+                        $(".parentLiCat").append(' <li class="fs-search-result-column-list-el"> <a href="/category/index?searchtable=' + $('.inputValue').val() + '" target="_blank">' + data.query_category[i].name + '</a> </li> ');
+                    }
+                },
+            })
+        })
+
+    // $('.h4_product').click(function (){
+    //
+    // })
+
 })
 
 

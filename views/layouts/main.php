@@ -10,6 +10,10 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\widgets\ActiveForm;
+use app\models\Product;
+use yii\data\Pagination;
+use yii\widgets\LinkPager;
+
 
 AppAsset::register($this);
 
@@ -145,37 +149,63 @@ if (isset($_SESSION['username'])) {
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
                     <!-- Topbar Search -->
                     <div class="fs-search-block">
+                        <!-- Large modal -->
+                        <button type="button" class="prodSearch btn btn-primary mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">search by products</button>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="productContent">
+                                        <?php
+                                        $query = Product::find()->select('id, name, img');
+                                        $countQuery = clone $query; // Create a clone of the query for counting
+                                        $pagination = new Pagination([
+                                            'defaultPageSize' => 18, // Set the number of items per page
+                                            'totalCount' => $countQuery->count(), // Get the total number of items
+                                        ]);
+                                        $modalProducts = $query
+                                            ->offset($pagination->offset)
+                                            ->limit($pagination->limit)
+                                            ->asArray()
+                                            ->all();
+                                        foreach ($modalProducts as $modalProduct) {
+                                            ?>
+                                            <div class="block">
+                                                <div class="imgBlock">
+                                                    <img src="/uploads/<?=$modalProduct['img']?>">
+                                                    <div class="tags">
+                                                        <div class="tag"><a class="no-underline" href="/product/view?id=<?=$modalProduct['id']?>" target="_blank">in view</a></div>
+                                                        <div class="tag"><a class="no-underline" href="/product" target="_blank">in index</a></div>
+                                                    </div>
+                                                </div>
+                                                <div class="imgName"><?= $modalProduct['name'] ?></div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <?= LinkPager::widget(['pagination' => $pagination]) ?>
 
-<!--                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-<!--                       <form method="post" action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-<!--                           <div class="input-group">-->
-<!--                               <input type="text" class="form-control bg-light border-0 small inputval" placeholder="Search for..."-->
-<!--                                      aria-label="Search" aria-describedby="basic-addon2" name="searchtable">-->
-<!--                           </div>-->
-<!--                       </form>-->
-                        <div class="for-search">
-                            <form action="" method="post" class="search searchform">
-
-
+                                </div>
+                            </div>
+                        </div>
+                        <div class="for-search d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+                            <form action="/product" method="post" class="search searchform">
                                 <input id="submit" value="" type="submit">
                                 <label for="submit" class="submit"></label>
-
-
                                 <a href="javascript: void(0)" class="icon"></a>
-
-                                <input type="search" name="votrevariable" id="search" placeholder="Rechercher" class="inputval">
+                                <input type="search" name="votrevariable" id="search" placeholder="Search for..." class="inputval">
                             </form>
                         </div>
                         <div class="fs-search-result-wrapper shearch_menu">
-                            <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
+                            <div class="fs-search-result-block search-res">
+                                <div class="fs-search-result-column">
                                     <h4 class="h4_product">Product</h4>
                                     <ul class="fs-search-result-column-list search-prod-list-custom parentLiProduct">
 
@@ -190,11 +220,8 @@ if (isset($_SESSION['username'])) {
                             </div>
                         </div>
                     </div>
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -206,7 +233,7 @@ if (isset($_SESSION['username'])) {
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
+                                        <input type="text" class="form-control bg-light border-0 small inputValue"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
@@ -216,6 +243,21 @@ if (isset($_SESSION['username'])) {
                                         </div>
                                     </div>
                                 </form>
+                                <div class="fs-search-result-wrapper searchMenu">
+                                    <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
+                                            <h4 class="h4_prod">Product</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiProd">
+
+                                            </ul>
+                                        </div>
+                                        <div class="fs-search-result-column">
+                                            <h4 class="h4_cat">Category</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiCat">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
