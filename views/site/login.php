@@ -1,157 +1,49 @@
 <?php
-//
-///** @var yii\web\View $this */
-///** @var yii\bootstrap5\ActiveForm $form */
-//
-///** @var app\models\LoginForm $model */
-//
-//use yii\bootstrap5\ActiveForm;
-//use yii\bootstrap5\Html;
-//
-//$this->title = 'Login';
-//$this->params['breadcrumbs'][] = $this->title;
-//?>
-<!--<div class="site-login">-->
-<!--    <h1>--><?php //= Html::encode($this->title) ?><!--</h1>-->
-<!---->
-<!--    <p>Please fill out the following fields to login:</p>-->
-<!---->
-<!--    <div class="row">-->
-<!--        <div class="col-lg-5">-->
-<!---->
-<!--            --><?php //$form = ActiveForm::begin([
-//                'id' => 'login-form',
-//                'fieldConfig' => [
-//                    'template' => "{label}\n{input}\n{error}",
-//                    'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-//                    'inputOptions' => ['class' => 'col-lg-3 form-control'],
-//                    'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-//                ],
-//            ]); ?>
-<!---->
-<!--            --><?php //= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-<!---->
-<!--            --><?php //= $form->field($model, 'password')->passwordInput() ?>
-<!---->
-<!--            --><?php //= $form->field($model, 'rememberMe')->checkbox([
-//                'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-//            ]) ?>
-<!---->
-<!--            <div class="form-group">-->
-<!--                <div>-->
-<!--                    --><?php //= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-<!--                </div>-->
-<!--            </div>-->
-<!---->
-<!--            --><?php //ActiveForm::end(); ?>
-<!---->
-<!--            <div style="color:#999;">-->
-<!--                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>-->
-<!--                To modify the username/password, please check out the code <code>app\models\User::$users</code>.-->
-<!--            </div>-->
-<!---->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
-<!DOCTYPE html>
-<html lang="en">
+/** @var yii\web\View $this */
+/** @var yii\bootstrap5\ActiveForm $form */
 
-<head>
+/** @var app\models\LoginForm $model */
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+?>
 
-    <title>Admin - Login</title>
+<?php
+$session = Yii::$app->session;
+?>
 
-    <!-- Custom fonts for this template-->
-    <link href="../vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-gradient-primary">
-
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row" style="width: 924px">
-                        <div class="col-lg-6 d-none d-lg-block"><img class="img-profile rounded-circle d-flex justify-content-center" src="/img/undraw_profile.svg" style="width: 200px; margin: 60px 60px 60px 100px;"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-<!--                                <div class="text-center">-->
-<!--                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>-->
-<!--                                </div>-->
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
-                                        </div>
-                                    </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
-<!--                                    <hr>-->
-<!--                                    <a href="index.html" class="btn btn-google btn-user btn-block">-->
-<!--                                        <i class="fab fa-google fa-fw"></i> Login with Google-->
-<!--                                    </a>-->
-<!--                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">-->
-<!--                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook-->
-<!--                                    </a>-->
-                                </form>
-<!--                                <hr>-->
-<!--                                <div class="text-center">-->
-<!--                                    <a class="small" href="forgot-password.html">Forgot Password?</a>-->
-<!--                                </div>-->
-<!--                                <div class="text-center">-->
-<!--                                    <a class="small" href="register.html">Create an Account!</a>-->
-<!--                                </div>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>
+        <?php
+        $error = $session->get('error');
+        var_dump($error);
+        ?>
+    </strong>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<div class="col"><img class="img-profile rounded-circle d-flex justify-content-center" src="/img/undraw_profile.svg" style="width: 200px; margin: 60px 60px 60px 60px;"></div>
 
-<!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+<?php $form = ActiveForm::begin(['id' => 'login-form',]); ?>
+<div class="form-group">
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+</div>
+<div class="form-group">
+    <?= $form->field($model, 'password')->passwordInput() ?>
+</div>
+<div class="form-group">
+    <?= $form->field($model, 'rememberMe')->checkbox([
+        'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+    ]) ?>
+</div>
+<?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+<?php ActiveForm::end(); ?>
+</div>
 
-<!-- Custom scripts for all pages-->
-<script src="../js/sb-admin-2.min.js"></script>
+<?php
+$session->remove('error');
+?>
 
-</body>
-
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

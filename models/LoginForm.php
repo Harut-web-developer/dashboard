@@ -11,8 +11,7 @@ use yii\base\Model;
  * @property-read User|null $user
  *
  */
-class LoginForm
-    extends Model
+class LoginForm extends Model
 {
     public $username;
     public $password;
