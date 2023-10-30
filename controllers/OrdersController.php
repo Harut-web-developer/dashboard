@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\OrderItems;
 use app\models\Orders;
 use app\models\OrdersSearch;
@@ -36,6 +37,15 @@ class OrdersController extends Controller
                 ],
             ]
         );
+    }
+
+    public function beforeAction($action)
+    {
+        if ($action->id !== 'login' && Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+//        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**

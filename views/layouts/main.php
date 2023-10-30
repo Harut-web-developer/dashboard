@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 use app\models\Product;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
 
 AppAsset::register($this);
@@ -364,7 +365,7 @@ if (isset($_SESSION['username'])) {
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="site/login">Logout</a>
+                <a class="btn btn-primary" href="<?=Url::to(array('site/logout'))?>">Logout</a>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Store;
 use app\models\StoreSearch;
 use yii\web\Controller;
@@ -29,6 +30,15 @@ class StoreController extends Controller
                 ],
             ]
         );
+    }
+
+    public function beforeAction($action)
+    {
+        if ($action->id !== 'login' && Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+//        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**
