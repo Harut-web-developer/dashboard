@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="add responsive search with products">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="add login and logout logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ChartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ChartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ConfigController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/OrdersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/StoreController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/TargetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TargetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/User.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/yiisoft/yii2/web/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/yiisoft/yii2/web/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +204,15 @@
       <workItem from="1698387348235" duration="4582000" />
       <workItem from="1698392283013" duration="1478000" />
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add login and logout logic">
+      <option name="closed" value="true" />
+      <created>1698653928916</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698653928916</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +238,7 @@
     <MESSAGE value="add focus on price" />
     <MESSAGE value="add responsive" />
     <MESSAGE value="add responsive search with products" />
-    <option name="LAST_COMMIT_MESSAGE" value="add responsive search with products" />
+    <MESSAGE value="add login and logout logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="add login and logout logic" />
   </component>
 </project>

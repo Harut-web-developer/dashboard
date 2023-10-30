@@ -15,7 +15,7 @@ use yii\data\Pagination;
 use yii\widgets\LinkPager;
 use yii\helpers\Url;
 
-
+$session = Yii::$app->session;
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -26,13 +26,7 @@ $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, 
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
 ?>
 
-<?php
-session_start();
-if (isset($_SESSION['username'])) {
-?>
-
 <?php $this->beginPage() ?>
-
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
@@ -266,7 +260,7 @@ if (isset($_SESSION['username'])) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $session->get('username'); ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="/img/undraw_profile.svg">
                             </a>
@@ -395,9 +389,3 @@ if (isset($_SESSION['username'])) {
 <?php $this->endPage() ?>
 
 
-    <?php
-}else{
-    return $this->render('login');
-}
-
-?>
