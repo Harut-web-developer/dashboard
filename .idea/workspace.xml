@@ -4,27 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/models/Users.php" afterDir="false" />
+    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="add responsive search with products">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ChartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ChartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ConfigController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/OrdersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/LoginForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/LoginForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/chart/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/chart/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/config/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/config/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/StoreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TargetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TargetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/yiisoft/yii2/web/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/yiisoft/yii2/web/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/product/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/product/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/site/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/site/login.php" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/web/.htpasswd" beforeDir="false" afterPath="$PROJECT_DIR$/web/.htpasswd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/cron.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/cron.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
-
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,8 +127,15 @@
       <path value="$PROJECT_DIR$/vendor/behat/gherkin" />
       <path value="$PROJECT_DIR$/vendor/cebe/markdown" />
       <path value="$PROJECT_DIR$/vendor/psy/psysh" />
-
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/php-diff" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/webfonts" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/svgs" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/less" />
@@ -143,7 +144,6 @@
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/sprites" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/scss" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/metadata" />
-
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -156,25 +156,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Rebasing Mariam&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/OSPanel/domains/dashboard/views/chart&quot;,
-
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Rebasing Mariam",
+    "last_opened_file_path": "C:/OSPanel/domains/dashboard/views/chart",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\OSPanel\domains\dashboard\views\layouts" />
@@ -187,7 +184,7 @@
       <recent name="C:\OSPanel\domains\dashboard" />
     </key>
   </component>
-  <component name="RunManager" selected="PHP Script.login.php">
+  <component name="RunManager">
     <configuration name="Main" type="CodeceptionConfigurationType" factoryName="Codeception">
       <PhpTestRunnerSettings configuration_file="$PROJECT_DIR$/codeception.yml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
       <method v="2" />
@@ -200,7 +197,6 @@
       <created>1697792254226</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-
       <updated>1697545511191</updated>
       <workItem from="1697545512151" duration="9201000" />
       <workItem from="1697699589545" duration="12629000" />
@@ -212,7 +208,6 @@
       <workItem from="1698260533466" duration="56006000" />
       <workItem from="1698387348235" duration="4582000" />
       <workItem from="1698392283013" duration="1478000" />
-
     </task>
     <option name="localTasksCounter" value="7" />
     <servers />
@@ -239,6 +234,7 @@
     <MESSAGE value="updated orders update page, add unit" />
     <MESSAGE value="add focus on price" />
     <MESSAGE value="add responsive" />
-    <option name="LAST_COMMIT_MESSAGE" value="add responsive" />
+    <MESSAGE value="add responsive search with products" />
+    <option name="LAST_COMMIT_MESSAGE" value="add responsive search with products" />
   </component>
 </project>

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Category;
 use app\models\Config;
 use app\models\ConfigSearch;
@@ -32,6 +33,15 @@ class ConfigController extends Controller
                 ],
             ]
         );
+    }
+
+    public function beforeAction($action)
+    {
+        if ($action->id !== 'login' && Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+//        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
     /**

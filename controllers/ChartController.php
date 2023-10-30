@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use Yii;
+use app\models\User;
+use app\models\Users;
 use app\models\Category;
 use app\models\OrderItems;
 use app\models\Orders;
@@ -12,7 +15,19 @@ use yii\web\Controller;
 
 class ChartController extends  Controller{
     public $enableCsrfValidation = false;
+
+    public function beforeAction($action)
+    {
+
+//        if (Yii::$app->user->isGuest) {
+//            return $this->redirect(['site/login']);
+//        }
+//        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex(){
+    
         $stores = Store::find()->select('id,name')->asArray()->all();
         $categories = Category::find()->select('id,name')->asArray()->all();
         return $this->render('index',[

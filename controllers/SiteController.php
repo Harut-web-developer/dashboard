@@ -16,63 +16,20 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
 
-//    public function beforeAction($action)
-//    {
-//        echo "<pre>";
-//        var_dump($action);
-//        die;
-////        if($action->id =='login')
-////        {
-////            $this->enableCsrfValidation = false;
-////        }
-////        //return true;
-////        return parent::beforeAction($action);
-//
-////        if (!Yii::$app->user->isGuest) {
-////            $this->redirect(['./']);
-////            return false;
-////        }
-////        return parent::beforeAction($action);
-////        if(Yii::$app->user->isGuest) {
-////            print("Welcome back Guest!");
-////            print("Your id is ".Yii::$app->user->id);
-////            die;
-////        } else {
-////            print("Your id is ".Yii::$app->user->id);
-////            die;
-////        }
-//
-//
-////        if($action->id =='login')
-////        {
-////            $this->enableCsrfValidation = false;
-////        }
-////        //return true;
-////        return parent::beforeAction($action);
-//    }
+    public function beforeAction($action)
+    {
+        $session = Yii::$app->session;
+
+        if ($action->id !== 'login' && !(isset($session['user_id']) && $session['logged'])) {
+            return $this->redirect(['site/login']);
+        } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
+            return $this->actionLogin();
+        } else {
+            return $this->redirect('/chart');
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * {@inheritdoc}
      */
@@ -109,35 +66,22 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-//        function loginval($value){
-//            if ($value){
-//                return true;
-//            } else{
-//                return false;
-//            }
-//        }
+
         $this->layout = 'loginLayout';
         $model = new LoginForm();
         $session = Yii::$app->session;
         if ($model->load(Yii::$app->request->post())) {
             $uname = Yii::$app->request->post('LoginForm')['username'];
             $pass = Yii::$app->request->post('LoginForm')['password'];
-            $query = Users::find()
-                ->select('username, password, id')
-                ->where(['username' => $uname, 'password' => $pass])
-                ->asArray()
-                ->all();
-            if (count($query) === 1) {
-                if ($query[0]['username'] === $uname && $query[0]['password'] === $pass) {
-                    $_SESSION['username'] = $query[0]['username'];
-//                    loginval($query[0]['username']);
-                    return $this->redirect('/chart');
-                } else {
-                    $session->set('error', 'User Name / Password is Invalid');
-                    return $this->redirect('');
-                }
+            $identity = Users::findOne(['username' => $uname]);
+
+            if ($identity && $identity->password === $pass) {
+                $session->set('user_id',$identity->id);
+                $session->set('logged',true);
+                $session->set('username',$identity->name);
+                return $this->redirect('/chart');
             } else {
-                    $session->set('error', 'User Name / Password is Invalid');
+                $session->set('error', 'User Name / Password is Invalid');
                 return $this->redirect('');
             }
         }else{
@@ -154,16 +98,9 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
 
-        return $this->goHome();
-
-//        Yii::$app->session->removeAll();
-//        Yii::$app->session->destroy();
-//        var_dump(Yii::$app->session);
-//        var_dump("hi");
-//        die;
-//        return $this->redirect(['']);
+      session_destroy();
+      $this->redirect('/site/login');
     }
 
     /**
