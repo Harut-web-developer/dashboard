@@ -24,10 +24,22 @@ class ChartController extends  Controller{
         } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
             return $this->actionLogin();
         }
-//        if (Yii::$app->user->isGuest) {
-//            return $this->redirect(['site/login']);
+//        $usersAuthKey = Users::findOne($session['user_id']);
+//        if ($usersAuthKey->auth_key !== $session['auth_key']){
+//            $this->redirect('/site/logout');
 //        }
-//        $this->enableCsrfValidation = false;
+        if(!$session['remember']){
+            $res = Users::checkUser($session['user_id']);
+            if(!$res){
+                $this->redirect('/site/logout');
+            }
+        }else{
+            $result = Users::checkUserAuthKey($session['user_id']);
+            if(!$result){
+                $this->redirect('site/logout');
+            }
+        }
+
         return parent::beforeAction($action);
     }
 
@@ -43,7 +55,9 @@ class ChartController extends  Controller{
 
     public function actionGetData()
     {
+        $session = Yii::$app->session;
         $post = $this->request->post();
+//        var_dump($post);
         $store = intval($post['store']);
         $category = intval($post['category']);
         $start = $post['start'];
@@ -57,6 +71,10 @@ class ChartController extends  Controller{
         $condStore = [];
         $condCategory = [];
         $response = [];
+        $condRole = [];
+        if ($session['adminRole'] == 2){
+            $condRole = ['manager_id'=>$session['user_id']];
+        }
         if($pay){
             $condPay = ['payment.type'=>$pay];
         }
@@ -83,7 +101,7 @@ class ChartController extends  Controller{
             ->andWhere($condStore)
             ->exists();
 //        var_dump($storeExists);MAX(orders.total_price) as price, product.name,product.img
-            if($start < $end){
+            if($start < $end || $start === $end){
                     if ($orderTime){
                         if ($categoryExist || $storeExists){
                             $maxPrice = OrderItems::find()->select('MAX(round(order_items.price/order_items.quantity)) as maxPrice,MAX(orders.total_price) as price, product.name,product.img')
@@ -95,6 +113,7 @@ class ChartController extends  Controller{
                         ->andWhere($condStore)
                         ->andWhere($condPay)
                         ->andWhere($condCategory)
+                        ->andWhere($condRole)
                         ->asArray()
                         ->one();
 //                    $maxPriceOrders = Orders::find()->select('MAX(orders.total_price) as price, product.name,product.img')
@@ -120,6 +139,7 @@ class ChartController extends  Controller{
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->andWhere($condPay)
+                        ->andWhere($condRole)
                         ->asArray()
                         ->one();
 //                    var_dump($maxCount);
@@ -133,6 +153,7 @@ class ChartController extends  Controller{
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->andWhere($condPay)
+                        ->andWhere($condRole)
                         ->asArray()
                         ->one();
                     $ordersCount = Orders::find()
@@ -144,6 +165,7 @@ class ChartController extends  Controller{
                         ->andWhere($condCategory)
                         ->andWhere($condStore)
                         ->andWhere($condPay)
+                        ->andWhere($condRole)
                         ->groupBy('order_items.order_id')
                         ->count();
                       $overageOrdersProcent = 0;
@@ -162,6 +184,7 @@ class ChartController extends  Controller{
                         ->andWhere($condStore)
                         ->andWhere($condCategory)
                         ->andWhere($condPay)
+                        ->andWhere($condRole)
                         ->groupBy('target.date')
                         ->asArray()
                         ->all();
@@ -176,6 +199,7 @@ class ChartController extends  Controller{
                         ->andWhere($condStore)
                         ->andWhere($condCategory)
                         ->andWhere($condPay)
+                        ->andWhere($condRole)
                         ->groupBy('MONTH(target.date)')
                         ->asArray()
                         ->all();
@@ -280,6 +304,7 @@ class ChartController extends  Controller{
                             ->andWhere($condStore)
                             ->andWhere($condPay)
                             ->andWhere($condCategory)
+                            ->andWhere($condRole)
                             ->asArray()
                             ->one();
                         $maxCount = OrderItems::find()->select('MAX(order_items.quantity) as maxCount,
@@ -293,6 +318,7 @@ class ChartController extends  Controller{
                             ->andWhere($condCategory)
                             ->andWhere($condStore)
                             ->andWhere($condPay)
+                            ->andWhere($condRole)
                             ->asArray()
                             ->one();
 //                    var_dump($maxCount);
@@ -306,6 +332,7 @@ class ChartController extends  Controller{
                             ->andWhere($condCategory)
                             ->andWhere($condStore)
                             ->andWhere($condPay)
+                            ->andWhere($condRole)
                             ->asArray()
                             ->one();
                         $ordersCount = Orders::find()
@@ -317,6 +344,7 @@ class ChartController extends  Controller{
                             ->andWhere($condCategory)
                             ->andWhere($condStore)
                             ->andWhere($condPay)
+                            ->andWhere($condRole)
                             ->groupBy('order_items.order_id')
                             ->count();
                         $overageOrdersProcent = 0;

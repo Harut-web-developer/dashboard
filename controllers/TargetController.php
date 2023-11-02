@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Users;
 use Yii;
 use app\models\Store;
 use app\models\Target;
@@ -41,11 +42,21 @@ class TargetController extends Controller
         } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
             return $this->actionLogin();
         }
-//        if ($action->id !== 'login' && Yii::$app->user->isGuest) {
-//            return $this->redirect(['site/login']);
-//        }
-////        $this->enableCsrfValidation = false;
-//        return parent::beforeAction($action);
+        if(!isset($_COOKIE['username'])){
+            $res = Users::checkUser($session['user_id']);
+            if(!$res){
+                $this->redirect('/site/logout');
+            }
+        }else{
+            $result = Users::checkUserAuthKey($session['user_id']);
+            if(!$result){
+                $this->redirect('site/logout');
+            }
+        }
+        if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+            $this->redirect(['site/errors']);
+        }
+        return parent::beforeAction($action);
     }
 
     /**

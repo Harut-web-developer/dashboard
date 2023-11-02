@@ -792,3 +792,7 @@ a:-webkit-any-link {
         width: 60% !important;
     }
 }
+.readonly{
+    pointer-events: none;
+    cursor: default;
+}

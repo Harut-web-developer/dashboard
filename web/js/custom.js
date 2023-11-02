@@ -70,10 +70,6 @@ $(document).ready(function (){
             let parse = JSON.parse(data, true);
             // console.log(data)
                 if(parse.msg === 'danger'){
-                    alert('There are no dates with such dates');
-
-
-
                     $('.productName').text(parse.maxPrice.maxPrice);
                     $('.productPrice').text(parse.maxPrice.name);
                     if (parse.maxPrice.img === null){
@@ -93,6 +89,7 @@ $(document).ready(function (){
                     $('.orderProcent').text(parse.overageProcent + '%');
                     $('.procentBar').attr('style', 'width:' + parse.overageProcent + '%');
                     $('.ordersCount').text(parse.ordersCount);
+                    alert('There are no dates with such dates');
 
                     // location.reload();
                 }else if(parse.msg === 'warning'){

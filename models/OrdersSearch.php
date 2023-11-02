@@ -41,7 +41,12 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+        $session = \Yii::$app->session;
+        if ($session['adminRole'] === 2){
+            $query = Orders::find()->where(['=','manager_id', $session['user_id']]);
+        }else{
+            $query = Orders::find();
+        }
 
         // add conditions that should always apply here
 

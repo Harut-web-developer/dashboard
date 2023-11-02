@@ -51,4 +51,8 @@ class Orders extends \yii\db\ActiveRecord
     public function getStoreName(){
         return $this->hasOne(Store::className(), ['id'=>'store_id']);
     }
+    public  function  getManagerName(){
+        return $this->hasOne(Users::className(), ['id'=>'manager_id']);
+    }
+
 }

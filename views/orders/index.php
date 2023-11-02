@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Orders;
+use app\models\Users;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -13,47 +14,59 @@ use yii\grid\GridView;
 $this->title = 'Orders';
 $this->params['breadcrumbs']['Home'] ='/';
 $this->params['breadcrumbs']['Orders'] = '/orders/index';
+$session = Yii::$app->session;
+//var_dump($session['adminRole']);
+//exit;
 ?>
-<?php if(!isset($data_size)){ ?>
-<div class="orders-index">
-    <title><?= Html::encode($this->title); ?></title>
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php if ($session['adminRole'] === 2){?>
 
-    <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
-    </p>
+    <?php if(!isset($data_size)){ ?>
+        <div class="orders-index">
+        <title><?= Html::encode($this->title); ?></title>
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <!--Download XLSX-->
-    <button class="downloadXLSX" >Download XLSX</button>
-    <?php
-    $dataProvider->pagination->pageSize = 10;
-    ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
+        <p>
+            <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        </p>
+
+        <!--Download XLSX-->
+        <button class="downloadXLSX" >Download XLSX</button>
+        <?php
+        $dataProvider->pagination->pageSize = 10;
+        ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 //            'id',
-            [
-                'attribute' => 'Store',
-                'value' => function ($model) {
-                    return $model->storeName->name;
-                 }
-            ],
-            'quantity',
-            'total_price',
-            'date',
-            [
-                'header' => 'Actions',
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                [
+                    'attribute' => 'Store',
+                    'value' => function ($model) {
+                        return $model->storeName->name;
+                    }
+                ],
+                [
+                    'attribute' => 'Manager',
+                    'value' => function ($model) {
+                        return $model->managerName->name;
+                    }
+                ],
+//            'manager_id',
+                'quantity',
+                'total_price',
+                'date',
+                [
+                    'header' => 'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
 
-                 },
+                    },
+                ],
             ],
-        ],
-    ]); ?>
-    <?php
+        ]); ?>
+        <?php
     }
     else{ ?>
         <title><?= Html::encode($this->title); ?></title>
@@ -71,6 +84,7 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
                 ['class' => 'yii\grid\SerialColumn'],
 //            'id',
                 'store_id',
+                'manager_id',
                 'quantity',
                 'total_price',
                 'date',
@@ -86,5 +100,92 @@ $this->params['breadcrumbs']['Orders'] = '/orders/index';
 
     <?php } ?>
 
-</div>
+    </div>
+
+<?php }else{ ?>
+
+    <?php if(!isset($data_size)){ ?>
+        <div class="orders-index">
+        <title><?= Html::encode($this->title); ?></title>
+        <h1><?= Html::encode($this->title) ?></h1>
+
+        <p>
+            <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
+        </p>
+
+        <!--Download XLSX-->
+        <button class="downloadXLSX" >Download XLSX</button>
+        <?php
+        $dataProvider->pagination->pageSize = 10;
+        ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+                [
+                    'attribute' => 'Store',
+                    'value' => function ($model) {
+                        return $model->storeName->name;
+                    }
+                ],
+                [
+                    'attribute' => 'Manager',
+                    'value' => function ($model) {
+                        return $model->managerName->name;
+                    }
+                ],
+//            'manager_id',
+                'quantity',
+                'total_price',
+                'date',
+                [
+                    'header' => 'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+
+                    },
+                ],
+            ],
+        ]); ?>
+        <?php
+    }
+    else{ ?>
+        <title><?= Html::encode($this->title); ?></title>
+        <?php $dataProvider->pagination = false; ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'tableOptions' => [
+                'class'=>'table table-striped table-bordered chatgbti_',
+            ],
+            'options' => [
+                'class' => 'summary deletesummary'
+            ],
+//        'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+//            'id',
+                'store_id',
+                'manager_id',
+                'quantity',
+                'total_price',
+                'date',
+                [
+                    'header' => 'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
+            ],
+        ]); ?>
+
+    <?php } ?>
+
+    </div>
+
+<?php } ?>
+
 

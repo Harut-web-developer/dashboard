@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Users;
+use Couchbase\User;
 use Yii;
 use app\models\OrderItems;
 use app\models\Orders;
@@ -47,11 +49,18 @@ class OrdersController extends Controller
         } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
             return $this->actionLogin();
         }
-//        if ($action->id !== 'login' && Yii::$app->user->isGuest) {
-//            return $this->redirect(['site/login']);
-//        }
-////        $this->enableCsrfValidation = false;
-//        return parent::beforeAction($action);
+        if(!isset($_COOKIE['username'])){
+            $res = Users::checkUser($session['user_id']);
+            if(!$res){
+                $this->redirect('/site/logout');
+            }
+        }else{
+            $result = Users::checkUserAuthKey($session['user_id']);
+            if(!$result){
+                $this->redirect('site/logout');
+            }
+        }
+        return parent::beforeAction($action);
     }
 
     /**
@@ -61,7 +70,9 @@ class OrdersController extends Controller
      */
     public function actionIndex()
     {
+//    echo "<pre>";
         $searchModel = new OrdersSearch();
+
         $dataProvider = $searchModel->search($this->request->queryParams);
         if($_POST){
             return $this->renderAjax('index', [
@@ -118,13 +129,14 @@ class OrdersController extends Controller
             $post = $this->request->post();
             if($post['selPay'] !== "" && $post['inputPay'] !== "") {
                 $model->store_id = $post['Orders']['store_id'];
+                $model->manager_id = $post['Orders']['manager_id'];
                 $model->quantity = array_sum($post['count_']);
                 $model->total_price = $post['Orders']["total_price"];
-                $model->save();
+                $model->save(false);
                 $payment->order_id = $model->id;
                 $payment->type = $post['selPay'];
                 $payment->price_of_pay = $post['inputPay'];
-                $payment->save();
+                $payment->save(false);
 
             for ($i = 0; $i < count($post['productid']); $i++) {
                 $order_items = new OrderItems();
@@ -134,7 +146,7 @@ class OrdersController extends Controller
                 $order_items->price = $post['price'][$i] * $post['count_'][$i];
                 $order_items->cost = $post['cost'][$i] * $post['count_'][$i];
                 $order_items->revenue = ($post['price'][$i] - $post['cost'][$i]) * $post['count_'][$i];
-                $order_items->save();
+                $order_items->save(false);
             }
                 return $this->redirect(['index', 'id' => $model->id]);
             }
@@ -144,11 +156,15 @@ class OrdersController extends Controller
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
+        $manager = Users::find()->select('id,name')->where(['=','idrole', 2])->asArray()->all();
+        $manager = ArrayHelper::map($manager,'id','name');
+//        var_dump($manager);
 
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
+            'manager' => $manager
         ]);
     }
 
@@ -165,6 +181,7 @@ class OrdersController extends Controller
         if ($this->request->isPost ) {
             $post = $this->request->post();
             $model->store_id = $post['Orders']['store_id'];
+            $model->manager_id = $post['Orders']['manager_id'];
             $model->quantity = array_sum($post['count_']);
             $model->total_price = $post['Orders']["total_price"];
             $model->update();
@@ -192,11 +209,14 @@ class OrdersController extends Controller
             ->leftJoin('product', 'product.id = order_items.product_id')
             ->where(['=','order_items.order_id',$id])
             ->asArray()->all();
+        $manager = Users::find()->select('id,name')->where(['=','idrole', 2])->asArray()->all();
+        $manager = ArrayHelper::map($manager,'id','name');
         return $this->render('update', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
             'payment' => $payment,
+            'manager' => $manager,
             'order_items' => $order_items,
         ]);
     }
