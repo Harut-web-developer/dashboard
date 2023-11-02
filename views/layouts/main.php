@@ -52,7 +52,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/chart">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -64,7 +64,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/chart">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -82,21 +82,51 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
             <!-- Nav Item - Store -->
             <li class="nav-item">
-                <a class="nav-link" href="/store">
+                <?php
+                if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+                    ?>
+                    <a class="nav-link readonly" href="/store">
+                    <?php
+                }else{
+                    ?>
+                    <a class="nav-link" href="/store">
+                    <?php
+                }
+                ?>
                     <i class="fas fa-fw fa-store"></i>
                     <span>Store</span></a>
             </li>
 
             <!-- Nav Item - Category -->
             <li class="nav-item">
-                <a class="nav-link" href="/category">
+                <?php
+                if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+                ?>
+                <a class="nav-link readonly" href="/category">
+                    <?php
+                    }else{
+                    ?>
+                    <a class="nav-link" href="/category">
+                        <?php
+                        }
+                        ?>
                     <i class="fas fa-fw fa-copy"></i>
                     <span>Category</span></a>
             </li>
 
             <!-- Nav Item - Product -->
             <li class="nav-item">
-                <a class="nav-link" href="/product">
+                <?php
+                if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+                ?>
+                <a class="nav-link readonly" href="/product">
+                    <?php
+                    }else{
+                    ?>
+                    <a class="nav-link" href="/product">
+                        <?php
+                        }
+                        ?>
                     <i class="fas fa-fw fa-th"></i>
                     <span>Products</span></a>
             </li>
@@ -117,14 +147,34 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
             <!-- Nav Item - Config -->
             <li class="nav-item">
-                <a class="nav-link" href="/config">
+                <?php
+                if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+                ?>
+                <a class="nav-link readonly" href="/config">
+                    <?php
+                    }else{
+                    ?>
+                    <a class="nav-link" href="/config">
+                        <?php
+                        }
+                        ?>
                     <i class="fas fa-fw fa-bullseye"></i>
                     <span>Configuration</span></a>
             </li>
             <!-- <i class="fa-solid fa-screwdriver-wrench"></i> -->
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/target">
+                <?php
+                if($session['adminRole'] == 2 || $session['adminRole'] == 3){
+                ?>
+                <a class="nav-link readonly" href="/target">
+                    <?php
+                    }else{
+                    ?>
+                    <a class="nav-link" href="/target">
+                        <?php
+                        }
+                        ?>
                     <i class="fas fa-fw fa-bullseye"></i>
                     <span>Target</span></a>
             </li>

@@ -17,26 +17,32 @@ if (isset($model->id)){
         <div class="card card-primary">
             <?php $form = ActiveForm::begin(); ?>
             <div class="card-body">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
+                    <?= $form->field($model, 'manager_id')->dropDownList($manager,
+                        [
+                            'options' => [$model->manager_id => ['selected' => true]]
+                        ]) ?>
+                </div>
+                <div class="form-group col-md-2">
                     <?= $form->field($model, 'store_id')->dropDownList($store,
                         [
                             'options' => [$model->store_id => ['selected' => true]]
                         ]) ?>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="selectPay">Type of pay</label>
                     <select id="selectPay" name="selPay" class="selectPay form-control col-md-12">
-                        <option value="">--choose type of pay--</option>
+                        <option value="">choose type of pay</option>
                         <option value="cash" <?php echo ($payment['type'] === 'cash') ? 'selected' : ''; ?>>cash</option>
                         <option value="card" <?php echo ($payment['type'] === 'card') ? 'selected' : ''; ?>>by card</option>
                         <option value="credit" <?php echo ($payment['type'] === 'credit') ? 'selected' : ''; ?>>credit</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="inpPay">Price of pay</label>
                     <input type="number" id="inpPay" class="inpPay form-control col-md-12" name="inputPay" value="<?=$payment['price_of_pay']?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <?= $form->field($model, 'total_price')->input('number',['readonly' => true,'class' => 'last_total_price form-control']) ?>
                 </div>
             </div>
@@ -137,23 +143,26 @@ if (isset($model->id)){
         <div class="card card-primary">
             <?php $form = ActiveForm::begin(); ?>
             <div class="card-body">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
+                    <?= $form->field($model, 'manager_id')->dropDownList($manager) ?>
+                </div>
+                <div class="form-group col-md-2">
                     <?= $form->field($model, 'store_id')->dropDownList($store) ?>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="selectPay">Type of pay</label>
                     <select id="selectPay" name="selPay" class="selectPay form-control col-md-12" >
-                        <option value="">--choose type of pay--</option>
+                        <option value="">choose type of pay</option>
                         <option value="cash">cash</option>
                         <option value="card">by card</option>
                         <option value="credit">credit</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="inpPay">Price of pay</label>
                     <input type="number" id="inpPay" class="inpPay form-control col-md-12" name="inputPay">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <?= $form->field($model, 'total_price')->input('number',['readonly' => true,'class' => 'last_total_price form-control']) ?>
                 </div>
             </div>

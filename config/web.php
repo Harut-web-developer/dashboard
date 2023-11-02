@@ -50,6 +50,7 @@ $config = [
             'rules' => [
                 'chart/get-data' => 'chart/get-data',
                 '/' => 'site/login',
+//                'orders/index' => 'orders/index',
 //                'order-items/product' => 'order-items/product',
                 '<controller>/<action:\w+>' => '<controller>/<action>',
             ],
