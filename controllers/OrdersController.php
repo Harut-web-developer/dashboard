@@ -153,18 +153,21 @@ class OrdersController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        $session = Yii::$app->session;
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
         $manager = Users::find()->select('id,name')->where(['=','idrole', 2])->asArray()->all();
         $manager = ArrayHelper::map($manager,'id','name');
-//        var_dump($manager);
+        $managerUnique = Users::find()->select('id,name')->where(['=','id', $session['user_id']])->asArray()->all();
+        $managerUnique = ArrayHelper::map($managerUnique,'id','name');
 
         return $this->render('create', [
             'model' => $model,
             'store' => $store,
             'product' => $product,
-            'manager' => $manager
+            'manager' => $manager,
+            'managerUnique' => $managerUnique
         ]);
     }
 
@@ -200,6 +203,7 @@ class OrdersController extends Controller
             }
             return $this->redirect(['index', 'id' => $model->id]);
         }
+        $session = Yii::$app->session;
         $store = Store::find()->select('id,name')->asArray()->all();
         $store = ArrayHelper::map($store,'id','name');
         $product = Product::find()->asArray()->all();
@@ -211,6 +215,8 @@ class OrdersController extends Controller
             ->asArray()->all();
         $manager = Users::find()->select('id,name')->where(['=','idrole', 2])->asArray()->all();
         $manager = ArrayHelper::map($manager,'id','name');
+        $managerUnique = Users::find()->select('id,name')->where(['=','id', $session['user_id']])->asArray()->all();
+        $managerUnique = ArrayHelper::map($managerUnique,'id','name');
         return $this->render('update', [
             'model' => $model,
             'store' => $store,
@@ -218,6 +224,7 @@ class OrdersController extends Controller
             'payment' => $payment,
             'manager' => $manager,
             'order_items' => $order_items,
+            'managerUnique' => $managerUnique
         ]);
     }
 

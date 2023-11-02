@@ -4,30 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="update login">
-      <change afterPath="$PROJECT_DIR$/views/site/404.php" afterDir="false" />
+    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="finaly i graduated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ChartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ChartController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ConfigController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/OrdersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/StoreController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/TargetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TargetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Orders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/OrdersSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/OrdersSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/site/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/site/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698661324937</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="finaly i graduated">
+      <option name="closed" value="true" />
+      <created>1698921584757</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698921584757</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,6 +252,7 @@
     <MESSAGE value="add responsive search with products" />
     <MESSAGE value="add login and logout logic" />
     <MESSAGE value="update login" />
-    <option name="LAST_COMMIT_MESSAGE" value="update login" />
+    <MESSAGE value="finaly i graduated" />
+    <option name="LAST_COMMIT_MESSAGE" value="finaly i graduated" />
   </component>
 </project>

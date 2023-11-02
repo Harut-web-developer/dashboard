@@ -21,6 +21,7 @@ $this->params['breadcrumbs']['Update'] = '/orders/update';
         'payment' => $payment,
         'manager' => $manager,
         'order_items' => $order_items,
+        'managerUnique' => $managerUnique
     ]) ?>
 
 </div>
