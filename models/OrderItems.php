@@ -32,7 +32,7 @@ class OrderItems extends \yii\db\ActiveRecord
     {
         return [
             [['order_id', 'product_id', 'quantity', 'price', 'revenue', 'cost'], 'integer'],
-            [['quantity', 'price', 'revenue', 'cost'], 'required'],
+            [['quantity', 'price', 'revenue', 'cost','product_id'], 'required'],
         ];
     }
 

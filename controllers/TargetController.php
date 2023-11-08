@@ -42,7 +42,7 @@ class TargetController extends Controller
         } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
             return $this->actionLogin();
         }
-        if(!isset($_COOKIE['username'])){
+        if(!$session['remember']){
             $res = Users::checkUser($session['user_id']);
             if(!$res){
                 $this->redirect('/site/logout');

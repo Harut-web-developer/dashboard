@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +8,6 @@
     <title>Delete and restore</title>
     <style>
         div {
-
             border: 1px solid;
             width: 40%;
             height: 300px;
@@ -113,7 +108,6 @@ if(isset($_POST['delete'])){
                             if ($i < $fields_count - 1) {
                                 $contents .= ', ';
                             }
-
                         }
                         if (($r + 1) == $row_count || ($r % 400) == 399) {
                             $contents .= ");\n\n";
@@ -158,7 +152,6 @@ if(isset($_POST['delete'])){
 //        $basePath = basename($folderToZip);
             addFolderToZip($folderToZip, $zip);
             $zip->close();
-
             echo "Folder dk has been successfully zipped to dk.zip.";
         } else {
             echo "Unable to create the ZIP file.";
@@ -268,7 +261,6 @@ if(isset($_POST['delete'])){
                             if ($i < $fields_count - 1) {
                                 $contents .= ', ';
                             }
-
                         }
                         if (($r + 1) == $row_count || ($r % 400) == 399) {
                             $contents .= ");\n\n";
@@ -313,7 +305,6 @@ if(isset($_POST['delete'])){
 //        $basePath = basename($folderToZip);
             addFolderToZip($folderToZip, $zip);
             $zip->close();
-
             echo "Folder dk has been successfully zipped to dk.zip.";
         } else {
             echo "Unable to create the ZIP file.";
@@ -364,8 +355,6 @@ if(isset($_POST['delete'])){
         }
         $conn->close();
     }
-
-
 }else if(isset($_POST['restore'])){
     if(file_exists('../../dashboard/.htaccess')){
         echo 'The file exists.';
@@ -417,42 +406,20 @@ if(isset($_POST['delete'])){
         $destinationDirectory = '../../dashboard';
         copyDirectory($sourceDirectory, $destinationDirectory);
         removeDir('../../dashboard/ns');
-
-<<<<<<< HEAD
         $filename = '../../dashboard/web/store.sql';
-        $sql = file_get_contents($filename); // Corrected the file_get_contents parameter.
-        $mysqli = new mysqli("localhost", "root", "", "store");
+        if (file_exists($filename)) {
+            $sql = file_get_contents($filename); // Corrected the file_get_contents parameter.
+            $mysqli = new mysqli("localhost", "root", "", "store");
         if ($mysqli->connect_error) {
             die("Connection failed: " . $mysqli->connect_error);
         }
         $templine = '';
-        $lines = explode(";", $sql); // Split the SQL file into individual SQL statements.
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if ($line == '') {
-                continue;
-            }
-=======
-
-        $filename = '../../dashboard/web/store.sql';
-        if (file_exists($filename)) {
-            $sql = file_get_contents($filename);
-            $mysqli = new mysqli("localhost", "root", "", "store");
-        
-            if ($mysqli->connect_error) {
-                die("Connection failed: " . $mysqli->connect_error);
-            }
-        
-            $templine = '';
             $lines = file($filename);
-            
             foreach ($lines as $line) {
                 if (substr($line, 0, 2) == '--' || $line == '') {
                     continue;
                 }
-                
                 $templine .= $line;
-        
                 if (substr(trim($line), -1, 1) == ';') {
                     if ($mysqli->query($templine)) {
                         $templine = '';
@@ -461,15 +428,12 @@ if(isset($_POST['delete'])){
                     }
                 }
             }
-        
             $mysqli->close();
         } else {
             echo "SQL file '$filename' not found.";
->>>>>>> b4ad8b2693c501ce4775c190e8d8ca4479f1afbc
         }
         unlink('../../dashboard/web/store.sql');
     }
-
 }
 ?>
 <?php

@@ -19,7 +19,8 @@ $this->params['breadcrumbs']['Create'] = '/orders/create';
         'store' => $store,
         'product' => $product,
         'manager' => $manager,
-        'managerUnique' => $managerUnique
+        'managerUnique' => $managerUnique,
+        'pagination' => $pagination,
     ]) ?>
 
 </div>

@@ -39,10 +39,8 @@ class ChartController extends  Controller{
                 $this->redirect('site/logout');
             }
         }
-
         return parent::beforeAction($action);
     }
-
     public function actionIndex(){
 
         $stores = Store::find()->select('id,name')->asArray()->all();
@@ -248,7 +246,14 @@ class ChartController extends  Controller{
                             }
                         }
                     }else{
-                        for($n = 1;$n <= 12; $n++){
+                        $stMonth = Orders::find()->select('MIN(date) as date')->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+                            ->asArray()->all();
+                        $lastMonth = Orders::find()->select('MAX(date) as date')
+                            ->where(['BETWEEN', 'DATE(orders.date)', $start, $newEnd])
+                            ->asArray()->all();
+                        $stMonth = date('n',strtotime($stMonth[0]['date']));
+                        $lastMonth = date('n',strtotime($lastMonth[0]['date']));
+                        for($n = $stMonth;$n <= $lastMonth; $n++){
                             if ($n < 10) {
                                 $monthData = 0 . $n;
                                 array_push($months, $monthData);

@@ -22,55 +22,62 @@ $this->params['breadcrumbs']['Products'] = '/product/index';
     <p>
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-block btn-outline-dark col-md-2 btn-sm']) ?>
     </p>
-
+    <div class="productFields">
+            <input type="text" class="searchingProduct">
+        <button class="downloadXLSX" >Download XLSX</button>
+    </div>
     <!--Download XLSX-->
-    <button class="downloadXLSX" >Download XLSX</button>
     <?php
 //        $dataProvider->pagination = true;
         $dataProvider->pagination->pageSize = 10;
     ?>
-    <?= GridView::widget([
+    <div class="searchTab">
+        <?= GridView::widget([
 
-        'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 //            'id',
 //            'category_id',
-            [
-                'attribute' => 'category_id',
-                'value' => function ($model) {
-                    $category = \app\models\Category::findOne(['id' => $model->category_id]);
-                    if ($category !== null) {
-                        return $category->name;
+                [
+                    'attribute' => 'category_id',
+                    'value' => function ($model) {
+                        $category = \app\models\Category::findOne(['id' => $model->category_id]);
+                        if ($category) {
+                            return $category->name;
+                        }else{
+                            return 'empty';
+                        }
                     }
-                }
-            ],
-            'name',
-            'description:ntext',
-            'price',
-            'cost',
-            [
+                ],
+                'name',
+                'description:ntext',
+                'price',
+                'cost',
+                [
 
-                'attribute' => 'img',
-                'format' => 'raw',
-                'value' => function($model){
-                    return '<img src="/uploads/'.$model->img.'"width="50">';
+                    'attribute' => 'img',
+                    'format' => 'raw',
+                    'value' => function($model){
+                        return '<img src="/uploads/'.$model->img.'"width="50">';
 //                    return Html::img(Yii::getAlias('/web/uploads/'). $model->img,[
 //                        'alt'=>$model->img,
 //                    ]);
-                },
+                    },
+                ],
+                'keyword',
+                [
+                    'header'=>'Actions',
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Product $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
+                ],
             ],
-            'keyword',
-            [
-                'header'=>'Actions',
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Product $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
+        ]); ?>
+    </div>
+
     <?php
     }
     else{ ?>

@@ -62,7 +62,7 @@
     pointer-events: auto;
 }
 .activ {
-    margin: 5px;
+    margin: 5px 0px 0px 170px;
     display: block;
     width: 395px;
 }
@@ -795,4 +795,16 @@ a:-webkit-any-link {
 .readonly{
     pointer-events: none;
     cursor: default;
+}
+.productFields{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.tabImg > img{
+    width: 70px;
+    height: auto;
+}
+.myimg:hover{
+    cursor:pointer;
 }

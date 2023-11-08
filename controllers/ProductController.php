@@ -49,7 +49,7 @@ class ProductController extends Controller
         } else if($action->id == 'login' && !(isset($session['user_id']) && $session['logged'])){
             return $this->actionLogin();
         }
-        if(!isset($_COOKIE['username'])){
+        if(!$session['remember']){
             $res = Users::checkUser($session['user_id']);
             if(!$res){
                 $this->redirect('/site/logout');
@@ -216,6 +216,8 @@ class ProductController extends Controller
     public function actionSearching(){
         if (Yii::$app->request->isAjax && Yii::$app->request->post('option')) {
             $option = Yii::$app->request->post('option');
+//            var_dump($option);
+//            exit();
             $query_product = Product::find()
                 ->select('id , name, description, keyword')
                 ->orWhere(['like', 'name', $option])
@@ -230,6 +232,19 @@ class ProductController extends Controller
             $res['query_category'] = $query_category;
             return json_encode($res);
         }
+    }
+
+    public function actionFilter(){
+//        echo "<pre>";
+        $post = $this->request->post();
+        $prod = Product::find()->select('category.name as category_id, product.id,product.name,product.description,
+        product.price,product.cost,product.img,product.keyword')
+            ->leftJoin('category','category.id = product.category_id')
+            ->orWhere(['like','product.name',$post['searchProduct']])->asArray()->all();
+//        var_dump($prod);
+//        exit();
+        return json_encode($prod);
+
     }
 
 }
