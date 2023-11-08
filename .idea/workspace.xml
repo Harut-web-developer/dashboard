@@ -4,12 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="finaly i graduated">
+    <list default="true" id="4cf23bff-22a8-4c64-b382-39ba412310b0" name="Changes" comment="final update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ChartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ChartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ConfigController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/OrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/OrdersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/StoreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TargetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TargetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/OrderItems.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/OrderItems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/category/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/category/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/chart/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/chart/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/config/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/config/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/orders/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/orders/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/target/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/target/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.htpasswd" beforeDir="false" afterPath="$PROJECT_DIR$/web/.htpasswd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/settings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-14 125526.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/125526.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-15 085003.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/085003.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-16 092241.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/092241.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-21 083450.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/083450.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-21 083505.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/083505.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-03-21 083546.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/083546.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-04-01 142107.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/142107.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-04-01 142155.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/142155.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-20 051031.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/051031.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-20 065349.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/065349.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-25 000838.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/000838.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-25 010258.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/010258.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-26 032550.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/032550.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-07-26 045646.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/045646.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/Screenshot 2023-09-11 085149.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/uploads/085149.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/uploads/your_filename (14).xlsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698921584757</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="final update">
+      <option name="closed" value="true" />
+      <created>1698926936904</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698926936904</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +300,7 @@
     <MESSAGE value="add login and logout logic" />
     <MESSAGE value="update login" />
     <MESSAGE value="finaly i graduated" />
-    <option name="LAST_COMMIT_MESSAGE" value="finaly i graduated" />
+    <MESSAGE value="final update" />
+    <option name="LAST_COMMIT_MESSAGE" value="final update" />
   </component>
 </project>

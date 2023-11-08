@@ -38,9 +38,12 @@ $this->params['breadcrumbs']['Targets'] = '/target/index';
             [
                 'attribute' => 'store_id',
                 'value' => function($model){
-                    return $model->storName->name;
+                    if ($model->storName) {
+                        return $model->storName->name;
+                    } else {
+                        return 'empty';
+                    }
                 }
-
             ],
             'target_price',
             'date',

@@ -27,7 +27,8 @@ class Config extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'procent'], 'integer'],
+            [['category_id', ], 'integer'],
+            [['procent'], 'number'],
             [['procent'], 'required'],
         ];
     }

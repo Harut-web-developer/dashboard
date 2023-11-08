@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 
 /** @var yii\web\View $this */
 /** @var app\models\Orders $model */
@@ -14,7 +15,6 @@ $session = Yii::$app->session;
 if (isset($model->id)){
     if ($session['adminRole'] === 2){
         ?>
-
         <div class="orders-form">
             <div class="card card-primary">
                 <?php $form = ActiveForm::begin(); ?>
@@ -48,6 +48,45 @@ if (isset($model->id)){
                         <?= $form->field($model, 'total_price')->input('number',['readonly' => true,'class' => 'last_total_price form-control']) ?>
                     </div>
                 </div>
+
+
+                <table class="table order_products">
+                    <thead class="table-dark">
+                    <tr class="t">
+                        <th scope="col">#</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $itemsArray = [];
+                    $vars_isset = '';
+                    foreach ($order_items as $order){
+                        $itemsArray[] = $order['product_id'];
+                        $vars_isset .=$order['product_id'].',';
+                        ?>
+                        <tr class="product_tr">
+                            <th scope="row"><?=$order['product_id']?><input type="hidden" name="productid[]" value="<?=$order['product_id']?>">
+                                <input class="itemsId" type="hidden" name="itemid[]" value="<?=$order['id']?>">
+                            </th>
+                            <td class="name"><?=$order['name']?></td>
+                            <td class="count"><input type="number" name="count_[]" value="<?=$order['quantity']?>" class="form-control countProduct"></td>
+                            <td class="price"><?=$order['price']?><input type="hidden" name="price[]" value="<?=$order['price']?>"></td>
+                            <input type="hidden" name="total[]" value="<?=$order['price'] *  $order['quantity']?>">
+                            <td class="total"><?=$order['price'] *  $order['quantity']?></td>
+                            <td class="cost"><?=$order['cost']?><input type="hidden" name="cost[]" value="<?=$order['cost']?>"></td>
+                            <td class="btnn"><button type="button" class="btn btn-outline-danger delItems">Delete</button></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
                 <div class="mod">
                     <!-- Button trigger modal -->
                     <a data-toggle="modal" href="#examMod" class="btn btn-primary">+ add</a>
@@ -62,7 +101,8 @@ if (isset($model->id)){
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table">
+                                    <input class="form-control col-md-3 mb-3 searchProduct" type="search" placeholder="Search...">
+                                    <table class="table checkTab">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
@@ -74,7 +114,11 @@ if (isset($model->id)){
                                         </thead>
                                         <tbody>
                                         <?php
+
                                         foreach ($product as $prod){
+                                            if(in_array($prod['id'],$itemsArray)){
+                                                continue;
+                                            }
                                             ?>
                                             <tr class="table_tr">
                                                 <td><?=$prod['id']?></td>
@@ -91,47 +135,17 @@ if (isset($model->id)){
 
                                         </tbody>
                                     </table>
+                                    <div class="paginationOrder">
+                                        <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                                    </div>
                                     <div>
-                                        <button type="button" class="btn btn-success create">Create</button>
+                                        <button type="button" class="btn btn-success update">Create</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <table class="table order_products">
-                    <thead class="table-dark">
-                    <tr class="t">
-                        <th scope="col">#</th>
-                        <th scope="col">Product name</th>
-                        <th scope="col">Count</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($order_items as $order){
-                        ?>
-                        <tr class="product_tr">
-                            <th scope="row"><?=$order['product_id']?><input type="hidden" name="productid[]" value="<?=$order['product_id']?>"></th>
-                            <td class="name"><?=$order['name']?></td>
-                            <td class="count"><input type="number" name="count_[]" value="<?=$order['quantity']?>" class="form-control countProduct"></td>
-                            <td class="price"><?=$order['price']?><input type="hidden" name="price[]" value="<?=$order['price']?>"></td>
-                            <input type="hidden" name="total[]" value="<?=$order['price'] *  $order['quantity']?>">
-                            <td class="total"><?=$order['price'] *  $order['quantity']?></td>
-                            <td class="cost"><?=$order['cost']?><input type="hidden" name="cost[]" value="<?=$order['cost']?>"></td>
-                            <td class="btnn"><button type="button" class="btn btn-outline-danger delItems">Delete</button></td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-
                 <div class="card-footer">
                     <?= Html::submitButton('save', ['class' => 'btn btn-primary ordersCreate']) ?>
                 </div>
@@ -176,6 +190,45 @@ if (isset($model->id)){
                         <?= $form->field($model, 'total_price')->input('number',['readonly' => true,'class' => 'last_total_price form-control']) ?>
                     </div>
                 </div>
+
+
+                <table class="table order_products">
+                    <thead class="table-dark">
+                    <tr class="t">
+                        <th scope="col">#</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $itemsArray = [];
+                    $vars_isset = '';
+                    foreach ($order_items as $order){
+                        $itemsArray[] = $order['product_id'];
+                        $vars_isset .=$order['product_id'].',';
+                        ?>
+                        <tr class="product_tr">
+                            <th scope="row"><?=$order['product_id']?><input type="hidden" name="productid[]" value="<?=$order['product_id']?>">
+                                <input class="itemsId" type="hidden" name="itemid[]" value="<?=$order['id']?>">
+                            </th>
+                            <td class="name"><?=$order['name']?></td>
+                            <td class="count"><input type="number" name="count_[]" value="<?=$order['quantity']?>" class="form-control countProduct"></td>
+                            <td class="price"><?=$order['price']?><input type="hidden" name="price[]" value="<?=$order['price']?>"></td>
+                            <input type="hidden" name="total[]" value="<?=$order['price'] *  $order['quantity']?>">
+                            <td class="total"><?=$order['price'] *  $order['quantity']?></td>
+                            <td class="cost"><?=$order['cost']?><input type="hidden" name="cost[]" value="<?=$order['cost']?>"></td>
+                            <td class="btnn"><button type="button" class="btn btn-outline-danger delItems">Delete</button></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
                 <div class="mod">
                     <!-- Button trigger modal -->
                     <a data-toggle="modal" href="#examMod" class="btn btn-primary">+ add</a>
@@ -190,7 +243,8 @@ if (isset($model->id)){
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table">
+                                    <input class="form-control col-md-3 mb-3 searchProduct" type="search" placeholder="Search...">
+                                    <table class="table checkTab">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
@@ -202,7 +256,11 @@ if (isset($model->id)){
                                         </thead>
                                         <tbody>
                                         <?php
+
                                         foreach ($product as $prod){
+                                            if(in_array($prod['id'],$itemsArray)){
+                                                continue;
+                                            }
                                             ?>
                                             <tr class="table_tr">
                                                 <td><?=$prod['id']?></td>
@@ -219,47 +277,17 @@ if (isset($model->id)){
 
                                         </tbody>
                                     </table>
+                                    <div class="paginationOrder">
+                                        <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                                    </div>
                                     <div>
-                                        <button type="button" class="btn btn-success create">Create</button>
+                                        <button type="button" class="btn btn-success update">Create</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <table class="table order_products">
-                    <thead class="table-dark">
-                    <tr class="t">
-                        <th scope="col">#</th>
-                        <th scope="col">Product name</th>
-                        <th scope="col">Count</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    foreach ($order_items as $order){
-                        ?>
-                        <tr class="product_tr">
-                            <th scope="row"><?=$order['product_id']?><input type="hidden" name="productid[]" value="<?=$order['product_id']?>"></th>
-                            <td class="name"><?=$order['name']?></td>
-                            <td class="count"><input type="number" name="count_[]" value="<?=$order['quantity']?>" class="form-control countProduct"></td>
-                            <td class="price"><?=$order['price']?><input type="hidden" name="price[]" value="<?=$order['price']?>"></td>
-                            <input type="hidden" name="total[]" value="<?=$order['price'] *  $order['quantity']?>">
-                            <td class="total"><?=$order['price'] *  $order['quantity']?></td>
-                            <td class="cost"><?=$order['cost']?><input type="hidden" name="cost[]" value="<?=$order['cost']?>"></td>
-                            <td class="btnn"><button type="button" class="btn btn-outline-danger delItems">Delete</button></td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </tbody>
-                </table>
-
                 <div class="card-footer">
                     <?= Html::submitButton('save', ['class' => 'btn btn-primary ordersCreate']) ?>
                 </div>
@@ -319,7 +347,8 @@ if (isset($model->id)){
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table">
+                                    <input class="form-control col-md-3 mb-3 searchProduct" type="search" placeholder="Search...">
+                                    <table class="table checkTab">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
@@ -348,6 +377,9 @@ if (isset($model->id)){
 
                                         </tbody>
                                     </table>
+                                    <div class="paginationOrder">
+                                        <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                                    </div>
                                     <div>
                                         <button type="button" class="btn btn-success create">Create</button>
                                     </div>
@@ -432,7 +464,8 @@ if (isset($model->id)){
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table">
+                                    <input class="form-control col-md-3 mb-3 searchProduct" type="search" placeholder="Search...">
+                                    <table class="table checkTab">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
@@ -443,7 +476,9 @@ if (isset($model->id)){
                                         </tr>
                                         </thead>
                                         <tbody>
+
                                         <?php
+
                                         foreach ($product as $prod){
                                             ?>
                                             <tr class="table_tr">
@@ -458,9 +493,11 @@ if (isset($model->id)){
                                             <?php
                                         }
                                         ?>
-
                                         </tbody>
                                     </table>
+                                    <div class="paginationOrder">
+                                        <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                                    </div>
                                     <div>
                                         <button type="button" class="btn btn-success create">Create</button>
                                     </div>
@@ -501,7 +538,19 @@ if (isset($model->id)){
 
 <?php
 }
-//die;
+    if(isset($model->id)){
+        ?>
+        <script>
+            var isset_items = '<?php echo substr($vars_isset,0,-1);?>';
+        </script>
+    <?php
+    }else{
+        ?>
+        <script>
+            var isset_items = '';
+        </script>
+        <?php
+    }
 ?>
 
 

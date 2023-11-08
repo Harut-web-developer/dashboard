@@ -82,6 +82,8 @@ class SiteController extends Controller
                     setcookie('password',$pass,time()+60 * 10,'/');
                 }
             $hash = sha1($pass);
+//                var_dump($hash);
+//                exit();
             $identity = Users::findOne(['username' => $uname]);
             if ($identity && $identity->password === $hash) {
                 date_default_timezone_set('Asia/Yerevan');
@@ -195,6 +197,16 @@ class SiteController extends Controller
             $randomString .= $characters[random_int(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+    public function actionUpdateDate(){
+        $session = Yii::$app->session;
+        $post = Yii::$app->request->post();
+        if(isset($session['logged'])){
+            date_default_timezone_set('Asia/Yerevan');
+            $updateDate = Users::findOne(['id' => $session['user_id']]);
+            $updateDate->last_login_date = date('Y-m-d H:i:s');
+            $updateDate->save(false);
+        }
     }
 }
 ?>

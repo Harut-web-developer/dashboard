@@ -43,13 +43,23 @@ $session = Yii::$app->session;
                 [
                     'attribute' => 'Store',
                     'value' => function ($model) {
-                        return $model->storeName->name;
+                        if ($model->storeName) {
+                            return $model->storeName->name;
+                        } else {
+                            return 'empty';
+                        }
+//                        return $model->storeName->name;
                     }
                 ],
                 [
                     'attribute' => 'Manager',
                     'value' => function ($model) {
-                        return $model->managerName->name;
+                        if ($model->managerName) {
+                            return $model->managerName->name;
+                        } else {
+                            return 'empty';
+                        }
+//                        return $model->managerName->name;
                     }
                 ],
 //            'manager_id',
@@ -127,13 +137,21 @@ $session = Yii::$app->session;
                 [
                     'attribute' => 'Store',
                     'value' => function ($model) {
-                        return $model->storeName->name;
+                        if($model->storeName) {
+                            return $model->storeName->name;
+                        } else {
+                            return 'empty';
+                        }
                     }
                 ],
                 [
                     'attribute' => 'Manager',
                     'value' => function ($model) {
-                        return $model->managerName->name;
+                        if($model->managerName){
+                            return $model->managerName->name;
+                        }else{
+                            return 'empty';
+                        }
                     }
                 ],
 //            'manager_id',

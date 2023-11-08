@@ -195,116 +195,130 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <!-- Topbar Search -->
-                    <div class="fs-search-block">
-                        <!-- Large modal -->
-                        <button type="button" class="prodSearch btn btn-primary mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">search by products</button>
-                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="productContent">
-                                        <?php
-                                        $query = Product::find()->select('id, name, img');
-                                        $countQuery = clone $query; // Create a clone of the query for counting
-                                        $pagination = new Pagination([
-                                            'defaultPageSize' => 18, // Set the number of items per page
-                                            'totalCount' => $countQuery->count(), // Get the total number of items
-                                        ]);
-                                        $modalProducts = $query
-                                            ->offset($pagination->offset)
-                                            ->limit($pagination->limit)
-                                            ->asArray()
-                                            ->all();
-                                        foreach ($modalProducts as $modalProduct) {
-                                            ?>
-                                            <div class="block">
-                                                <div class="imgBlock">
-                                                    <img src="/uploads/<?=$modalProduct['img']?>">
-                                                    <div class="tags">
-                                                        <div class="tag"><a class="no-underline" href="/product/view?id=<?=$modalProduct['id']?>" target="_blank">in view</a></div>
-                                                        <div class="tag"><a class="no-underline" href="/product" target="_blank">in index</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="imgName"><?= $modalProduct['name'] ?></div>
+                    <?php
+                        if ($session['adminRole'] !== 2 && $session['adminRole'] !== 3){
+                            ?>
+                            <div class="fs-search-block">
+                                <!-- Large modal -->
+                                <button type="button" class="prodSearch btn btn-primary mb-3" data-toggle="modal" data-target=".bd-example-modal-lg">search by products</button>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                            <?php
-                                        }
-                                        ?>
-                                    </div>
-                                    <?= LinkPager::widget(['pagination' => $pagination]) ?>
+                                            <div class="productContent">
+                                                <?php
+                                                $query = Product::find()->select('id, name, img');
+                                                $countQuery = clone $query; // Create a clone of the query for counting
+                                                $pagination = new Pagination([
+                                                    'defaultPageSize' => 18, // Set the number of items per page
+                                                    'totalCount' => $countQuery->count(), // Get the total number of items
+                                                ]);
+                                                $modalProducts = $query
+                                                    ->offset($pagination->offset)
+                                                    ->limit($pagination->limit)
+                                                    ->asArray()
+                                                    ->all();
+                                                foreach ($modalProducts as $modalProduct) {
+                                                    ?>
+                                                    <div class="block">
+                                                        <div class="imgBlock">
+                                                            <img src="/uploads/<?=$modalProduct['img']?>">
+                                                            <div class="tags">
+                                                                <div class="tag"><a class="no-underline" href="/product/view?id=<?=$modalProduct['id']?>" target="_blank">in view</a></div>
+                                                                <div class="tag"><a class="no-underline" href="/product" target="_blank">in index</a></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="imgName"><?= $modalProduct['name'] ?></div>
+                                                    </div>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                            <?= LinkPager::widget(['pagination' => $pagination]) ?>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="for-search d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
-                            <form action="/product" method="post" class="search searchform">
-                                <input id="submit" value="" type="submit">
-                                <label for="submit" class="submit"></label>
-                                <a href="javascript: void(0)" class="icon"></a>
-                                <input type="search" name="votrevariable" id="search" placeholder="Search for..." class="inputval">
-                            </form>
-                        </div>
-                        <div class="fs-search-result-wrapper shearch_menu">
-                            <div class="fs-search-result-block search-res">
-                                <div class="fs-search-result-column">
-                                    <h4 class="h4_product">Product</h4>
-                                    <ul class="fs-search-result-column-list search-prod-list-custom parentLiProduct">
-
-                                    </ul>
-                                </div>
-                                <div class="fs-search-result-column">
-                                    <h4 class="h4_category">Category</h4>
-                                    <ul class="fs-search-result-column-list search-prod-list-custom parentLiCategory">
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small inputValue"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
                                         </div>
                                     </div>
-                                </form>
-                                <div class="fs-search-result-wrapper searchMenu">
-                                    <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
-                                            <h4 class="h4_prod">Product</h4>
-                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiProd">
+                                </div>
+                                <div class="for-search d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+                                    <form action="/product" method="post" class="search searchform">
+                                        <input id="submit" value="" type="submit">
+                                        <label for="submit" class="submit"></label>
+                                        <a href="javascript: void(0)" class="icon"></a>
+                                        <input type="search" name="votrevariable" id="search" placeholder="Search for..." class="inputval">
+                                    </form>
+                                </div>
+                                <div class="fs-search-result-wrapper shearch_menu">
+                                    <div class="fs-search-result-block search-res">
+                                        <div class="fs-search-result-column">
+                                            <h4 class="h4_product">Product</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiProduct">
 
                                             </ul>
                                         </div>
                                         <div class="fs-search-result-column">
-                                            <h4 class="h4_cat">Category</h4>
-                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiCat">
+                                            <h4 class="h4_category">Category</h4>
+                                            <ul class="fs-search-result-column-list search-prod-list-custom parentLiCategory">
 
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                            <?php
+                        }
+                    ?>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <?php
+                        if ($session['adminRole'] !== 2 && $session['adminRole'] !== 3){
+                            ?>
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                     aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small inputValue"
+                                                   placeholder="Search for..." aria-label="Search"
+                                                   aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="fs-search-result-wrapper searchMenu">
+                                        <div class="fs-search-result-block search-res"><div class="fs-search-result-column">
+                                                <h4 class="h4_prod">Product</h4>
+                                                <ul class="fs-search-result-column-list search-prod-list-custom parentLiProd">
+
+                                                </ul>
+                                            </div>
+                                            <div class="fs-search-result-column">
+                                                <h4 class="h4_cat">Category</h4>
+                                                <ul class="fs-search-result-column-list search-prod-list-custom parentLiCat">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
+                        }
+                        ?>
+
+
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">

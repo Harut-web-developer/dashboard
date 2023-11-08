@@ -38,7 +38,11 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
             [
                 'attribute' => 'category_id',
                 'value' => function($model){
-                    return $model->categoryName->name;
+                    if ($model->categoryName) {
+                        return $model->categoryName->name;
+                    } else {
+                        return 'empty';
+                    }
                 }
             ],
             'procent',
@@ -72,7 +76,11 @@ $this->params['breadcrumbs']['Products procent'] = '/config/index';
                 [
                     'attribute' => 'category_id',
                     'value' => function($model){
-                        return $model->categoryName->name;
+                        if ($model->categoryName){
+                            return $model->categoryName->name;
+                        }else{
+                            return 'empty';
+                        }
                     }
                 ],
                 'procent',

@@ -52,7 +52,7 @@ class CategoryController extends Controller
             return $this->actionLogin();
         }
 
-        if(!isset($_COOKIE['username'])){
+        if(!$session['remember']){
             $res = Users::checkUser($session['user_id']);
             if(!$res){
                 $this->redirect('/site/logout');

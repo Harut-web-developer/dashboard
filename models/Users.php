@@ -34,6 +34,7 @@ class Users extends ActiveRecord implements IdentityInterface
         return [
             [['name', 'username', 'password', 'idrole'], 'required'],
             [['idrole', 'idcompany'], 'integer'],
+            [['last_login_date'], 'datetime'],
             [['name'], 'string', 'max' => 200],
             [['username', 'password'], 'string', 'max' => 255],
         ];
